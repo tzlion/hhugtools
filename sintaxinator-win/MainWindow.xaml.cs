@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
+using RomStuff;
 
 namespace sintaxinator_win
 {
@@ -60,7 +61,7 @@ namespace sintaxinator_win
         {
             try
             {
-                fixer superfixer = new fixer(InputFilename.Text, OutputFilename.Text);
+                SintaxFixer superfixer = new SintaxFixer(InputFilename.Text, OutputFilename.Text);
 
                 if (EnableBitFlip.IsChecked == true)
                 {
@@ -88,8 +89,11 @@ namespace sintaxinator_win
                     }
                 }
 
+                superfixer.save();
+
                 if (EnableHeaderFix.IsChecked == true)
                 {
+                    HeaderFixer headerfixer = new HeaderFixer(OutputFilename.Text, OutputFilename.Text);
                     byte? romtype = null;
                     byte? ramsize = null;
 
@@ -103,14 +107,19 @@ namespace sintaxinator_win
                         ramsize = Byte.Parse(RamSize.Text);
                     }
 
-                    superfixer.headerFix((bool)EnableHeaderSize.IsChecked, (bool)EnableHeaderComp.IsChecked, (bool)EnableHeaderChecksum.IsChecked, romtype, ramsize);
+                    headerfixer.headerFix((bool)EnableHeaderSize.IsChecked, (bool)EnableHeaderComp.IsChecked, (bool)EnableHeaderChecksum.IsChecked, romtype, ramsize);
+                    headerfixer.save();
                     
                 }
-                superfixer.save((bool)OpenEmu.IsChecked);
+
+                if ((bool)OpenEmu.IsChecked)
+                {
+                    System.Diagnostics.Process.Start(OutputFilename.Text);
+                }
             }
             catch (Exception hmm)
             {
-                ErrorMsg.Content = "★ " + hmm.Message;
+                populateErrorMessage(hmm);
             }
 
         }
@@ -134,16 +143,14 @@ namespace sintaxinator_win
         {
             try
             {
-                fixer superfixer = new fixer(InputFilename.Text, OutputFilename.Text);
+                HashComputer superfixer = new HashComputer(InputFilename.Text, InputFilename.Text + ".txt");
 
                 superfixer.bankChecksums();
-
-
 
             }
             catch (Exception hmm)
             {
-                ErrorMsg.Content = "★ " + hmm.Message;
+                populateErrorMessage(hmm);
             }
         }
 
@@ -151,7 +158,7 @@ namespace sintaxinator_win
         {
             try
             {
-                fixer superfixer = new fixer(InputFilename.Text, OutputFilename.Text);
+                SintaxFixer superfixer = new SintaxFixer(InputFilename.Text, OutputFilename.Text);
 
                 superfixer.testswap();
 
@@ -162,10 +169,15 @@ namespace sintaxinator_win
             }
             catch (Exception hmm)
             {
-                ErrorMsg.Content = "★ " + hmm.Message;
+                populateErrorMessage(hmm);
             }
 
 
+        }
+
+        private void populateErrorMessage(Exception e)
+        {
+            ErrorMsg.Content = "★ " + e.Message;
         }
     }
 }
