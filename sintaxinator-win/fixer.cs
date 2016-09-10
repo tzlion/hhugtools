@@ -31,17 +31,17 @@ namespace sintaxinator_win
 
         public void bankChecksums()
         {
+            // This doesnt really have shit to do with anything else here
+
             int bankCount = this.rom.Length / 0x4000;
 
-
             StreamWriter txt = File.CreateText(this.outputFilename + ".txt");
-
 
             for (int curBank = 0; curBank < bankCount; curBank++)
             {
                 byte[] bankData = this.rom.Skip(0x4000 * curBank).Take(0x4000).ToArray();
 
-                txt.WriteLine(curBank.ToString() + " " + GetMD5Hash(bankData));
+                txt.WriteLine(curBank.ToString("X2") + " " + GetMD5Hash(bankData));
             }
 
             txt.Close();
@@ -171,7 +171,7 @@ namespace sintaxinator_win
 
         }
 
-        public void testswap() // for Digi Sapphire
+        public void testswap() // for Digi Sapphire // Can't remember what the thought behind this even was but okay
         {
 
             byte[] processed = { };

@@ -48,8 +48,8 @@
         <CheckBox x:Name="EnableHeaderType" Content="Type" HorizontalAlignment="Left" Margin="28,374,0,0" VerticalAlignment="Top" Foreground="White"/>
         <TextBox x:Name="RamSize" HorizontalAlignment="Left" Height="18" Margin="178,373,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" MaxLength="2" MaxLines="1" FontFamily="Courier New" GotFocus="RamSize_GotFocus"/>
         <CheckBox x:Name="EnableHeaderRamsize" Content="RAM Size" HorizontalAlignment="Left" Margin="107,374,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Button x:Name="bankcheck" Content="* Azalea Banks Check" HorizontalAlignment="Left" Margin="364,57,0,0" VerticalAlignment="Top" Width="136" Click="Button_Click_1"/>
-        <Button x:Name="testswap" Content="* Just Test Swap" HorizontalAlignment="Left" Margin="364,84,0,0" VerticalAlignment="Top" Width="136" Click="testswap_Click"/>
+        <Button x:Name="bankcheck" Content="* Bank Checksums" HorizontalAlignment="Left" Margin="364,84,0,0" VerticalAlignment="Top" Width="136" Click="Button_Click_1"/>
+        <!--<Button x:Name="testswap" Content="* Just Test Swap" HorizontalAlignment="Left" Margin="364,57,0,0" VerticalAlignment="Top" Width="136" Click="testswap_Click"/>-->
         <TextBox x:Name="FlipRepeat" HorizontalAlignment="Left" Height="23" Margin="16,255,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="23" MaxLines="1"/>
         <Label Content="x" HorizontalAlignment="Left" Margin="38,253,0,0" VerticalAlignment="Top"/>
 
