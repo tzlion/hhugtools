@@ -44,12 +44,12 @@
         <TextBox x:Name="ManualBits" HorizontalAlignment="Left" Height="23" Margin="54,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="181" GotFocus="ManualBits_GotFocus"/>
         <TextBlock HorizontalAlignment="Left" Margin="251,228,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="65" Width="249" FontSize="9"><Run Language="en-gb" Text="Bits to flip separated by | - will split the rom into as many parts as you have defined. Examples:"/><LineBreak/><Run Language="en-gb" Text="12|257 - First half flips 1,2, Second half flips 2,5,7"/><LineBreak/><Run Language="en-gb" Text="1|07|356|2567 - Flips four quarters as defined"/><LineBreak/><Run Language="en-gb" Text="Enter number in the first box to repeat the pattern"/></TextBlock>
         <CheckBox x:Name="OpenEmu" Content="Open when done" HorizontalAlignment="Left" Margin="392,183,0,0" VerticalAlignment="Top" IsChecked="True" Foreground="White"/>
-        <TextBox x:Name="RomType" HorizontalAlignment="Left" Height="18" Margin="74,373,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" MaxLength="2" MaxLines="1" FontFamily="Courier New" GotFocus="RomType_GotFocus"/>
-        <CheckBox x:Name="EnableHeaderType" Content="Type" HorizontalAlignment="Left" Margin="28,374,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <TextBox x:Name="RamSize" HorizontalAlignment="Left" Height="18" Margin="178,373,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" MaxLength="2" MaxLines="1" FontFamily="Courier New" GotFocus="RamSize_GotFocus"/>
-        <CheckBox x:Name="EnableHeaderRamsize" Content="RAM Size" HorizontalAlignment="Left" Margin="107,374,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Button x:Name="bankcheck" Content="* Bank Checksums" HorizontalAlignment="Left" Margin="364,84,0,0" VerticalAlignment="Top" Width="136" Click="Button_Click_1"/>
-        <!--<Button x:Name="testswap" Content="* Just Test Swap" HorizontalAlignment="Left" Margin="364,57,0,0" VerticalAlignment="Top" Width="136" Click="testswap_Click"/>-->
+        <TextBox x:Name="RomType" HorizontalAlignment="Left" Height="18" Margin="74,373,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" MaxLength="2" MaxLines="1" FontFamily="Courier New" GotFocus="RomType_GotFocus" Grid.RowSpan="2"/>
+        <CheckBox x:Name="EnableHeaderType" Content="Type" HorizontalAlignment="Left" Margin="28,374,0,0" VerticalAlignment="Top" Foreground="White" Grid.RowSpan="2"/>
+        <TextBox x:Name="RamSize" HorizontalAlignment="Left" Height="18" Margin="178,373,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" MaxLength="2" MaxLines="1" FontFamily="Courier New" GotFocus="RamSize_GotFocus" Grid.RowSpan="2"/>
+        <CheckBox x:Name="EnableHeaderRamsize" Content="RAM Size" HorizontalAlignment="Left" Margin="107,374,0,0" VerticalAlignment="Top" Foreground="White" Grid.RowSpan="2"/>
+        <Button x:Name="BankCheck" Content="* Bank Checksums" HorizontalAlignment="Left" Margin="364,84,0,0" VerticalAlignment="Top" Width="136" Click="BankCheck_Click"/>
+        <!--<Button x:Name="TestSwap" Content="* Just Test Swap" HorizontalAlignment="Left" Margin="364,57,0,0" VerticalAlignment="Top" Width="136" Click="TestSwap_Click"/>-->
         <TextBox x:Name="FlipRepeat" HorizontalAlignment="Left" Height="23" Margin="16,255,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="23" MaxLines="1"/>
         <Label Content="x" HorizontalAlignment="Left" Margin="38,253,0,0" VerticalAlignment="Top"/>
 

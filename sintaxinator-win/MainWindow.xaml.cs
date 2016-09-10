@@ -62,7 +62,6 @@ namespace Sintaxinator
             try
             {
                 SintaxFixer superfixer = new SintaxFixer(InputFilename.Text, OutputFilename.Text);
-
                 if (EnableBitFlip.IsChecked == true)
                 {
                     if (BitFlipsAuto.IsChecked == true)
@@ -71,12 +70,9 @@ namespace Sintaxinator
                     }
                     else if (BitFlipsManual.IsChecked == true)
                     {
-                        int parseResult;
-                        int repeatCount = int.TryParse(FlipRepeat.Text, out parseResult) ? parseResult : 1;
-                        superfixer.flipBits(false, ManualBits.Text, repeatCount);
+                        superfixer.flipBits(false, ManualBits.Text, int.Parse(FlipRepeat.Text));
                     }
                 }
-
                 if (EnableReorder.IsChecked == true)
                 {
                     if (ReorderAuto.IsChecked == true)
@@ -88,31 +84,22 @@ namespace Sintaxinator
                         superfixer.reorder(true);
                     }
                 }
-
                 superfixer.save();
 
                 if (EnableHeaderFix.IsChecked == true)
                 {
                     HeaderFixer headerfixer = new HeaderFixer(OutputFilename.Text, OutputFilename.Text);
-                    byte? romtype = null;
-                    byte? ramsize = null;
-
-                    if (EnableHeaderType.IsChecked == true)
-                    {
-                        romtype = Byte.Parse(RomType.Text);
-                    }
-
-                    if (EnableHeaderRamsize.IsChecked == true)
-                    {
-                        ramsize = Byte.Parse(RamSize.Text);
-                    }
-
-                    headerfixer.headerFix((bool)EnableHeaderSize.IsChecked, (bool)EnableHeaderComp.IsChecked, (bool)EnableHeaderChecksum.IsChecked, romtype, ramsize);
+                    headerfixer.headerFix(
+                        (bool)EnableHeaderSize.IsChecked, 
+                        (bool)EnableHeaderComp.IsChecked, 
+                        (bool)EnableHeaderChecksum.IsChecked,
+                        (bool)EnableHeaderType.IsChecked ? Byte.Parse(RomType.Text) : (byte?)null,
+                        (bool)EnableHeaderRamsize.IsChecked ? Byte.Parse(RamSize.Text) : (byte?)null
+                    );
                     headerfixer.save();
-                    
                 }
 
-                if ((bool)OpenEmu.IsChecked)
+                if (OpenEmu.IsChecked == true)
                 {
                     System.Diagnostics.Process.Start(OutputFilename.Text);
                 }
@@ -122,6 +109,33 @@ namespace Sintaxinator
                 populateErrorMessage(hmm);
             }
 
+        }
+
+        private void BankCheck_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                HashComputer hashcom = new HashComputer(InputFilename.Text, InputFilename.Text + ".txt");
+                hashcom.bankChecksums();
+            }
+            catch (Exception hmm)
+            {
+                populateErrorMessage(hmm);
+            }
+        }
+
+        private void TestSwap_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                DigiSapphTestThing testThing = new DigiSapphTestThing(InputFilename.Text, OutputFilename.Text);
+                testThing.testswap();
+                testThing.save((bool)OpenEmu.IsChecked);
+            }
+            catch (Exception hmm)
+            {
+                populateErrorMessage(hmm);
+            }
         }
 
         private void ManualBits_GotFocus(object sender, RoutedEventArgs e)
@@ -137,42 +151,6 @@ namespace Sintaxinator
         private void RamSize_GotFocus(object sender, RoutedEventArgs e)
         {
             EnableHeaderRamsize.IsChecked = true;
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                HashComputer superfixer = new HashComputer(InputFilename.Text, InputFilename.Text + ".txt");
-
-                superfixer.bankChecksums();
-
-            }
-            catch (Exception hmm)
-            {
-                populateErrorMessage(hmm);
-            }
-        }
-
-        private void testswap_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                SintaxFixer superfixer = new SintaxFixer(InputFilename.Text, OutputFilename.Text);
-
-                superfixer.testswap();
-
-                superfixer.save((bool)OpenEmu.IsChecked);
-
-
-
-            }
-            catch (Exception hmm)
-            {
-                populateErrorMessage(hmm);
-            }
-
-
         }
 
         private void populateErrorMessage(Exception e)

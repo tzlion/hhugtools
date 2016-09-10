@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Security.Cryptography;
+using System.Collections;
 
 namespace RomStuff
 {
@@ -16,31 +17,14 @@ namespace RomStuff
         public void flipBits(bool auto, string manualstring ="", int repeatCount = 1)
         {
 
-            string origManualString = manualstring;
-            manualstring = "";
-            for (int x = 1; x <= repeatCount; x++)
-            {
-                manualstring += origManualString;
-                if (x != repeatCount) manualstring += "|";
-            }
-
             byte[] processed = { };
 
-            bool[][] manualflips = {};
+            byte[] manualXors = {};
 
             if (!auto)
             {
-                string[] flipstrings = manualstring.Split(new String[]{"|"}, new StringSplitOptions());
-                manualflips = new bool[flipstrings.Length][];
-                for (int x = 0; x < flipstrings.Length; x++)
-                {
-                    bool[] flip = new bool[8];
-                    foreach(char flipbit in flipstrings[x].ToCharArray()) 
-                    {
-                        flip[int.Parse(flipbit.ToString())] = true;
-                    }
-                    manualflips[x] = flip;
-                }
+                string[] flipstrings = buildFlipStringArray(manualstring,repeatCount);
+                manualXors = parseFlipStringsToXors(flipstrings);
             }
 
             int bankCount = this.rom.Length / 0x4000;
@@ -54,20 +38,20 @@ namespace RomStuff
                 }
                 else
                 {
-                    bool[] flips;
+                    byte xor;
                     if (auto)
                     {
                         byte realBankNo = getRealBankNo(curBank);
-                        flips = determineBitsToFlip(bankData[bankData.Length-1],realBankNo);
+                        xor = (byte)(bankData[bankData.Length - 1] ^ realBankNo);
                         // Auto mode
                     }
                     else
                     {
-                        int flipno = (int)(((float)curBank / (float)bankCount) * (float)manualflips.Count());
-                        flips = manualflips[flipno];
+                        int xorNo = (int)(((float)curBank / (float)bankCount) * (float)manualXors.Count());
+                        xor = manualXors[xorNo];
                         // Manual mode
                     }
-                    processed = processed.Concat(bitinvert(bankData,flips)).ToArray();
+                    processed = processed.Concat(xorData(bankData,xor)).ToArray();
                 }
             }
 
@@ -75,110 +59,47 @@ namespace RomStuff
 
         }
 
-        private bool[] determineBitsToFlip(byte byteItIs, byte byteItShouldBe)
+        private string[] buildFlipStringArray(string inputString, int repeatCount)
         {
-            // okay binary operations make my head hurt so im just acting like this is a string here
-
-            string binByte1 = Convert.ToString(byteItIs, 2).PadLeft(8, '0');
-            string binByte2 = Convert.ToString(byteItShouldBe, 2).PadLeft(8, '0'); 
-
-            bool[] bitsToFlip=new bool[8];
-            for(int x=0;x<=7;x++) {
-                if (binByte1[x] != binByte2[x])
-                {
-                    bitsToFlip[x] = true;
-                }
-                else
-                {
-                    bitsToFlip[x] = false;
-                }
-            }
-
-            return bitsToFlip;
-        }
-
-        private byte[] bitswap(byte[] origData)
-        {
-
-            byte[] newData = new byte[origData.Length];
-
-            for (int x = 0; x < origData.Length; x++)
+            string outputString = "";
+            for (int x = 1; x <= repeatCount; x++)
             {
-                byte thisbyte = origData[x];
-
-                char[] binbyte = Convert.ToString(thisbyte, 2).PadLeft(8, '0').ToCharArray(); ;
-
-                char oldbit2 = binbyte[2];
-
-                binbyte[2] = binbyte[6];
-                binbyte[6] = oldbit2;
-
-                newData[x] = Convert.ToByte(new string(binbyte), 2);
+                outputString += inputString;
+                if (x != repeatCount) outputString += "|";
             }
-
-            return newData;
-
+            return outputString.Split(new String[] { "|" }, new StringSplitOptions()); ;
         }
 
-        public void testswap() // for Digi Sapphire // Can't remember what the thought behind this even was but okay
+        private byte parseFlipStringToXor(string flipString)
         {
-
-            byte[] processed = { };
-
-            int bankCount = this.rom.Length / 0x4000;
-            int bankto8 = 0;
-            for (int curBank = 0; curBank < bankCount; curBank++)
+            byte xor = 0;
+            foreach (char flipbit in flipString.ToCharArray())
             {
-                
-                byte[] bankData = this.rom.Skip(0x4000 * curBank).Take(0x4000).ToArray();
-                if (bankto8 == 0)
-                {
-                    processed = processed.Concat(bankData).ToArray();
-                }
-                else if (bankto8 == 4)
-                {
-                    processed = processed.Concat(bitswap(bankData)).ToArray();
-                }
-                else
-                {
-                    processed = processed.Concat(bankData).ToArray();
-                }
-                bankto8++; if (bankto8 >= 8) bankto8 = 0;
+                xor += (byte)(0x80 >> int.Parse(flipbit.ToString()));
             }
-
-            this.rom = processed;
+            return xor;
         }
 
-
-        private byte[] bitinvert(byte[] origData, bool[] flips)
+        private byte[] parseFlipStringsToXors(string[] flipStrings)
         {
+            byte[] xors = new byte[flipStrings.Length];
+            for (int x = 0; x < flipStrings.Length; x++)
+            {
+                xors[x] = parseFlipStringToXor(flipStrings[x]);
+            }
+            return xors;
+        }
 
+        private byte[] xorData(byte[] origData, byte xor)
+        {
             byte[] newData = new byte[origData.Length];
-
             for(int x=0;x<origData.Length;x++) {
-                byte thisbyte = origData[x];
-
-                char[] binbyte = Convert.ToString(thisbyte, 2).PadLeft(8, '0').ToCharArray(); ;
-
-                for(int y=0;y<8;y++) {
-                    if(flips[y]) {
-                        if(binbyte[y] == '0') {
-                            binbyte[y] = '1';
-                        } else {
-                            binbyte[y] = '0';
-                        }
-                    } 
-                }
-
-                newData[x] = Convert.ToByte(new string(binbyte), 2);
+                newData[x] = (byte)(origData[x] ^ xor);
             }
-
             return newData;
-
         }
 
-
-        // This is way slower than bitflipping. investigate why?
+        // This is pretty slow
         public void reorder(bool checkBankBits)
         {
 
@@ -215,6 +136,7 @@ namespace RomStuff
 
         }
 
+        // I think this only applies for one type
         private byte getRealBankNo(int sequentialBankNo)
         {
             int realBankNo;
