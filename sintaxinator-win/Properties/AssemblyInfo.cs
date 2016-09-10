@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("sintaxinator-win")]
+[assembly: AssemblyTitle("Sintax ROM Deprotector")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("sintaxinator-win")]
-[assembly: AssemblyCopyright("Copyright ©  2012")]
+[assembly: AssemblyCompany("Handheld Underground")]
+[assembly: AssemblyProduct("Sintax ROM Deprotector")]
+[assembly: AssemblyCopyright("2012-2016 taizou")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

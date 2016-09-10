@@ -7,8 +7,8 @@
     <ProjectGuid>{823E4A34-344A-45D5-965F-1DB450BCDBA7}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>sintaxinator_win</RootNamespace>
-    <AssemblyName>sintaxinator-win</AssemblyName>
+    <RootNamespace>Sintaxinator</RootNamespace>
+    <AssemblyName>sintaxinator</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -47,6 +47,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>sicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -138,6 +141,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="RomStuff\HeaderFixer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="sicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

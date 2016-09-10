@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using RomStuff;
 
-namespace sintaxinator_win
+namespace Sintaxinator
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
