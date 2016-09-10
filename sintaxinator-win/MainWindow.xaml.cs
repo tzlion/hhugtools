@@ -70,7 +70,9 @@ namespace sintaxinator_win
                     }
                     else if (BitFlipsManual.IsChecked == true)
                     {
-                        superfixer.flipBits(false, ManualBits.Text);
+                        int parseResult;
+                        int repeatCount = int.TryParse(FlipRepeat.Text, out parseResult) ? parseResult : 1;
+                        superfixer.flipBits(false, ManualBits.Text, repeatCount);
                     }
                 }
 

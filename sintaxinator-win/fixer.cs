@@ -64,9 +64,17 @@ namespace sintaxinator_win
             return sBuilder.ToString();
         }
 
-        public void flipBits(bool auto, string manualstring ="")
+        public void flipBits(bool auto, string manualstring ="", int repeatCount = 1)
         {
-            
+
+            string origManualString = manualstring;
+            manualstring = "";
+            for (int x = 1; x <= repeatCount; x++)
+            {
+                manualstring += origManualString;
+                if (x != repeatCount) manualstring += "|";
+            }
+
             byte[] processed = { };
 
             bool[][] manualflips = {};
