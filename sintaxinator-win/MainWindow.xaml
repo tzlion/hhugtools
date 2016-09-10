@@ -1,0 +1,55 @@
+﻿<Window x:Class="sintaxinator_win.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ROM Fixer 20XX" Height="446" Width="534" ResizeMode="NoResize">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                <GradientStop Color="#FF00FFC5" Offset="0"/>
+                <GradientStop Color="#FFFF87FA" Offset="1"/>
+                <GradientStop Color="#FF7078CD" Offset="0.523"/>
+                <GradientStop Color="#FF38C9C7" Offset="0.195"/>
+                <GradientStop Color="#FFAE5CC9" Offset="0.785"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Button x:Name="LetsFuckingGo" Content="LET'S DO THIS" HorizontalAlignment="Left" Margin="260,313,0,0" VerticalAlignment="Top" Width="240" Height="77" Background="#CCFFFFFF" FontFamily="StopD" FontSize="36" Foreground="#CC000000" BorderBrush="White" Click="LetsFuckingGo_Click"/>
+        <Label Content="SINTAX" HorizontalAlignment="Left" Margin="19,10,0,0" VerticalAlignment="Top" FontFamily="StopD" FontSize="36" Foreground="Red"/>
+        <Label Content="ROM Deprotector" HorizontalAlignment="Left" Margin="12,40,0,0" VerticalAlignment="Top" FontFamily="Brush Script Std" FontSize="36" RenderTransformOrigin="0.5,0.5" Foreground="White">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-15.152"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label Content="®" HorizontalAlignment="Left" Margin="128,10,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" Foreground="Red"/>
+        <TextBox x:Name="InputFilename" HorizontalAlignment="Left" Height="27" Margin="19,119,0,0" VerticalAlignment="Top" Width="420" FontFamily="Georgia" FontSize="16" FontStyle="Italic" Text="in" MaxLines="1"/>
+        <Button x:Name="InputFileSelect" Content="Select" HorizontalAlignment="Left" Margin="444,119,0,0" VerticalAlignment="Top" Width="56" Height="27" Click="InputFileSelect_Click"/>
+        <TextBox x:Name="OutputFilename" HorizontalAlignment="Left" Height="27" Margin="19,151,0,0" VerticalAlignment="Top" Width="420" FontFamily="Georgia" FontSize="16" FontStyle="Italic" Text="out" MaxLines="1"/>
+        <Button x:Name="OutputFileSelect" Content="Select" HorizontalAlignment="Left" Margin="444,151,0,0" VerticalAlignment="Top" Width="56" Height="27" Click="OutputFileSelect_Click"/>
+        <Label x:Name="ErrorMsg" Content="initialising" HorizontalAlignment="Left" Margin="111,90,0,0" VerticalAlignment="Top" Width="240" Foreground="Black" FontFamily="Georgia"/>
+        <Label x:Name="ErrorMsg_Copy" Content="OPERATIONS" HorizontalAlignment="Left" Margin="15,183,0,0" VerticalAlignment="Top" Width="240" Foreground="Black" FontFamily="Georgia" FontSize="18" FontWeight="Bold" FontStyle="Italic"/>
+        <CheckBox x:Name="EnableBitFlip" Content="Flip Bits" HorizontalAlignment="Left" Margin="15,215,0,0" VerticalAlignment="Top" IsChecked="True" Foreground="White"/>
+        <CheckBox x:Name="EnableReorder" Content="Reorder" HorizontalAlignment="Left" Margin="14,287,0,0" VerticalAlignment="Top" IsChecked="True" Foreground="White"/>
+        <CheckBox x:Name="EnableHeaderFix" Content="Fix Header" HorizontalAlignment="Left" Margin="14,332,0,0" VerticalAlignment="Top" IsChecked="True" Foreground="White"/>
+        <CheckBox x:Name="EnableHeaderSize" Content="Size" HorizontalAlignment="Left" Margin="28,353,0,0" VerticalAlignment="Top" IsChecked="True" Foreground="White"/>
+        <CheckBox x:Name="EnableHeaderComp" Content="Complement" HorizontalAlignment="Left" Margin="72,353,0,0" VerticalAlignment="Top" IsChecked="True" Foreground="White"/>
+        <CheckBox x:Name="EnableHeaderChecksum" Content="Checksum" HorizontalAlignment="Left" Margin="163,353,0,0" VerticalAlignment="Top" IsChecked="True" Foreground="White"/>
+        <RadioButton x:Name="ReorderBankNo" Content="Use bank nos." HorizontalAlignment="Left" Margin="28,308,0,0" VerticalAlignment="Top" GroupName="ReorderMode" IsChecked="True" Foreground="White"/>
+        <RadioButton x:Name="ReorderAuto" Content="Assume order" HorizontalAlignment="Left" Margin="128,308,0,0" VerticalAlignment="Top" GroupName="ReorderMode" IsChecked="True" Foreground="White"/>
+        <RadioButton x:Name="BitFlipsAuto" Content="Auto (attempted)" HorizontalAlignment="Left" Margin="29,234,0,0" VerticalAlignment="Top" GroupName="BitFlips" IsChecked="True" Foreground="White"/>
+        <RadioButton x:Name="BitFlipsManual" Content="As defined ↓" HorizontalAlignment="Left" Margin="148,234,0,0" VerticalAlignment="Top" GroupName="BitFlips" Foreground="White"/>
+        <TextBox x:Name="ManualBits" HorizontalAlignment="Left" Height="23" Margin="29,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" GotFocus="ManualBits_GotFocus"/>
+        <TextBlock HorizontalAlignment="Left" Margin="251,228,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="53" Width="249" FontSize="9"><Run Language="en-gb" Text="Bits to flip separated by | - will split the rom into as many parts as you have defined. Examples:"/><LineBreak/><Run Language="en-gb" Text="12|257 - First half flips 1,2, Second half flips 2,5,7"/><LineBreak/><Run Language="en-gb" Text="1|07|356|2567 - Flips four quarters as defined"/></TextBlock>
+        <CheckBox x:Name="OpenEmu" Content="Open when done" HorizontalAlignment="Left" Margin="392,183,0,0" VerticalAlignment="Top" IsChecked="True" Foreground="White"/>
+        <TextBox x:Name="RomType" HorizontalAlignment="Left" Height="18" Margin="74,373,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" MaxLength="2" MaxLines="1" FontFamily="Courier New" GotFocus="RomType_GotFocus"/>
+        <CheckBox x:Name="EnableHeaderType" Content="Type" HorizontalAlignment="Left" Margin="28,374,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="RamSize" HorizontalAlignment="Left" Height="18" Margin="178,373,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" MaxLength="2" MaxLines="1" FontFamily="Courier New" GotFocus="RamSize_GotFocus"/>
+        <CheckBox x:Name="EnableHeaderRamsize" Content="RAM Size" HorizontalAlignment="Left" Margin="107,374,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Button x:Name="bankcheck" Content="* Azalea Banks Check" HorizontalAlignment="Left" Margin="364,57,0,0" VerticalAlignment="Top" Width="136" Click="Button_Click_1"/>
+        <Button x:Name="testswap" Content="* Just Test Swap" HorizontalAlignment="Left" Margin="364,84,0,0" VerticalAlignment="Top" Width="136" Click="testswap_Click"/>
+
+    </Grid>
+</Window>

@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sintaxinator-win", "sintaxinator-win\sintaxinator-win.csproj", "{823E4A34-344A-45D5-965F-1DB450BCDBA7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{823E4A34-344A-45D5-965F-1DB450BCDBA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{823E4A34-344A-45D5-965F-1DB450BCDBA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{823E4A34-344A-45D5-965F-1DB450BCDBA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{823E4A34-344A-45D5-965F-1DB450BCDBA7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
