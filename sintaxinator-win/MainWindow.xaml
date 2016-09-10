@@ -12,9 +12,9 @@
                 <GradientStop Color="#FFAE5CC9" Offset="0.785"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Button x:Name="LetsFuckingGo" Content="LET'S DO THIS" HorizontalAlignment="Left" Margin="260,313,0,0" VerticalAlignment="Top" Width="240" Height="77" Background="#CCFFFFFF" FontFamily="StopD" FontSize="36" Foreground="#CC000000" BorderBrush="White" Click="LetsFuckingGo_Click"/>
-        <Label Content="SINTAX" HorizontalAlignment="Left" Margin="19,10,0,0" VerticalAlignment="Top" FontFamily="StopD" FontSize="36" Foreground="Red"/>
-        <Label Content="ROM Deprotector" HorizontalAlignment="Left" Margin="12,40,0,0" VerticalAlignment="Top" FontFamily="Brush Script Std" FontSize="36" RenderTransformOrigin="0.5,0.5" Foreground="White">
+        <Button x:Name="LetsFuckingGo" Content="LET'S DO THIS" HorizontalAlignment="Left" Margin="260,313,0,0" VerticalAlignment="Top" Width="240" Height="77" Background="#CCFFFFFF" FontFamily="/Fonts/#StopD" FontSize="36" Foreground="#CC000000" BorderBrush="White" Click="LetsFuckingGo_Click"/>
+        <Label Content="SINTAX" HorizontalAlignment="Left" Margin="19,10,0,0" VerticalAlignment="Top" FontFamily="Fonts/#StopD" FontSize="36" Foreground="Red"/>
+        <Label Content="ROM Deprotector" HorizontalAlignment="Left" Margin="12,40,0,0" VerticalAlignment="Top" FontFamily="Fonts/#Brush Script Std" FontSize="36" RenderTransformOrigin="0.5,0.5" Foreground="White">
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
