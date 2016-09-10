@@ -73,9 +73,13 @@ namespace RomStuff
         private byte parseFlipStringToXor(string flipString)
         {
             byte xor = 0;
-            foreach (char flipbit in flipString.ToCharArray())
-            {
-                xor += (byte)(0x80 >> int.Parse(flipbit.ToString()));
+            if (flipString.Substring(0, 2) == "0x") {
+                xor = byte.Parse(flipString.Substring(2), System.Globalization.NumberStyles.HexNumber);
+            } else {
+                foreach (char flipbit in flipString.ToCharArray())
+                {
+                    xor += (byte)(0x80 >> int.Parse(flipbit.ToString()));
+                }
             }
             return xor;
         }

@@ -93,8 +93,8 @@ namespace Sintaxinator
                         (bool)EnableHeaderSize.IsChecked, 
                         (bool)EnableHeaderComp.IsChecked, 
                         (bool)EnableHeaderChecksum.IsChecked,
-                        (bool)EnableHeaderType.IsChecked ? Byte.Parse(RomType.Text) : (byte?)null,
-                        (bool)EnableHeaderRamsize.IsChecked ? Byte.Parse(RamSize.Text) : (byte?)null
+                        (bool)EnableHeaderType.IsChecked ? Byte.Parse(RomType.Text, System.Globalization.NumberStyles.HexNumber) : (byte?)null,
+                        (bool)EnableHeaderRamsize.IsChecked ? Byte.Parse(RamSize.Text, System.Globalization.NumberStyles.HexNumber) : (byte?)null
                     );
                     headerfixer.save();
                 }
@@ -157,5 +157,6 @@ namespace Sintaxinator
         {
             ErrorMsg.Content = "★ " + e.Message;
         }
+
     }
 }
