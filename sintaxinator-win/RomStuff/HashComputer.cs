@@ -26,19 +26,12 @@ namespace RomStuff
             {
                 byte[] bankData = this.rom.Skip(0x4000 * curBank).Take(0x4000).ToArray();
 
-                txt.WriteLine(curBank.ToString("X2") + " " + GetMD5Hash(bankData));
+                txt.WriteLine(curBank.ToString("X2") + " " + UtilityStuff.GetMD5Hash(bankData));
             }
 
             txt.Close();
 
             System.Diagnostics.Process.Start(textFilename);
         }
-
-        private static string GetMD5Hash(byte[] data)
-        {
-            byte[] computedHash = new MD5CryptoServiceProvider().ComputeHash(data);
-            return BitConverter.ToString(computedHash).Replace("-", "").ToLower();
-        }
-
     }
 }

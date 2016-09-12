@@ -115,8 +115,10 @@ namespace Sintaxinator
         {
             try
             {
-                HashComputer hashcom = new HashComputer(InputFilename.Text, InputFilename.Text + ".txt");
-                hashcom.bankChecksums();
+                //HashComputer hashcom = new HashComputer(InputFilename.Text, InputFilename.Text + ".txt");
+                //hashcom.bankChecksums();
+                OverdumpDetector od = new OverdumpDetector(InputFilename.Text);
+                MessageBox.Show(od.getSizeInfo());
             }
             catch (Exception hmm)
             {

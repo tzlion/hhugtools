@@ -49,7 +49,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>sicon.ico</ApplicationIcon>
+    <ApplicationIcon>Graphics\sicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -72,8 +72,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="RomStuff\OverdumpDetector.cs" />
     <Compile Include="RomStuff\RomLoader.cs" />
     <Compile Include="RomStuff\DigiSapphTestThing.cs" />
+    <Compile Include="RomStuff\UtilityStuff.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -144,7 +146,12 @@
     <Compile Include="RomStuff\HeaderFixer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="sicon.ico">
+    <Resource Include="Graphics\sicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Graphics\readme-b.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
