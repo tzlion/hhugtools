@@ -148,5 +148,19 @@ namespace Sintaxinator
             ErrorMsg.Content = "★ " + e.Message;
         }
 
+        private void BBDTest_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                BBDFixer superfixer = new BBDFixer(InputFilename.Text, OutputFilename.Text);
+                superfixer.testFix();
+                superfixer.save();
+            }
+            catch (Exception hmm)
+            {
+                populateErrorMessage(hmm);
+            }
+        }
+
     }
 }

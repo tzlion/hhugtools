@@ -52,6 +52,7 @@
         <!--<Button x:Name="TestSwap" Content="* Just Test Swap" HorizontalAlignment="Left" Margin="364,57,0,0" VerticalAlignment="Top" Width="136" Click="TestSwap_Click"/>-->
         <TextBox x:Name="FlipRepeat" HorizontalAlignment="Left" Height="23" Margin="16,255,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="23" MaxLines="1"/>
         <Label Content="x" HorizontalAlignment="Left" Margin="38,253,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="BBDTest" Content="* BBD Test" HorizontalAlignment="Left" Margin="421.149,62.04,0,0" VerticalAlignment="Top" Width="79.284" Click="BBDTest_Click"/>
         <!--<Image HorizontalAlignment="Left" Height="64" Margin="347,225,0,0" VerticalAlignment="Top" Width="48" Source="Graphics/readme-b.png"/>-->
 
     </Grid>
