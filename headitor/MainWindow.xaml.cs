@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
+using RomStuff;
 
 namespace headitor
 {
@@ -23,6 +24,7 @@ namespace headitor
     public partial class MainWindow : Window
     {
         private fixer superfixer;
+        private HeaderFixer headerfixer;
 
         public MainWindow()
         {
@@ -69,7 +71,7 @@ namespace headitor
             ErrorMsg.Content = "";
             try
             {
-                if (superfixer == null)
+                if (superfixer == null || headerfixer == null)
                 {
                     throw new Exception("no rom loaded");
                 }
@@ -87,9 +89,9 @@ namespace headitor
                     ramsize = Byte.Parse(RamSize.Text, System.Globalization.NumberStyles.HexNumber);
                 }
 
-                superfixer.headerFix((bool)EnableHeaderSize.IsChecked, (bool)EnableHeaderComp.IsChecked, (bool)EnableHeaderChecksum.IsChecked, romtype, ramsize);
+                headerfixer.headerFix((bool)EnableHeaderSize.IsChecked, (bool)EnableHeaderComp.IsChecked, (bool)EnableHeaderChecksum.IsChecked, romtype, ramsize);
                     
-                superfixer.save(OutputFilename.Text, (bool)OpenEmu.IsChecked);
+                headerfixer.save((bool)OpenEmu.IsChecked);
                 ErrorMsg.Content = "★ " + "done!";
             }
             catch (Exception hmm)
@@ -121,6 +123,7 @@ namespace headitor
                 changeDropdownFromTextbox();
                 RomType.Text = superfixer.getCurrentRomType().ToString("X").PadLeft(2, '0');
                 RamSize.Text = superfixer.getCurrentRamSize().ToString("X").PadLeft(2, '0');
+                headerfixer = new HeaderFixer(InputFilename.Text, OutputFilename.Text);
             }
             catch (Exception hmm)
             {
