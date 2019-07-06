@@ -24,7 +24,6 @@ namespace headitor
     public partial class MainWindow : Window
     {
         private fixer superfixer;
-        private HeaderFixer headerfixer;
 
         public MainWindow()
         {
@@ -71,10 +70,12 @@ namespace headitor
             ErrorMsg.Content = "";
             try
             {
-                if (superfixer == null || headerfixer == null)
+                if (superfixer == null)
                 {
                     throw new Exception("no rom loaded");
                 }
+
+                HeaderFixer headerfixer = new HeaderFixer(InputFilename.Text, OutputFilename.Text);
 
                 byte? romtype = null;
                 byte? ramsize = null;
@@ -123,7 +124,6 @@ namespace headitor
                 changeDropdownFromTextbox();
                 RomType.Text = superfixer.getCurrentRomType().ToString("X").PadLeft(2, '0');
                 RamSize.Text = superfixer.getCurrentRamSize().ToString("X").PadLeft(2, '0');
-                headerfixer = new HeaderFixer(InputFilename.Text, OutputFilename.Text);
             }
             catch (Exception hmm)
             {
