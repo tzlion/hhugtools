@@ -1,0 +1,33 @@
+﻿<Window x:Class="headitor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Header Fixer 20YX" Height="393.853" Width="537.17" ResizeMode="NoResize" WindowStyle="ThreeDBorderWindow">
+    <Grid Margin="0,0,0,-2">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                <GradientStop Color="Magenta"/>
+                <GradientStop Color="Red" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Button x:Name="LetsFuckingGo" Content="SAVE" HorizontalAlignment="Left" Margin="384,227,0,0" VerticalAlignment="Top" Width="112" Height="77" FontFamily="Staccato555 BT" FontSize="36" Background="#CCFFFFFF"  Foreground="#CC000000" BorderBrush="White" Click="LetsFuckingGo_Click"/>
+        <TextBox x:Name="InputFilename" HorizontalAlignment="Left" Height="27" Margin="19,119,0,0" VerticalAlignment="Top" Width="420" FontFamily="Georgia" FontSize="16" FontStyle="Italic" Text="in" MaxLines="1" KeyUp="InputFilename_KeyUp"/>
+        <Button x:Name="InputFileSelect" Content="Select" HorizontalAlignment="Left" Margin="444,119,0,0" VerticalAlignment="Top" Width="56" Height="27" Click="InputFileSelect_Click" Background="#CCFFFFFF"  Foreground="#CC000000" BorderBrush="{x:Null}"/>
+        <TextBox x:Name="OutputFilename" HorizontalAlignment="Left" Height="27" Margin="19,151,0,0" VerticalAlignment="Top" Width="420" FontFamily="Georgia" FontSize="16" FontStyle="Italic" Text="out" MaxLines="1"/>
+        <Button x:Name="OutputFileSelect" Content="Select" HorizontalAlignment="Left" Margin="444,151,0,0" VerticalAlignment="Top" Width="56" Height="27" Click="OutputFileSelect_Click" Background="#CCFFFFFF"  Foreground="#CC000000" BorderBrush="{x:Null}"/>
+        <Label x:Name="ErrorMsg" Content="initialising" HorizontalAlignment="Left" Margin="19,90,0,0" VerticalAlignment="Top" Width="240" Foreground="Black" FontFamily="Georgia"/>
+        <Label x:Name="ErrorMsg_Copy" Content="OPERATIONS" HorizontalAlignment="Left" Margin="16,191,0,0" VerticalAlignment="Top" Width="240" Foreground="White" FontFamily="Staccato555 BT" FontSize="24"/>
+        <CheckBox x:Name="EnableHeaderSize" Content="Size" HorizontalAlignment="Left" Margin="29,244,0,0" VerticalAlignment="Top" IsChecked="True" Foreground="White"/>
+        <CheckBox x:Name="EnableHeaderComp" Content="Complement" HorizontalAlignment="Left" Margin="73,244,0,0" VerticalAlignment="Top" IsChecked="True" Foreground="White"/>
+        <CheckBox x:Name="EnableHeaderChecksum" Content="Checksum" HorizontalAlignment="Left" Margin="164,244,0,0" VerticalAlignment="Top" IsChecked="True" Foreground="White"/>
+        <CheckBox x:Name="OpenEmu" Content="Open when done" HorizontalAlignment="Left" Margin="386,308,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="RomType" HorizontalAlignment="Left" Height="18" Margin="75,281,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" MaxLength="2" MaxLines="1" FontFamily="Courier New" GotFocus="RomType_GotFocus" TextChanged="RomType_TextChanged"/>
+        <CheckBox x:Name="EnableHeaderType" Content="Type" HorizontalAlignment="Left" Margin="29,282,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="RamSize" HorizontalAlignment="Left" Height="18" Margin="179,281,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" MaxLength="2" MaxLines="1" FontFamily="Courier New" GotFocus="RamSize_GotFocus"/>
+        <CheckBox x:Name="EnableHeaderRamsize" Content="RAM Size" HorizontalAlignment="Left" Margin="108,282,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Auto fix:" HorizontalAlignment="Left" Height="33" Margin="20,221,0,0" VerticalAlignment="Top" Width="113" Foreground="White"/>
+        <ComboBox x:Name="RomTypes" HorizontalAlignment="Left" Margin="20,304,0,0" VerticalAlignment="Top" Width="215" SelectionChanged="RomTypes_SelectionChanged" GotFocus="RomTypes_GotFocus" Background="#CCFFFFFF" BorderBrush="{x:Null}" />
+        <Label Content="Manual fix:" HorizontalAlignment="Left" Height="33" Margin="20,257,0,0" VerticalAlignment="Top" Width="113" Foreground="White"/>
+        <Label Content="GB HEADER EDITOR" HorizontalAlignment="Left" Margin="198,67,0,0" VerticalAlignment="Top" FontFamily="Staccato555 BT" FontSize="36" Foreground="White"/>
+
+    </Grid>
+</Window>

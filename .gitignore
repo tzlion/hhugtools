@@ -1,4 +1,7 @@
+.vs/*
 */bin/*
+*/*/bin/*
 */obj/*
+*/*/obj/*
 *.suo
 *.user
