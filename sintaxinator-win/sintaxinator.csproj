@@ -105,7 +105,7 @@
     <Resource Include="Fonts\StopD.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Fonts\BrushScriptStd.otf">
+    <Resource Include="Fonts\Yellowtail-Regular.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <None Include="Properties\Settings.settings">
@@ -136,11 +136,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Graphics\sicon.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Graphics\readme-b.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

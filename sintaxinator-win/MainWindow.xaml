@@ -14,10 +14,10 @@
         </Grid.Background>
         <Button x:Name="LetsFuckingGo" Content="LET'S DO THIS" HorizontalAlignment="Left" Margin="260,313,0,0" VerticalAlignment="Top" Width="240" Height="77" Background="#CCFFFFFF" FontFamily="/Fonts/#StopD" FontSize="36" Foreground="#CC000000" BorderBrush="White" Click="LetsFuckingGo_Click"/>
         <Label Content="SINTAX" HorizontalAlignment="Left" Margin="19,0,0,0" VerticalAlignment="Top" FontFamily="Fonts/#StopD" FontSize="36" Foreground="Red"/>
-        <Label Content="ROM Deprotector" HorizontalAlignment="Left" Margin="74,27,0,0" VerticalAlignment="Top" FontFamily="Fonts/#Brush Script Std" FontSize="48" RenderTransformOrigin="0.5,0.5" Foreground="White">
+        <Label Content="ROM Deprotector" HorizontalAlignment="Left" Margin="97,18,0,0" VerticalAlignment="Top" FontFamily="Fonts/#Yellowtail" FontSize="47" RenderTransformOrigin="0.5,0.5" Foreground="White">
             <Label.RenderTransform>
                 <TransformGroup>
-                    <ScaleTransform/>
+                    <ScaleTransform ScaleX="1.1"/>
                     <SkewTransform/>
                     <RotateTransform Angle="-5.469"/>
                     <TranslateTransform/>
