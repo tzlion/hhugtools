@@ -8,11 +8,11 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("HEADITOR")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Game Boy Header Editor")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("HHUG.ME")]
+[assembly: AssemblyCompany("Handheld Underground")]
 [assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("2014 YOUR FACE")]
+[assembly: AssemblyCopyright("2014-2019 taizou")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

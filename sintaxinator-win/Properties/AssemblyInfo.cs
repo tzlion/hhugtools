@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Handheld Underground")]
 [assembly: AssemblyProduct("Sintax ROM Deprotector")]
-[assembly: AssemblyCopyright("2012-2016 taizou")]
+[assembly: AssemblyCopyright("2012-2019 taizou")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
