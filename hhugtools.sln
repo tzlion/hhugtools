@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sintaxinator", "sintaxinator-win\sintaxinator.csproj", "{823E4A34-344A-45D5-965F-1DB450BCDBA7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sintaxinator", "Sintaxinator\sintaxinator.csproj", "{823E4A34-344A-45D5-965F-1DB450BCDBA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "headitor", "headitor\headitor.csproj", "{CE7E01D5-182F-47C2-BBBF-F5D079ADBC44}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "headitor", "Headitor\headitor.csproj", "{CE7E01D5-182F-47C2-BBBF-F5D079ADBC44}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "RomStuff", "RomStuff\RomStuff.shproj", "{9DCAC637-9425-4ED2-9A66-F05321D56D6C}"
 EndProject
