@@ -9,6 +9,7 @@
     <Import_RootNamespace>RomStuff</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)FileUtility.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HashComputer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HeaderFixer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HeaderReader.cs" />

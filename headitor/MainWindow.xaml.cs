@@ -13,7 +13,7 @@ namespace headitor
     /// </summary>
     public partial class MainWindow : Window
     {
-        private HeaderReader superfixer;
+        private HeaderReader headerReader;
 
         public MainWindow()
         {
@@ -27,40 +27,23 @@ namespace headitor
 
         private void InputFileSelect_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog filebox = new OpenFileDialog();
-            filebox.Filter = "gb/gbc romz|*.gb;*.gbc";
-            filebox.ShowDialog();
-
-            InputFilename.Text = filebox.FileName;
-            string origoutfilename = Regex.Replace(filebox.FileName, "\\.([^\\.]+)$", ".fix.${1}");
-            string outfilename = origoutfilename;
-            int appendNumber=0;
-            while (System.IO.File.Exists(outfilename))
-            {
-                appendNumber++;
-                outfilename = Regex.Replace(origoutfilename, "\\.fix\\.([^\\.]+)$",".fix"+appendNumber+".${1}");
-            }
-            OutputFilename.Text = outfilename;
+            String inputFilename = FileUtility.selectInputFile();
+            InputFilename.Text = inputFilename;
+            OutputFilename.Text = FileUtility.determineOutputFilename(inputFilename);
             doLoad();
         }
 
         private void OutputFileSelect_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog outfilebox = new OpenFileDialog();
-            outfilebox.Filter = "gbc rom|*.gbc|gb rom|*.gb";
-            outfilebox.CheckFileExists = false;
-            outfilebox.ShowDialog();
-
-            OutputFilename.Text = outfilebox.FileName;
+            OutputFilename.Text = FileUtility.selectOutputFile();
         }
-
-
+    
         private void LetsFuckingGo_Click(object sender, RoutedEventArgs e)
         {
             ErrorMsg.Content = "";
             try
             {
-                if (superfixer == null)
+                if (headerReader == null)
                 {
                     throw new Exception("no rom loaded");
                 }
@@ -108,12 +91,12 @@ namespace headitor
             ErrorMsg.Content = "";
             try
             {
-                superfixer = new HeaderReader(InputFilename.Text);
-                RomType.Text = superfixer.getCurrentRomType().ToString("X").PadLeft(2, '0');
-                RamSize.Text = superfixer.getCurrentRamSize().ToString("X").PadLeft(2, '0');
+                headerReader = new HeaderReader(InputFilename.Text);
+                RomType.Text = headerReader.getCurrentRomType().ToString("X").PadLeft(2, '0');
+                RamSize.Text = headerReader.getCurrentRamSize().ToString("X").PadLeft(2, '0');
                 changeDropdownFromTextbox();
-                RomType.Text = superfixer.getCurrentRomType().ToString("X").PadLeft(2, '0');
-                RamSize.Text = superfixer.getCurrentRamSize().ToString("X").PadLeft(2, '0');
+                RomType.Text = headerReader.getCurrentRomType().ToString("X").PadLeft(2, '0');
+                RamSize.Text = headerReader.getCurrentRamSize().ToString("X").PadLeft(2, '0');
             }
             catch (Exception hmm)
             {

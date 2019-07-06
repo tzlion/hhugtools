@@ -20,30 +20,14 @@ namespace Sintaxinator
 
         private void InputFileSelect_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog filebox = new OpenFileDialog();
-            filebox.Filter = "gb/gbc romz|*.gb;*.gbc";
-            filebox.ShowDialog();
-
-            InputFilename.Text = filebox.FileName;
-            string origoutfilename = Regex.Replace(filebox.FileName, "\\.([^\\.]+)$", ".fix.${1}");
-            string outfilename = origoutfilename;
-            int appendNumber=0;
-            while (System.IO.File.Exists(outfilename))
-            {
-                appendNumber++;
-                outfilename = Regex.Replace(origoutfilename, "\\.fix\\.([^\\.]+)$",".fix"+appendNumber+".${1}");
-            }
-            OutputFilename.Text = outfilename;
+            String inputFilename = FileUtility.selectInputFile();
+            InputFilename.Text = inputFilename;
+            OutputFilename.Text = FileUtility.determineOutputFilename(inputFilename);
         }
 
         private void OutputFileSelect_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog outfilebox = new OpenFileDialog();
-            outfilebox.Filter = "gbc rom|*.gbc|gb rom|*.gb";
-            outfilebox.CheckFileExists = false;
-            outfilebox.ShowDialog();
-
-            OutputFilename.Text = outfilebox.FileName;
+            OutputFilename.Text = FileUtility.selectOutputFile();
         }
 
         private void LetsFuckingGo_Click(object sender, RoutedEventArgs e)
