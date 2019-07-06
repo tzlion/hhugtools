@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Security.Cryptography;
+﻿using System.Collections.Generic;
 
-namespace headitor
+namespace RomStuff
 {
-
-    class fixer
+    class HeaderReader: RomLoader
     {
+        public HeaderReader(string inputFilename) : base(inputFilename) {}
+
         private static Dictionary<int, string> romTypes = new Dictionary<int, string>()
             {
                 { -1, " " },
@@ -44,18 +39,6 @@ namespace headitor
                 { 0xFE, "HuC3" },
                 { 0xFF, "HuC1+RAM+BATTERY" },
             };
-
-        private byte[] rom;
-
-        public fixer( string inputFilename )
-        {
-            if (!File.Exists(inputFilename))
-            {
-                throw new Exception("input file does not exist");
-            }
-            // read the file here
-            this.rom = File.ReadAllBytes(inputFilename);
-        }
 
         public static Dictionary<int, string> getRomTypes()
         {

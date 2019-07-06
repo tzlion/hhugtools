@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)HashComputer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HeaderFixer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HeaderReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RomLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RomManipulator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UtilityStuff.cs" />

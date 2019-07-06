@@ -23,14 +23,14 @@ namespace headitor
     /// </summary>
     public partial class MainWindow : Window
     {
-        private fixer superfixer;
+        private HeaderReader superfixer;
 
         public MainWindow()
         {
             InitializeComponent();
             ErrorMsg.Content = "";
 
-            RomTypes.ItemsSource = fixer.getRomTypes();
+            RomTypes.ItemsSource = HeaderReader.getRomTypes();
             RomTypes.DisplayMemberPath = "Value";
             RomTypes.SelectedValuePath = "Key";
         }
@@ -118,7 +118,7 @@ namespace headitor
             ErrorMsg.Content = "";
             try
             {
-                superfixer = new fixer(InputFilename.Text);
+                superfixer = new HeaderReader(InputFilename.Text);
                 RomType.Text = superfixer.getCurrentRomType().ToString("X").PadLeft(2, '0');
                 RamSize.Text = superfixer.getCurrentRamSize().ToString("X").PadLeft(2, '0');
                 changeDropdownFromTextbox();
@@ -159,7 +159,7 @@ namespace headitor
         {
             int result;
             bool idk = int.TryParse(RomType.Text, System.Globalization.NumberStyles.HexNumber, null, out result);
-            if (idk && RomType.Text.Length == 2 && (fixer.getRomTypes().ContainsKey(result)))
+            if (idk && RomType.Text.Length == 2 && (HeaderReader.getRomTypes().ContainsKey(result)))
             {
                 RomTypes.SelectedValue = result;
             }
