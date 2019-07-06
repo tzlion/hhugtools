@@ -67,11 +67,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="RomStuff\BBDFixer.cs" />
-    <Compile Include="RomStuff\OverdumpDetector.cs" />
-    <Compile Include="RomStuff\RomLoader.cs" />
-    <Compile Include="RomStuff\DigiSapphTestThing.cs" />
-    <Compile Include="RomStuff\UtilityStuff.cs" />
+    <Compile Include="SintaxStuff\BBDFixer.cs" />
+    <Compile Include="SintaxStuff\OverdumpDetector.cs" />
+    <Compile Include="SintaxStuff\DigiSapphTestThing.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -80,9 +78,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="RomStuff\RomManipulator.cs" />
-    <Compile Include="RomStuff\SintaxFixer.cs" />
-    <Compile Include="RomStuff\HashComputer.cs" />
+    <Compile Include="SintaxStuff\SintaxFixer.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -139,9 +135,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RomStuff\HeaderFixer.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Graphics\sicon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -151,6 +144,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+  <Import Project="..\RomStuff\RomStuff.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

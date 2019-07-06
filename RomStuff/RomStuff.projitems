@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>9dcac637-9425-4ed2-9a66-f05321d56d6c</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>RomStuff</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)HashComputer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HeaderFixer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RomLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RomManipulator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UtilityStuff.cs" />
+  </ItemGroup>
+</Project>

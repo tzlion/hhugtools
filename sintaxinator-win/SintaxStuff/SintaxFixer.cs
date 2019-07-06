@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Linq;
+using RomStuff;
 
-namespace RomStuff
+namespace SintaxStuff
 {
 
     class SintaxFixer : RomManipulator
