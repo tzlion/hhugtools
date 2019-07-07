@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Common.Rom;
 
 namespace OverDetector
@@ -16,11 +17,18 @@ namespace OverDetector
         
         private void DropAFile(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent("FileName"))
+            try
             {
-                string[] filenames = (string[])e.Data.GetData("FileName");
-                OverdumpDetector odd = new OverdumpDetector(filenames[0]);
-                MessageBox.Show(odd.getSizeInfo());
+                if (e.Data.GetDataPresent("FileName"))
+                {
+                    string[] filenames = (string[])e.Data.GetData("FileName");
+                    OverdumpDetector odd = new OverdumpDetector(filenames[0]);
+                    MessageBox.Show(odd.GetSizeInfo());
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("An error occurred:\r\n" + exception.Message);
             }
         }
 

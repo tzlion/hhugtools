@@ -48,7 +48,6 @@
         <CheckBox x:Name="EnableHeaderType" Content="Type" HorizontalAlignment="Left" Margin="28,374,0,0" VerticalAlignment="Top" Foreground="White" Grid.RowSpan="2"/>
         <TextBox x:Name="RamSize" HorizontalAlignment="Left" Height="18" Margin="178,373,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" MaxLength="2" MaxLines="1" FontFamily="Courier New" GotFocus="RamSize_GotFocus" Grid.RowSpan="2"/>
         <CheckBox x:Name="EnableHeaderRamsize" Content="RAM Size" HorizontalAlignment="Left" Margin="107,374,0,0" VerticalAlignment="Top" Foreground="White" Grid.RowSpan="2"/>
-        <Button x:Name="BankCheck" Content="* Overdump Check" HorizontalAlignment="Left" Margin="364,84,0,0" VerticalAlignment="Top" Width="136" Click="BankCheck_Click"/>
         <TextBox x:Name="FlipRepeat" HorizontalAlignment="Left" Height="23" Margin="16,255,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="23" MaxLines="1"/>
         <Label Content="x" HorizontalAlignment="Left" Margin="38,253,0,0" VerticalAlignment="Top"/>
         <Button x:Name="BBDTest" Content="* BBD Test" HorizontalAlignment="Left" Margin="421.149,62.04,0,0" VerticalAlignment="Top" Width="79.284" Click="BBDTest_Click"/>

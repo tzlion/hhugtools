@@ -11,23 +11,23 @@ namespace Common.Rom
         {
         }
 
-        public string getSizeInfo()
+        public string GetSizeInfo()
         {
             if ( this.rom.Length == 0 ) {
-                return "Zero size dilemma";
+                return "Zero size file";
             }
 
             if ((this.rom.Length & (this.rom.Length - 1)) != 0)
             {
-                return "ROM size not a power of two, idk how to handle that";
+                return "File size not a power of two, can't currently handle that";
             }
 
-            int size = findSize();
+            int size = FindSize();
             int sizeDiff = (this.rom.Length / size);
             return
                 "File size: " + generateMultiNumberString(this.rom.Length) + "\r\n" +
-                "Actual ROM size: " + generateMultiNumberString(size) + "\r\n" +
-                "File is " + ( sizeDiff > 1 ? ( (this.rom.Length / size) + "x too big" ) : "juuust right" );
+                "Unique data size: " + generateMultiNumberString(size) + "\r\n" +
+                "File is " + ( sizeDiff > 1 ? ( (this.rom.Length / size) + "x too big" ) : "OK" );
         }
 
         private string generateMultiNumberString(int number)
@@ -36,7 +36,7 @@ namespace Common.Rom
         }
 
 
-        public int findSize()
+        private int FindSize()
         {
             int currentRomSize = this.rom.Length;
 

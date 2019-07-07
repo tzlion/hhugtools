@@ -85,19 +85,6 @@ namespace Sintaxinator
 
         }
 
-        private void BankCheck_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                OverdumpDetector od = new OverdumpDetector(InputFilename.Text);
-                MessageBox.Show(od.getSizeInfo());
-            }
-            catch (Exception hmm)
-            {
-                PopulateErrorMessage(hmm);
-            }
-        }
-
         private void ManualBits_GotFocus(object sender, RoutedEventArgs e)
         {
             BitFlipsManual.IsChecked = true;
