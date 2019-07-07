@@ -30,34 +30,34 @@ namespace Sintaxinator
             OutputFilename.Text = FileUtility.selectOutputFile();
         }
 
-        private void LetsFuckingGo_Click(object sender, RoutedEventArgs e)
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                SintaxFixer superfixer = new SintaxFixer(InputFilename.Text, OutputFilename.Text);
+                SintaxFixer sintaxFixer = new SintaxFixer(InputFilename.Text, OutputFilename.Text);
                 if (EnableBitFlip.IsChecked == true)
                 {
                     if (BitFlipsAuto.IsChecked == true)
                     {
-                        superfixer.flipBits(true);
+                        sintaxFixer.flipBits(true);
                     }
                     else if (BitFlipsManual.IsChecked == true)
                     {
-                        superfixer.flipBits(false, ManualBits.Text, int.Parse(FlipRepeat.Text));
+                        sintaxFixer.flipBits(false, ManualBits.Text, int.Parse(FlipRepeat.Text));
                     }
                 }
                 if (EnableReorder.IsChecked == true)
                 {
                     if (ReorderAuto.IsChecked == true)
                     {
-                        superfixer.reorder(false);
+                        sintaxFixer.reorder(false);
                     }
                     else if (ReorderBankNo.IsChecked == true)
                     {
-                        superfixer.reorder(true);
+                        sintaxFixer.reorder(true);
                     }
                 }
-                superfixer.save();
+                sintaxFixer.save();
 
                 if (EnableHeaderFix.IsChecked == true)
                 {
@@ -79,7 +79,7 @@ namespace Sintaxinator
             }
             catch (Exception hmm)
             {
-                populateErrorMessage(hmm);
+                PopulateErrorMessage(hmm);
             }
 
         }
@@ -88,28 +88,12 @@ namespace Sintaxinator
         {
             try
             {
-                //HashComputer hashcom = new HashComputer(InputFilename.Text, InputFilename.Text + ".txt");
-                //hashcom.bankChecksums();
                 OverdumpDetector od = new OverdumpDetector(InputFilename.Text);
                 MessageBox.Show(od.getSizeInfo());
             }
             catch (Exception hmm)
             {
-                populateErrorMessage(hmm);
-            }
-        }
-
-        private void TestSwap_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                DigiSapphTestThing testThing = new DigiSapphTestThing(InputFilename.Text, OutputFilename.Text);
-                testThing.testswap();
-                testThing.save((bool)OpenEmu.IsChecked);
-            }
-            catch (Exception hmm)
-            {
-                populateErrorMessage(hmm);
+                PopulateErrorMessage(hmm);
             }
         }
 
@@ -128,7 +112,7 @@ namespace Sintaxinator
             EnableHeaderRamsize.IsChecked = true;
         }
 
-        private void populateErrorMessage(Exception e)
+        private void PopulateErrorMessage(Exception e)
         {
             ErrorMsg.Content = "★ " + e.Message;
         }
@@ -137,13 +121,13 @@ namespace Sintaxinator
         {
             try
             {
-                BBDFixer superfixer = new BBDFixer(InputFilename.Text, OutputFilename.Text);
-                superfixer.testFix();
-                superfixer.save();
+                BBDFixer bbdFixer = new BBDFixer(InputFilename.Text, OutputFilename.Text);
+                bbdFixer.TestFix();
+                bbdFixer.save();
             }
             catch (Exception hmm)
             {
-                populateErrorMessage(hmm);
+                PopulateErrorMessage(hmm);
             }
         }
 

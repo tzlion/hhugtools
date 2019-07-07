@@ -38,7 +38,7 @@ namespace headitor
             OutputFilename.Text = FileUtility.selectOutputFile();
         }
     
-        private void LetsFuckingGo_Click(object sender, RoutedEventArgs e)
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             ErrorMsg.Content = "";
             try

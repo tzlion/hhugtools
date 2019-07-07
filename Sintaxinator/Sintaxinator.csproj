@@ -69,7 +69,6 @@
     </ApplicationDefinition>
     <Compile Include="SintaxStuff\BBDFixer.cs" />
     <Compile Include="SintaxStuff\OverdumpDetector.cs" />
-    <Compile Include="SintaxStuff\DigiSapphTestThing.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

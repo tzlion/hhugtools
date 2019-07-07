@@ -12,7 +12,7 @@
                 <GradientStop Color="#FFAE5CC9" Offset="0.785"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Button x:Name="LetsFuckingGo" Content="LET'S DO THIS" HorizontalAlignment="Left" Margin="260,313,0,0" VerticalAlignment="Top" Width="240" Height="77" Background="#CCFFFFFF" FontFamily="/Fonts/#StopD" FontSize="36" Foreground="#CC000000" BorderBrush="White" Click="LetsFuckingGo_Click"/>
+        <Button x:Name="SaveButton" Content="LET'S DO THIS" HorizontalAlignment="Left" Margin="260,313,0,0" VerticalAlignment="Top" Width="240" Height="77" Background="#CCFFFFFF" FontFamily="/Fonts/#StopD" FontSize="36" Foreground="#CC000000" BorderBrush="White" Click="SaveButton_Click"/>
         <Label Content="SINTAX" HorizontalAlignment="Left" Margin="19,0,0,0" VerticalAlignment="Top" FontFamily="Fonts/#StopD" FontSize="36" Foreground="Red"/>
         <Label Content="ROM Deprotector" HorizontalAlignment="Left" Margin="97,18,0,0" VerticalAlignment="Top" FontFamily="Fonts/#Yellowtail" FontSize="47" RenderTransformOrigin="0.5,0.5" Foreground="White">
             <Label.RenderTransform>
@@ -30,7 +30,7 @@
         <TextBox x:Name="OutputFilename" HorizontalAlignment="Left" Height="27" Margin="19,151,0,0" VerticalAlignment="Top" Width="420" FontFamily="Georgia" FontSize="16" FontStyle="Italic" Text="out" MaxLines="1"/>
         <Button x:Name="OutputFileSelect" Content="Select" HorizontalAlignment="Left" Margin="444,151,0,0" VerticalAlignment="Top" Width="56" Height="27" Click="OutputFileSelect_Click"/>
         <Label x:Name="ErrorMsg" Content="initialising" HorizontalAlignment="Left" Margin="111,90,0,0" VerticalAlignment="Top" Width="240" Foreground="Black" FontFamily="Georgia"/>
-        <Label x:Name="ErrorMsg_Copy" Content="OPERATIONS" HorizontalAlignment="Left" Margin="15,183,0,0" VerticalAlignment="Top" Width="240" Foreground="Black" FontFamily="Georgia" FontSize="18" FontWeight="Bold" FontStyle="Italic"/>
+        <Label x:Name="OperationsHeader" Content="OPERATIONS" HorizontalAlignment="Left" Margin="15,183,0,0" VerticalAlignment="Top" Width="240" Foreground="Black" FontFamily="Georgia" FontSize="18" FontWeight="Bold" FontStyle="Italic"/>
         <CheckBox x:Name="EnableBitFlip" Content="XOR Bytes" HorizontalAlignment="Left" Margin="15,215,0,0" VerticalAlignment="Top" IsChecked="True" Foreground="White"/>
         <CheckBox x:Name="EnableReorder" Content="Reorder" HorizontalAlignment="Left" Margin="14,287,0,0" VerticalAlignment="Top" IsChecked="True" Foreground="White"/>
         <CheckBox x:Name="EnableHeaderFix" Content="Fix Header" HorizontalAlignment="Left" Margin="14,332,0,0" VerticalAlignment="Top" IsChecked="True" Foreground="White"/>
@@ -52,5 +52,6 @@
         <TextBox x:Name="FlipRepeat" HorizontalAlignment="Left" Height="23" Margin="16,255,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="23" MaxLines="1"/>
         <Label Content="x" HorizontalAlignment="Left" Margin="38,253,0,0" VerticalAlignment="Top"/>
         <Button x:Name="BBDTest" Content="* BBD Test" HorizontalAlignment="Left" Margin="421.149,62.04,0,0" VerticalAlignment="Top" Width="79.284" Click="BBDTest_Click"/>
+        <Label x:Name="fake" Grid.ZIndex="-100" HorizontalAlignment="Left"  Height="446" Width="534" VerticalAlignment="Top"/>
     </Grid>
 </Window>
