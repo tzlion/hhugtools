@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RomStuff
+namespace CommonStuff
 {
     class HeaderFixer : RomManipulator
     {
         public HeaderFixer(string inputFilename, string outputFilename) : base(inputFilename, outputFilename) { }
 
-        public void headerFix(bool size, bool complement, bool checksum, byte? romType = null, byte? ramSize = null)
+        public void HeaderFix(bool size, bool complement, bool checksum, byte? romType = null, byte? ramSize = null)
         {
             if (size)
             {

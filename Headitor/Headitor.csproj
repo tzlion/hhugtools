@@ -125,7 +125,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <Import Project="..\RomStuff\RomStuff.projitems" Label="Shared" />
+  <Import Project="..\CommonStuff\CommonStuff.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

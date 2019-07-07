@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using RomStuff;
+using CommonStuff;
 
 namespace SintaxStuff
 {
@@ -48,7 +48,7 @@ namespace SintaxStuff
                 for (int i = 0; i < (this.rom.Length / currentRomSize); i++)
                 {
                     byte[] romChunk = this.rom.Skip(i * currentRomSize).Take(currentRomSize).ToArray();
-                    string newHash = UtilityStuff.GetMD5Hash(romChunk);
+                    string newHash = UtilityStuff.GetMd5Hash(romChunk);
                     if (currentHash == "") currentHash = newHash;
                     if (newHash != currentHash) return currentRomSize*2; // We find differences at this size so return the next one up
                 }

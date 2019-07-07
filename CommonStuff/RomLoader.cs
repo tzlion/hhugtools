@@ -1,13 +1,13 @@
 ﻿using System;
 using System.IO;
 
-namespace RomStuff
+namespace CommonStuff
 {
-    class RomLoader
+    abstract class RomLoader
     {
         protected byte[] rom;
 
-        public RomLoader(string inputFilename)
+        protected RomLoader(string inputFilename)
         {
             if (!File.Exists(inputFilename))
             {

@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace RomStuff
+namespace CommonStuff
 {
     class HeaderReader: RomLoader
     {
         public HeaderReader(string inputFilename) : base(inputFilename) {}
 
-        private static Dictionary<int, string> romTypes = new Dictionary<int, string>()
+        private static readonly Dictionary<int, string> RomTypes = new Dictionary<int, string>()
             {
                 { -1, " " },
                 { 0x00, "ROM ONLY" },
@@ -40,22 +40,22 @@ namespace RomStuff
                 { 0xFF, "HuC1+RAM+BATTERY" },
             };
 
-        public static Dictionary<int, string> getRomTypes()
+        public static Dictionary<int, string> GetRomTypes()
         {
-            return romTypes;
+            return RomTypes;
         }
 
-        public int getCurrentRomType()
+        public int GetCurrentRomType()
         {
             return this.rom[0x0147];
         }
 
-        public int getCurrentRomSize()
+        public int GetCurrentRomSize()
         {
             return this.rom[0x0148];
         }
 
-        public int getCurrentRamSize()
+        public int GetCurrentRamSize()
         {
             return this.rom[0x0149];
         }

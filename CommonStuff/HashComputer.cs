@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 
-namespace RomStuff
+namespace CommonStuff
 {
     class HashComputer: RomLoader
     {
@@ -22,7 +22,7 @@ namespace RomStuff
             {
                 byte[] bankData = this.rom.Skip(0x4000 * curBank).Take(0x4000).ToArray();
 
-                txt.WriteLine(curBank.ToString("X2") + " " + UtilityStuff.GetMD5Hash(bankData));
+                txt.WriteLine(curBank.ToString("X2") + " " + UtilityStuff.GetMd5Hash(bankData));
             }
 
             txt.Close();

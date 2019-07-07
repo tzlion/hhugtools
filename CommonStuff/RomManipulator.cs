@@ -1,13 +1,13 @@
 ﻿using System;
 using System.IO;
 
-namespace RomStuff
+namespace CommonStuff
 {
-    class RomManipulator : RomLoader
+    abstract class RomManipulator : RomLoader
     {
         protected string outputFilename;
 
-        public RomManipulator(string inputFilename, string outputFilename) : base (inputFilename)
+        protected RomManipulator(string inputFilename, string outputFilename) : base (inputFilename)
         {
             if (!Directory.Exists(new FileInfo(outputFilename).DirectoryName))
             {
@@ -16,7 +16,7 @@ namespace RomStuff
             this.outputFilename = outputFilename;
         }
 
-        public void save(bool openAfterwards = false)
+        public void Save(bool openAfterwards = false)
         {
             File.WriteAllBytes(this.outputFilename, this.rom);
             if (openAfterwards)

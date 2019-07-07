@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace RomStuff
+namespace CommonStuff
 {
     class FileUtility
     {
-        public static string selectInputFile()
+        public static string SelectInputFile()
         {
             OpenFileDialog filebox = new OpenFileDialog();
             filebox.Filter = "gb/gbc romz|*.gb;*.gbc";
@@ -16,7 +16,7 @@ namespace RomStuff
             return filebox.FileName;
         }
 
-        public static string selectOutputFile()
+        public static string SelectOutputFile()
         {
             OpenFileDialog outfilebox = new OpenFileDialog();
             outfilebox.Filter = "gbc rom|*.gbc|gb rom|*.gb";
@@ -25,7 +25,7 @@ namespace RomStuff
             return outfilebox.FileName;
         }
 
-        public static string determineOutputFilename(string inputFilename)
+        public static string DetermineOutputFilename(string inputFilename)
         {
             string origoutfilename = Regex.Replace(inputFilename, "\\.([^\\.]+)$", ".fix.${1}");
             string outfilename = origoutfilename;

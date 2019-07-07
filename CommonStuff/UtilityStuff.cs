@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace RomStuff
+namespace CommonStuff
 {
     class UtilityStuff
     {
-        public static string GetMD5Hash(byte[] data)
+        public static string GetMd5Hash(byte[] data)
         {
             byte[] computedHash = new MD5CryptoServiceProvider().ComputeHash(data);
             return BitConverter.ToString(computedHash).Replace("-", "").ToLower();
         }
         
-        public static byte reorderBits(byte input, byte[] reorder)
+        public static byte ReorderBits(byte input, byte[] reorder)
         {
             byte newbyte = 0;
             for (byte x = 0; x < 8; x++)

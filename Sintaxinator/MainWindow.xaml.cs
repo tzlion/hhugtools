@@ -3,7 +3,7 @@ using System.Windows;
 using Microsoft.Win32;
 using System.Text.RegularExpressions;
 using SintaxStuff;
-using RomStuff;
+using CommonStuff;
 
 namespace Sintaxinator
 {
@@ -20,14 +20,14 @@ namespace Sintaxinator
 
         private void InputFileSelect_Click(object sender, RoutedEventArgs e)
         {
-            String inputFilename = FileUtility.selectInputFile();
+            String inputFilename = FileUtility.SelectInputFile();
             InputFilename.Text = inputFilename;
-            OutputFilename.Text = FileUtility.determineOutputFilename(inputFilename);
+            OutputFilename.Text = FileUtility.DetermineOutputFilename(inputFilename);
         }
 
         private void OutputFileSelect_Click(object sender, RoutedEventArgs e)
         {
-            OutputFilename.Text = FileUtility.selectOutputFile();
+            OutputFilename.Text = FileUtility.SelectOutputFile();
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -57,19 +57,19 @@ namespace Sintaxinator
                         sintaxFixer.reorder(true);
                     }
                 }
-                sintaxFixer.save();
+                sintaxFixer.Save();
 
                 if (EnableHeaderFix.IsChecked == true)
                 {
                     HeaderFixer headerfixer = new HeaderFixer(OutputFilename.Text, OutputFilename.Text);
-                    headerfixer.headerFix(
+                    headerfixer.HeaderFix(
                         (bool)EnableHeaderSize.IsChecked, 
                         (bool)EnableHeaderComp.IsChecked, 
                         (bool)EnableHeaderChecksum.IsChecked,
                         (bool)EnableHeaderType.IsChecked ? Byte.Parse(RomType.Text, System.Globalization.NumberStyles.HexNumber) : (byte?)null,
                         (bool)EnableHeaderRamsize.IsChecked ? Byte.Parse(RamSize.Text, System.Globalization.NumberStyles.HexNumber) : (byte?)null
                     );
-                    headerfixer.save();
+                    headerfixer.Save();
                 }
 
                 if (OpenEmu.IsChecked == true)
@@ -123,7 +123,7 @@ namespace Sintaxinator
             {
                 BBDFixer bbdFixer = new BBDFixer(InputFilename.Text, OutputFilename.Text);
                 bbdFixer.TestFix();
-                bbdFixer.save();
+                bbdFixer.Save();
             }
             catch (Exception hmm)
             {
