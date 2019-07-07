@@ -52,16 +52,9 @@ namespace Sintaxinator
                 }
                 if (EnableBitFlip.IsChecked == true)
                 {
-                    if (BitFlipsAuto.IsChecked == true)
-                    {
-                        sintaxFixer.flipBits(true);
-                    }
-                    else if (BitFlipsManual.IsChecked == true)
-                    {
-                        String manualBits = "0x" + ManualBits1.Text + "|0x" + ManualBits2.Text + "|0x" 
-                                            + ManualBits3.Text + "|0x" + ManualBits4.Text;
-                        sintaxFixer.flipBits(false, manualBits, int.Parse(FlipRepeat.Text));
-                    }
+                    String manualBits = "0x" + ManualBits1.Text + "|0x" + ManualBits2.Text + "|0x" 
+                                        + ManualBits3.Text + "|0x" + ManualBits4.Text;
+                    sintaxFixer.flipBits(false, manualBits, int.Parse(FlipRepeat.Text));
                 }
                 if (EnableReorder.IsChecked == true && ReorderBankNo.IsChecked == true)
                 {
@@ -92,11 +85,6 @@ namespace Sintaxinator
                 PopulateErrorMessage(hmm);
             }
 
-        }
-
-        private void ManualBits_GotFocus(object sender, RoutedEventArgs e)
-        {
-            BitFlipsManual.IsChecked = true;
         }
 
         private void RomType_GotFocus(object sender, RoutedEventArgs e)
