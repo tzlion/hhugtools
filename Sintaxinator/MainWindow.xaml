@@ -39,17 +39,18 @@
                 <Label Content="x" HorizontalAlignment="Left" Margin="38,253,0,0" VerticalAlignment="Top"/>
                 <RadioButton x:Name="BitFlipsAuto" Content="Auto (attempted)" HorizontalAlignment="Left" Margin="29,234,0,0" VerticalAlignment="Top" GroupName="BitFlips" Foreground="White"/>
                 <RadioButton x:Name="BitFlipsManual" Content="As defined ↓" HorizontalAlignment="Left" Margin="148,234,0,0" VerticalAlignment="Top" GroupName="BitFlips" Foreground="White" IsChecked="True"/>
-                <TextBox x:Name="ManualBits1" HorizontalAlignment="Left" Height="23" Margin="54,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" GotFocus="ManualBits_GotFocus"/>
-                <TextBox x:Name="ManualBits2" HorizontalAlignment="Left" Height="23" Margin="94,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" GotFocus="ManualBits_GotFocus"/>
-                <TextBox x:Name="ManualBits3" HorizontalAlignment="Left" Height="23" Margin="134,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" GotFocus="ManualBits_GotFocus"/>
-                <TextBox x:Name="ManualBits4" HorizontalAlignment="Left" Height="23" Margin="174,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" GotFocus="ManualBits_GotFocus"/>
+                <TextBox x:Name="ManualBits1" HorizontalAlignment="Left" Height="23" Margin="54,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" FontFamily="Courier New" GotFocus="ManualBits_GotFocus"/>
+                <TextBox x:Name="ManualBits2" HorizontalAlignment="Left" Height="23" Margin="94,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" FontFamily="Courier New" GotFocus="ManualBits_GotFocus"/>
+                <TextBox x:Name="ManualBits3" HorizontalAlignment="Left" Height="23" Margin="134,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" FontFamily="Courier New" GotFocus="ManualBits_GotFocus"/>
+                <TextBox x:Name="ManualBits4" HorizontalAlignment="Left" Height="23" Margin="174,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" FontFamily="Courier New" GotFocus="ManualBits_GotFocus"/>
             </Grid>
         </GroupBox>
         <GroupBox x:Name="ReorderControls" BorderThickness="0">
             <Grid>
                 <CheckBox x:Name="EnableReorder" Content="Reorder" HorizontalAlignment="Left" Margin="14,287,0,0" VerticalAlignment="Top" IsChecked="True" Foreground="White"/>
                 <RadioButton x:Name="ReorderBankNo" Content="Use bank nos." HorizontalAlignment="Left" Margin="28,308,0,0" VerticalAlignment="Top" GroupName="ReorderMode" IsChecked="True" Foreground="White"/>
-                <RadioButton x:Name="ReorderAuto" Content="Assume order" HorizontalAlignment="Left" Margin="128,308,0,0" VerticalAlignment="Top" GroupName="ReorderMode" Foreground="White"/>
+                <RadioButton x:Name="ReorderAuto" Content="Type" HorizontalAlignment="Left" Margin="128,308,0,0" VerticalAlignment="Top" GroupName="ReorderMode" Foreground="White"/>
+                <TextBox x:Name="ReorderMode" HorizontalAlignment="Left" Height="18" Margin="178,308,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" MaxLength="2" MaxLines="1" FontFamily="Courier New"  Grid.RowSpan="2"/>
             </Grid>
         </GroupBox>
         <GroupBox x:Name="HeaderControls" BorderThickness="0">
@@ -65,7 +66,7 @@
             </Grid>
         </GroupBox>
         <TextBlock x:Name="XorInstructions" HorizontalAlignment="Left" Margin="261,220,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="88" Width="249" FontSize="9">
-            <Run Language="en-gb" Text="4 XORs can be defined either as a hex byte e.g. 0x45 or the positions of bits to flip e.g. 157 inverts 1st, 5th and 7th bits."/><LineBreak/>
+            <Run Language="en-gb" Text="4 XORs can be defined as hex bytes e.g. 45."/><LineBreak/>
             <Run Language="en-gb" Text="By default, this tool splits the ROM into 4 quarters and applies the respective XOR to each (except bank 0)."/><LineBreak/>
             <Run Language="en-gb" Text="The number in the first box divides it further e.g. enter 2 to split the ROM into 8 parts repeating each XOR twice."/>
         </TextBlock>

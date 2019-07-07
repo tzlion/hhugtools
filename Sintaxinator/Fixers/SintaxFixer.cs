@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Common.Rom;
+using Common.Utility;
 
 namespace Sintaxinator.Fixers
 {
@@ -36,8 +37,9 @@ namespace Sintaxinator.Fixers
                     byte xor;
                     if (auto)
                     {
-                        byte realBankNo = getRealBankNo(curBank);
-                        xor = (byte)(bankData[bankData.Length - 1] ^ realBankNo);
+                        throw new Exception("not working atm");
+                        //byte realBankNo = getRealBankNo(curBank);
+                        //xor = (byte)(bankData[bankData.Length - 1] ^ realBankNo);
                         // Auto mode
                     }
                     else
@@ -99,7 +101,7 @@ namespace Sintaxinator.Fixers
         }
 
         // This is pretty slow
-        public void reorder(bool checkBankBits)
+        public void reorder(bool checkBankBits, byte? reorderMode)
         {
 
             byte[] blankrompart = new byte[0x4000];
@@ -120,7 +122,7 @@ namespace Sintaxinator.Fixers
 
                 if (curBank == 0) realBankNo = 0; // Header
                 else if (checkBankBits) realBankNo = bankData[bankData.Length-1];
-                else realBankNo = getRealBankNo(curBank);
+                else realBankNo = getRealBankNo(curBank, reorderMode);
 
                 superdata[realBankNo] = bankData;
             }
@@ -135,20 +137,49 @@ namespace Sintaxinator.Fixers
 
         }
 
-        // I think this only applies for one type
-        private byte getRealBankNo(int sequentialBankNo)
+        private byte getRealBankNo(int sequentialBankNo, byte? reorderMode)
         {
-            int realBankNo;
-            if ( sequentialBankNo < 64 ) {
-                realBankNo = sequentialBankNo * 4;
-            } else if ( sequentialBankNo < 128 ) {
-                realBankNo = ( ( sequentialBankNo - 64 ) * 4 ) + 1;
-            } else if ( sequentialBankNo < 196 ) { // inferred for 4mb, untested
-                realBankNo = ( ( sequentialBankNo - 128 ) * 4 ) + 2;
-            } else { // inferred for 4mb, untested
-                realBankNo = ( ( sequentialBankNo - 196 ) * 4 ) + 1;
+            // these are from hhugboy
+            byte[] reordering00 = {0,7,2,1,4,3,6,5};
+            byte[] reordering01 = {7,6,1,0,3,2,5,4};
+            byte[] reordering05 = {0,1,6,7,4,5,2,3}; // Not 100% on this one
+            byte[] reordering07 = {5,7,4,6,2,3,0,1}; // 5 and 7 unconfirmed
+            byte[] reordering09 = {3,2,5,4,7,6,1,0};
+            byte[] reordering0b = {5,4,7,6,1,0,3,2}; // 5 and 6 unconfirmed
+            byte[] reordering0d = {6,7,0,1,2,3,4,5};
+            byte[] noReordering = {0,1,2,3,4,5,6,7};
+            
+            byte[] romBankNoReordering;
+
+            switch(reorderMode & 0x0f) {
+                case 0x0D:
+                    romBankNoReordering = reordering0d;
+                    break;
+                case 0x09:
+                    romBankNoReordering = reordering09;
+                    break;
+                case 0x00:
+                    romBankNoReordering = reordering00;
+                    break;
+                case 0x01:
+                    romBankNoReordering = reordering01;
+                    break;
+                case 0x05:
+                    romBankNoReordering = reordering05;
+                    break;
+                case 0x07:
+                    romBankNoReordering = reordering07;
+                    break;
+                case 0x0B:
+                    romBankNoReordering = reordering0b;
+                    break;
+                case 0x0F:
+                default:
+                    romBankNoReordering = noReordering;
+                    break;
             }
-            return (byte)realBankNo;
+
+            return ByteManipulation.ReorderBits((byte)sequentialBankNo, romBankNoReordering);
         }
-   }
+    }
 }

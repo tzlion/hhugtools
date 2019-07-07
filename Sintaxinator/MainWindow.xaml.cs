@@ -46,6 +46,10 @@ namespace Sintaxinator
                 }
                 
                 SintaxFixer sintaxFixer = new SintaxFixer(InputFilename.Text, OutputFilename.Text);
+                if (EnableReorder.IsChecked == true && ReorderAuto.IsChecked == true)
+                {
+                    sintaxFixer.reorder(false, byte.Parse(ReorderMode.Text, System.Globalization.NumberStyles.HexNumber));
+                }
                 if (EnableBitFlip.IsChecked == true)
                 {
                     if (BitFlipsAuto.IsChecked == true)
@@ -54,21 +58,14 @@ namespace Sintaxinator
                     }
                     else if (BitFlipsManual.IsChecked == true)
                     {
-                        String manualBits = ManualBits1.Text + "|" + ManualBits2.Text + "|" 
-                                            + ManualBits3.Text + "|" + ManualBits4.Text;
+                        String manualBits = "0x" + ManualBits1.Text + "|0x" + ManualBits2.Text + "|0x" 
+                                            + ManualBits3.Text + "|0x" + ManualBits4.Text;
                         sintaxFixer.flipBits(false, manualBits, int.Parse(FlipRepeat.Text));
                     }
                 }
-                if (EnableReorder.IsChecked == true)
+                if (EnableReorder.IsChecked == true && ReorderBankNo.IsChecked == true)
                 {
-                    if (ReorderAuto.IsChecked == true)
-                    {
-                        sintaxFixer.reorder(false);
-                    }
-                    else if (ReorderBankNo.IsChecked == true)
-                    {
-                        sintaxFixer.reorder(true);
-                    }
+                    sintaxFixer.reorder(true, null);
                 }
                 sintaxFixer.Save();
 
