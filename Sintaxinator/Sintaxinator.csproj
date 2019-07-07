@@ -68,7 +68,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Fixers\BBDFixer.cs" />
-    <Compile Include="Fixers\OverdumpDetector.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

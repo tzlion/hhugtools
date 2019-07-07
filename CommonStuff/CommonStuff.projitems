@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Rom\HashComputer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rom\HeaderFixer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rom\HeaderReader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rom\OverdumpDetector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rom\RomLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rom\RomManipulator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utility\ByteManipulation.cs" />
