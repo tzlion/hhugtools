@@ -54,7 +54,9 @@ namespace Sintaxinator
                     }
                     else if (BitFlipsManual.IsChecked == true)
                     {
-                        sintaxFixer.flipBits(false, ManualBits.Text, int.Parse(FlipRepeat.Text));
+                        String manualBits = ManualBits1.Text + "|" + ManualBits2.Text + "|" 
+                                            + ManualBits3.Text + "|" + ManualBits4.Text;
+                        sintaxFixer.flipBits(false, manualBits, int.Parse(FlipRepeat.Text));
                     }
                 }
                 if (EnableReorder.IsChecked == true)

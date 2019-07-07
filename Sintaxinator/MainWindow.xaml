@@ -39,7 +39,10 @@
                 <Label Content="x" HorizontalAlignment="Left" Margin="38,253,0,0" VerticalAlignment="Top"/>
                 <RadioButton x:Name="BitFlipsAuto" Content="Auto (attempted)" HorizontalAlignment="Left" Margin="29,234,0,0" VerticalAlignment="Top" GroupName="BitFlips" Foreground="White"/>
                 <RadioButton x:Name="BitFlipsManual" Content="As defined ↓" HorizontalAlignment="Left" Margin="148,234,0,0" VerticalAlignment="Top" GroupName="BitFlips" Foreground="White" IsChecked="True"/>
-                <TextBox x:Name="ManualBits" HorizontalAlignment="Left" Height="23" Margin="54,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="181" GotFocus="ManualBits_GotFocus"/>
+                <TextBox x:Name="ManualBits1" HorizontalAlignment="Left" Height="23" Margin="54,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" GotFocus="ManualBits_GotFocus"/>
+                <TextBox x:Name="ManualBits2" HorizontalAlignment="Left" Height="23" Margin="94,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" GotFocus="ManualBits_GotFocus"/>
+                <TextBox x:Name="ManualBits3" HorizontalAlignment="Left" Height="23" Margin="134,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" GotFocus="ManualBits_GotFocus"/>
+                <TextBox x:Name="ManualBits4" HorizontalAlignment="Left" Height="23" Margin="174,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" GotFocus="ManualBits_GotFocus"/>
             </Grid>
         </GroupBox>
         <GroupBox x:Name="ReorderControls" BorderThickness="0">
@@ -61,7 +64,11 @@
                 <CheckBox x:Name="EnableHeaderRamsize" Content="RAM Size" HorizontalAlignment="Left" Margin="107,374,0,0" VerticalAlignment="Top" Foreground="White" Grid.RowSpan="2"/>
             </Grid>
         </GroupBox>
-        <TextBlock x:Name="XorInstructions" HorizontalAlignment="Left" Margin="261,215,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="88" Width="249" FontSize="9"><Run Language="en-gb" Text="XORs can be defined either as a hex byte by e.g. 0x45 or the positions of bits to flip eg 157 inverts the 1st, 5th and 7th bits"/><LineBreak/><Run Language="en-gb" Text="Separate XORs with | to split the rom into as many parts as you have defined and apply different XOR to each section."/><LineBreak/><Run Language="en-gb" Text="(Header bank will never be modified)"/><LineBreak/><Run Language="en-gb" Text="E.g. for 4 quarters: 0x23|0x67|0x45|0x89 OR 267|12567|157|047"/><LineBreak/><Run Language="en-gb" Text="Enter number in the first box to repeat the pattern"/></TextBlock>
+        <TextBlock x:Name="XorInstructions" HorizontalAlignment="Left" Margin="261,220,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="88" Width="249" FontSize="9">
+            <Run Language="en-gb" Text="4 XORs can be defined either as a hex byte e.g. 0x45 or the positions of bits to flip e.g. 157 inverts 1st, 5th and 7th bits."/><LineBreak/>
+            <Run Language="en-gb" Text="By default, this tool splits the ROM into 4 quarters and applies the respective XOR to each (except bank 0)."/><LineBreak/>
+            <Run Language="en-gb" Text="The number in the first box divides it further e.g. enter 2 to split the ROM into 8 parts repeating each XOR twice."/>
+        </TextBlock>
         <CheckBox x:Name="OpenEmu" Content="Open when done" HorizontalAlignment="Left" Margin="392,183,0,0" VerticalAlignment="Top" IsChecked="True" Foreground="White"/>
         <Button x:Name="BBDTest" Content="Switch" HorizontalAlignment="Left" Margin="150,187,0,0" VerticalAlignment="Top" Width="60" Click="BBDTest_Click"/>
         <Label x:Name="fake" Grid.ZIndex="-100" HorizontalAlignment="Left"  Height="446" Width="534" VerticalAlignment="Top"/>
