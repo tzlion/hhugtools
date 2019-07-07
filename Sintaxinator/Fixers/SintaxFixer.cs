@@ -2,7 +2,7 @@
 using System.Linq;
 using CommonStuff.Rom;
 
-namespace SintaxStuff
+namespace Sintaxinator.Fixers
 {
 
     class SintaxFixer : RomManipulator

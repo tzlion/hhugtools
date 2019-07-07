@@ -3,7 +3,7 @@ using System.Linq;
 using CommonStuff.Utility;
 using CommonStuff.Rom;
 
-namespace SintaxStuff
+namespace Sintaxinator.Fixers
 {
     class OverdumpDetector : RomLoader
     {

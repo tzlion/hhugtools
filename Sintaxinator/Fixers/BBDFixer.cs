@@ -2,7 +2,7 @@
 using CommonStuff.Utility;
 using CommonStuff.Rom;
 
-namespace SintaxStuff
+namespace Sintaxinator.Fixers
 {
     class BBDFixer : RomManipulator
     {

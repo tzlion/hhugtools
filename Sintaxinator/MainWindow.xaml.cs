@@ -2,7 +2,7 @@
 using System.Windows;
 using Microsoft.Win32;
 using System.Text.RegularExpressions;
-using SintaxStuff;
+using Sintaxinator.Fixers;
 using CommonStuff.Utility;
 using CommonStuff.Rom;
 
