@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using CommonStuff.Utility;
-using CommonStuff.Rom;
+using Common.Utility;
+using Common.Rom;
 
-namespace CommonStuff.Rom
+namespace Common.Rom
 {
     class OverdumpDetector : RomLoader
     {

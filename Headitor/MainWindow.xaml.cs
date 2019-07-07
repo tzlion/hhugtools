@@ -4,8 +4,8 @@ using System.Windows.Controls;
 using Microsoft.Win32;
 using System.Windows.Input;
 using System.Text.RegularExpressions;
-using CommonStuff.Utility;
-using CommonStuff.Rom;
+using Common.Utility;
+using Common.Rom;
 
 namespace headitor
 {

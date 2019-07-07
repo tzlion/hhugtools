@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using CommonStuff.Rom;
+using Common.Rom;
 
 namespace Sintaxinator.Fixers
 {

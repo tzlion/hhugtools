@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace CommonStuff.Utility
+namespace Common.Utility
 {
     class FileSelection
     {

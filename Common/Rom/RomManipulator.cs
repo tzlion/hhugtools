@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace CommonStuff.Rom
+namespace Common.Rom
 {
     abstract class RomManipulator : RomLoader
     {

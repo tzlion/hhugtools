@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace CommonStuff.Utility
+namespace Common.Utility
 {
     class Hashing
     {

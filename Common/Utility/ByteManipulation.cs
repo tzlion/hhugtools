@@ -1,4 +1,4 @@
-namespace CommonStuff.Utility
+namespace Common.Utility
 {
     public class ByteManipulation
     {

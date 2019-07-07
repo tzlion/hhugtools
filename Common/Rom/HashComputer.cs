@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using CommonStuff.Utility;
+using Common.Utility;
 
-namespace CommonStuff.Rom
+namespace Common.Rom
 {
     class HashComputer: RomLoader
     {

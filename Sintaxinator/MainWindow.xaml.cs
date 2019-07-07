@@ -3,8 +3,8 @@ using System.Windows;
 using Microsoft.Win32;
 using System.Text.RegularExpressions;
 using Sintaxinator.Fixers;
-using CommonStuff.Utility;
-using CommonStuff.Rom;
+using Common.Utility;
+using Common.Rom;
 
 namespace Sintaxinator
 {
