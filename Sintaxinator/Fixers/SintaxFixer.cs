@@ -142,13 +142,13 @@ namespace Sintaxinator.Fixers
             // these are from hhugboy
             byte[] reordering00 = {0,7,2,1,4,3,6,5};
             byte[] reordering01 = {7,6,1,0,3,2,5,4};
-            byte[] reordering05 = {0,1,6,7,4,5,2,3}; // Not 100% on this one
-            byte[] reordering07 = {5,7,4,6,2,3,0,1}; // 5 and 7 unconfirmed
+            byte[] reordering05 = {0,1,6,7,4,5,2,3};
+            byte[] reordering07 = {6,7,4,5,2,3,0,1};
             byte[] reordering09 = {3,2,5,4,7,6,1,0};
-            byte[] reordering0b = {5,4,7,6,1,0,3,2}; // 5 and 6 unconfirmed
+            byte[] reordering0b = {5,4,7,6,1,0,3,2};
             byte[] reordering0d = {6,7,0,1,2,3,4,5};
             byte[] noReordering = {0,1,2,3,4,5,6,7};
-            
+    
             byte[] romBankNoReordering;
 
             switch(reorderMode & 0x0f) {
@@ -174,9 +174,10 @@ namespace Sintaxinator.Fixers
                     romBankNoReordering = reordering0b;
                     break;
                 case 0x0F:
-                default:
                     romBankNoReordering = noReordering;
                     break;
+                default:
+                    throw new Exception("unsupported reordering type");
             }
 
             return ByteManipulation.ReorderBits((byte)sequentialBankNo, romBankNoReordering);
