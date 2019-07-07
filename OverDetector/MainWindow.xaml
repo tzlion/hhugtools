@@ -4,9 +4,31 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OverDetector"
+        ResizeMode="NoResize"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
+        Title="OD-Detector" Height="240" Width="320" AllowDrop="True">
+    <Grid Drop="DropAFile">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                <GradientStop Color="Black"/>
+                <GradientStop Color="Black" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Label FontWeight="Bold" Content="OVER DUMP" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Times New Roman" FontSize="30">
+            <Label.RenderTransform><TransformGroup><ScaleTransform ScaleY="1.3"/></TransformGroup> </Label.RenderTransform>
+        </Label>
+        <Label FontWeight="Bold" Content="DETECTOR" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Times New Roman" FontSize="50">
+            <Label.RenderTransform><TransformGroup><ScaleTransform ScaleY="1.3"/></TransformGroup> </Label.RenderTransform>
+        </Label>
+        <Label FontWeight="Bold" Content="VERSION:1" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Arial" FontSize="20">
+            <Label.RenderTransform><TransformGroup><ScaleTransform ScaleY="1.3"/></TransformGroup> </Label.RenderTransform>
+        </Label>
+        <Label FontWeight="Bold" Content="Drag and drop your ROM file" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Times New Roman" FontSize="20">
+            <Label.RenderTransform><TransformGroup><ScaleTransform ScaleY="1.3"/></TransformGroup> </Label.RenderTransform>
+        </Label>
+        <Label FontWeight="Bold" Content="to this window." HorizontalAlignment="Left" Margin="10,155,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Times New Roman" FontSize="20">
+            <Label.RenderTransform><TransformGroup><ScaleTransform ScaleY="1.3"/></TransformGroup> </Label.RenderTransform>
+        </Label>
         
     </Grid>
 </Window>
