@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace CommonStuff
+namespace CommonStuff.Utility
 {
-    class FileUtility
+    class FileSelection
     {
         public static string SelectInputFile()
         {

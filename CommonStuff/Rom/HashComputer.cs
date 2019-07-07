@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using CommonStuff.Utility;
 
-namespace CommonStuff
+namespace CommonStuff.Rom
 {
     class HashComputer: RomLoader
     {
@@ -22,7 +23,7 @@ namespace CommonStuff
             {
                 byte[] bankData = this.rom.Skip(0x4000 * curBank).Take(0x4000).ToArray();
 
-                txt.WriteLine(curBank.ToString("X2") + " " + UtilityStuff.GetMd5Hash(bankData));
+                txt.WriteLine(curBank.ToString("X2") + " " + Hashing.GetMd5Hash(bankData));
             }
 
             txt.Close();

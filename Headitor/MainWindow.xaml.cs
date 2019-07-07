@@ -4,7 +4,8 @@ using System.Windows.Controls;
 using Microsoft.Win32;
 using System.Windows.Input;
 using System.Text.RegularExpressions;
-using CommonStuff;
+using CommonStuff.Utility;
+using CommonStuff.Rom;
 
 namespace headitor
 {
@@ -27,15 +28,15 @@ namespace headitor
 
         private void InputFileSelect_Click(object sender, RoutedEventArgs e)
         {
-            String inputFilename = FileUtility.SelectInputFile();
+            String inputFilename = FileSelection.SelectInputFile();
             InputFilename.Text = inputFilename;
-            OutputFilename.Text = FileUtility.DetermineOutputFilename(inputFilename);
+            OutputFilename.Text = FileSelection.DetermineOutputFilename(inputFilename);
             doLoad();
         }
 
         private void OutputFileSelect_Click(object sender, RoutedEventArgs e)
         {
-            OutputFilename.Text = FileUtility.SelectOutputFile();
+            OutputFilename.Text = FileSelection.SelectOutputFile();
         }
     
         private void SaveButton_Click(object sender, RoutedEventArgs e)

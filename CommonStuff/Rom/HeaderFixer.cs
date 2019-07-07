@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CommonStuff
+namespace CommonStuff.Rom
 {
     class HeaderFixer : RomManipulator
     {

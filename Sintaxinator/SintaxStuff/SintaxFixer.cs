@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using CommonStuff;
+using CommonStuff.Rom;
 
 namespace SintaxStuff
 {

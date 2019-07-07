@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CommonStuff
+namespace CommonStuff.Rom
 {
     class HeaderReader: RomLoader
     {

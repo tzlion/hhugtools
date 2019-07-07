@@ -1,5 +1,6 @@
 ﻿using System.Linq;
-using CommonStuff;
+using CommonStuff.Utility;
+using CommonStuff.Rom;
 
 namespace SintaxStuff
 {
@@ -39,7 +40,7 @@ namespace SintaxStuff
                // newData[x] = (byte)((origData[x] & 0xED) + ((origData[x] & 0x10) >> 3) + ((origData[x] & 0x02) << 3)); // This SHOULD swap bits 3 and 6 around (numbered 01234567) // for HARRY
               //  newData[x] = switchOrder(origData[x], new byte[] { 0,1,5,3,4,6,2,7 }); // for GAROU // Garou is not fine
 
-                newData[x] = UtilityStuff.ReorderBits(origData[x], new byte[] { 0,1,5,3,4,2,6,7 }); // Simplified test for Digimon // Yeah that works, coolz
+                newData[x] = ByteManipulation.ReorderBits(origData[x], new byte[] { 0,1,5,3,4,2,6,7 }); // Simplified test for Digimon // Yeah that works, coolz
 
             }
             return newData;
