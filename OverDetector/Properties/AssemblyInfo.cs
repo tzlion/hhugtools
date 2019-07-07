@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("OverDetector")]
+[assembly: AssemblyTitle("Overdump Detector")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("OverDetector")]
-[assembly: AssemblyCopyright("Copyright ©  2019")]
+[assembly: AssemblyCompany("Handheld Underground")]
+[assembly: AssemblyProduct("Overdump Detector")]
+[assembly: AssemblyCopyright("2019 taizou")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
