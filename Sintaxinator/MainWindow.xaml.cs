@@ -13,6 +13,8 @@ namespace Sintaxinator
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool bbdMode = false;
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -35,6 +37,14 @@ namespace Sintaxinator
         {
             try
             {
+                if (bbdMode)
+                {
+                    BBDFixer bbdFixer = new BBDFixer(InputFilename.Text, OutputFilename.Text);
+                    bbdFixer.TestFix();
+                    bbdFixer.Save();
+                    return;
+                }
+                
                 SintaxFixer sintaxFixer = new SintaxFixer(InputFilename.Text, OutputFilename.Text);
                 if (EnableBitFlip.IsChecked == true)
                 {
@@ -109,9 +119,25 @@ namespace Sintaxinator
         {
             try
             {
-                BBDFixer bbdFixer = new BBDFixer(InputFilename.Text, OutputFilename.Text);
-                bbdFixer.TestFix();
-                bbdFixer.Save();
+                if (!bbdMode)
+                {
+                    OperationsHeader.Content = "BBD mode";
+                    bbdMode = true;
+                    XorInstructions.Visibility = Visibility.Hidden;
+                    XorControls.Visibility = Visibility.Hidden;
+                    ReorderControls.Visibility = Visibility.Hidden;
+                    HeaderControls.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    OperationsHeader.Content = "Sintax mode";
+                    bbdMode = false;
+                    XorInstructions.Visibility = Visibility.Visible;
+                    XorControls.Visibility = Visibility.Visible;
+                    ReorderControls.Visibility = Visibility.Visible;
+                    HeaderControls.Visibility = Visibility.Visible;
+                }
+
             }
             catch (Exception hmm)
             {
