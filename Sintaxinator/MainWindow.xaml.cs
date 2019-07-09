@@ -46,19 +46,28 @@ namespace Sintaxinator
                 else
                 {
                     SintaxFixer sintaxFixer = new SintaxFixer(InputFilename.Text, OutputFilename.Text);
-                    if (EnableReorder.IsChecked == true && ReorderAuto.IsChecked == true)
+
+                    if (EnableFullAuto.IsChecked == true)
                     {
                         sintaxFixer.reorder(false, byte.Parse(ReorderMode.Text, System.Globalization.NumberStyles.HexNumber));
-                    }
-                    if (EnableBitFlip.IsChecked == true)
-                    {
                         String manualBits = "0x" + ManualBits1.Text + "|0x" + ManualBits2.Text + "|0x" 
                                             + ManualBits3.Text + "|0x" + ManualBits4.Text;
-                        sintaxFixer.flipBits(false, manualBits, int.Parse(FlipRepeat.Text));
+                        sintaxFixer.flipBits(false, manualBits, 64);
                     }
-                    if (EnableReorder.IsChecked == true && ReorderBankNo.IsChecked == true)
+                    else
                     {
-                        sintaxFixer.reorder(true, null);
+                        if (EnableReorder2.IsChecked == true && ReorderAuto2.IsChecked == true)
+                        {
+                            sintaxFixer.reorder(false, byte.Parse(ReorderMode2.Text, System.Globalization.NumberStyles.HexNumber));
+                        }
+                        if (EnableBitFlip2.IsChecked == true)
+                        {
+                            sintaxFixer.flipBits(false, ManualBits.Text, int.Parse(FlipRepeat2.Text));
+                        }
+                        if (EnableReorder2.IsChecked == true && ReorderBankNo2.IsChecked == true)
+                        {
+                            sintaxFixer.reorder(true, null);
+                        }
                     }
                     sintaxFixer.Save();
                 }
@@ -111,15 +120,17 @@ namespace Sintaxinator
                 {
                     OperationsHeader.Content = "BBD mode";
                     bbdMode = true;
-                    XorControls.Visibility = Visibility.Hidden;
-                    ReorderControls.Visibility = Visibility.Hidden;
+                    FullAutoControls.Visibility = Visibility.Hidden;
+                    XorControls2.Visibility = Visibility.Hidden;
+                    ReorderControls2.Visibility = Visibility.Hidden;
                 }
                 else
                 {
                     OperationsHeader.Content = "Sintax mode";
                     bbdMode = false;
-                    XorControls.Visibility = Visibility.Visible;
-                    ReorderControls.Visibility = Visibility.Visible;
+                    FullAutoControls.Visibility = Visibility.Visible;
+                    XorControls2.Visibility = Visibility.Visible;
+                    ReorderControls2.Visibility = Visibility.Visible;
                 }
 
             }
@@ -127,6 +138,19 @@ namespace Sintaxinator
             {
                 PopulateErrorMessage(hmm);
             }
+        }
+
+        private void UnsetNonAuto(object sender, RoutedEventArgs e)
+        {
+            // this event, apparently, is fired before the other 2 checkboxes have even loaded
+            // so gotta check if they exist first
+            if (EnableReorder2 != null) EnableReorder2.IsChecked = false;
+            if (EnableBitFlip2 != null) EnableBitFlip2.IsChecked = false;
+        }
+        
+        private void UnsetAuto(object sender, RoutedEventArgs e)
+        {
+            if (EnableFullAuto != null) EnableFullAuto.IsChecked = false;
         }
 
     }
