@@ -42,26 +42,27 @@ namespace Sintaxinator
                     BBDFixer bbdFixer = new BBDFixer(InputFilename.Text, OutputFilename.Text);
                     bbdFixer.TestFix();
                     bbdFixer.Save();
-                    return;
+                }
+                else
+                {
+                    SintaxFixer sintaxFixer = new SintaxFixer(InputFilename.Text, OutputFilename.Text);
+                    if (EnableReorder.IsChecked == true && ReorderAuto.IsChecked == true)
+                    {
+                        sintaxFixer.reorder(false, byte.Parse(ReorderMode.Text, System.Globalization.NumberStyles.HexNumber));
+                    }
+                    if (EnableBitFlip.IsChecked == true)
+                    {
+                        String manualBits = "0x" + ManualBits1.Text + "|0x" + ManualBits2.Text + "|0x" 
+                                            + ManualBits3.Text + "|0x" + ManualBits4.Text;
+                        sintaxFixer.flipBits(false, manualBits, int.Parse(FlipRepeat.Text));
+                    }
+                    if (EnableReorder.IsChecked == true && ReorderBankNo.IsChecked == true)
+                    {
+                        sintaxFixer.reorder(true, null);
+                    }
+                    sintaxFixer.Save();
                 }
                 
-                SintaxFixer sintaxFixer = new SintaxFixer(InputFilename.Text, OutputFilename.Text);
-                if (EnableReorder.IsChecked == true && ReorderAuto.IsChecked == true)
-                {
-                    sintaxFixer.reorder(false, byte.Parse(ReorderMode.Text, System.Globalization.NumberStyles.HexNumber));
-                }
-                if (EnableBitFlip.IsChecked == true)
-                {
-                    String manualBits = "0x" + ManualBits1.Text + "|0x" + ManualBits2.Text + "|0x" 
-                                        + ManualBits3.Text + "|0x" + ManualBits4.Text;
-                    sintaxFixer.flipBits(false, manualBits, int.Parse(FlipRepeat.Text));
-                }
-                if (EnableReorder.IsChecked == true && ReorderBankNo.IsChecked == true)
-                {
-                    sintaxFixer.reorder(true, null);
-                }
-                sintaxFixer.Save();
-
                 if (EnableHeaderFix.IsChecked == true)
                 {
                     HeaderFixer headerfixer = new HeaderFixer(OutputFilename.Text, OutputFilename.Text);
@@ -110,19 +111,15 @@ namespace Sintaxinator
                 {
                     OperationsHeader.Content = "BBD mode";
                     bbdMode = true;
-                    XorInstructions.Visibility = Visibility.Hidden;
                     XorControls.Visibility = Visibility.Hidden;
                     ReorderControls.Visibility = Visibility.Hidden;
-                    HeaderControls.Visibility = Visibility.Hidden;
                 }
                 else
                 {
                     OperationsHeader.Content = "Sintax mode";
                     bbdMode = false;
-                    XorInstructions.Visibility = Visibility.Visible;
                     XorControls.Visibility = Visibility.Visible;
                     ReorderControls.Visibility = Visibility.Visible;
-                    HeaderControls.Visibility = Visibility.Visible;
                 }
 
             }
