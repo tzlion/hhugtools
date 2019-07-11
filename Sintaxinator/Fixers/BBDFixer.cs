@@ -8,7 +8,7 @@ namespace Sintaxinator.Fixers
     {
         public BBDFixer(string inputFilename, string outputFilename) : base(inputFilename, outputFilename) { }
 
-        public void TestFix(byte[] reordering)
+        public void ReorderAllBytes(byte[] reordering)
         {
 
             byte[] processed = { };

@@ -31,9 +31,9 @@
         <Button x:Name="OutputFileSelect" Content="Select" HorizontalAlignment="Left" Margin="444,151,0,0" VerticalAlignment="Top" Width="56" Height="27" Click="OutputFileSelect_Click"/>
         <Label x:Name="ErrorMsg" Content="initialising" HorizontalAlignment="Left" Margin="111,90,0,0" VerticalAlignment="Top" Foreground="Black" FontFamily="Georgia"/>
         <Label x:Name="OperationsHeader" Content="Sintax mode" HorizontalAlignment="Left" Margin="15,183,0,0" VerticalAlignment="Top" Foreground="Black" FontFamily="Georgia" FontSize="18" FontWeight="Bold" FontStyle="Italic"/>
-        <GroupBox x:Name="BBDStuff" BorderThickness="0" Margin="14,215,0,0" Visibility="Hidden">
+        <GroupBox x:Name="BBDStuff" BorderThickness="0" Margin="14,281,0,0" Visibility="Hidden">
             <Grid>
-                <CheckBox x:Name="EnableBBDDescramble" Content="Bit reorder" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" IsChecked="True" Foreground="White" Checked="UnsetNonAuto"/>
+                <CheckBox x:Name="EnableBBDDescramble" Content="Bit reorder" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Foreground="White" Checked="UnsetAuto"/>
                 <TextBox x:Name="BBDBitDescramble" HorizontalAlignment="Left" Text="01234567" Height="18" Margin="18,18,0,0" VerticalAlignment="Top" Width="80" MaxLength="8" MaxLines="1" FontFamily="Courier New"  Grid.RowSpan="2"/>
             </Grid>
         </GroupBox>        
@@ -51,7 +51,7 @@
             </Grid>
         </GroupBox>
         
-        <GroupBox x:Name="XorControls" BorderThickness="0" Margin="14,285,0,0">
+        <GroupBox x:Name="XorControls" BorderThickness="0" Margin="14,281,0,0">
             <Grid>
                 <CheckBox x:Name="EnableXor" Content="XOR Bytes" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" IsChecked="False" Foreground="White" Checked="UnsetAuto"/>
                 <TextBox x:Name="XorRepeat" HorizontalAlignment="Left" Height="18" Margin="14,23,0,0" Text="1" VerticalAlignment="Top" Width="25" MaxLines="1" FontFamily="Courier New"/>
@@ -59,12 +59,14 @@
                 <TextBox x:Name="ManualBits" HorizontalAlignment="Left" Height="18" Margin="51,23,0,0" VerticalAlignment="Top" Width="120" FontFamily="Courier New"/>
             </Grid>
         </GroupBox>
-        <GroupBox x:Name="ReorderControls" BorderThickness="0" Margin="14,338,0,0">
+        <GroupBox x:Name="ReorderControls" BorderThickness="0" Margin="14,330,0,0">
             <Grid>
                 <CheckBox x:Name="EnableReorder" Content="Reorder banks" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" IsChecked="False" Foreground="White" Checked="UnsetAuto"/>
-                <RadioButton x:Name="ReorderBankNo" Content="Use bank nos" HorizontalAlignment="Left" Margin="14,41,0,0" VerticalAlignment="Top" GroupName="ReorderMode" Foreground="White"/>
                 <RadioButton x:Name="ReorderAuto" Content="Use mode" IsChecked="True" HorizontalAlignment="Left" Margin="14,21,0,0" VerticalAlignment="Top" GroupName="ReorderMode" Foreground="White"/>
-                <TextBox x:Name="ReorderMode2" HorizontalAlignment="Left" Height="18" Margin="89,21,0,0" VerticalAlignment="Top" Width="25" MaxLength="2" MaxLines="1" FontFamily="Courier New"  Grid.RowSpan="2"/>
+                <TextBox x:Name="ReorderAutoMode" HorizontalAlignment="Left" Height="18" Margin="89,21,0,0" VerticalAlignment="Top" Width="25" MaxLength="2" MaxLines="1" FontFamily="Courier New"  Grid.RowSpan="2"/>
+                <RadioButton x:Name="ReorderBankNo" Content="Use bank nos" HorizontalAlignment="Left" Margin="14,41,0,0" VerticalAlignment="Top" GroupName="ReorderMode" Foreground="White"/>
+                <RadioButton x:Name="ReorderSpecified" Content="Bit reorder" HorizontalAlignment="Left" Margin="14,61,0,0" VerticalAlignment="Top" GroupName="ReorderMode" Foreground="White"/>
+                <TextBox x:Name="ReorderSpecifiedOrder" HorizontalAlignment="Left" Height="18" Margin="92,61,0,0" VerticalAlignment="Top" Width="80" MaxLength="8" MaxLines="1" FontFamily="Courier New"  Grid.RowSpan="2"/>
             </Grid>
         </GroupBox>
         

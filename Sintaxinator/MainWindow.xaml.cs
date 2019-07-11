@@ -33,35 +33,60 @@ namespace Sintaxinator
             OutputFilename.Text = FileSelection.SelectOutputFile();
         }
 
+        private byte[] parseReorderingString(String input)
+        {
+            char[] reorderingChars = input.ToCharArray();
+            if (reorderingChars.Length != 8)
+            {
+                throw new Exception("Reordering must be 8 digits");
+            }
+
+            byte[] reordering = new byte[8];
+            for (int x = 0; x < 8; x++)
+            {
+                reordering[x] = byte.Parse(reorderingChars[x].ToString());
+            }
+
+            return reordering;
+        }
+
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 if (bbdMode)
                 {
+                    if (EnableFullAuto.IsChecked == true)
+                    {
+                        throw new Exception("Full auto not supported for BBD yet");
+                    }
+                    
                     BBDFixer bbdFixer = new BBDFixer(InputFilename.Text, OutputFilename.Text);
                     if (EnableBBDDescramble.IsChecked == true)
                     {
-                        char[] reorderingChars = BBDBitDescramble.Text.ToCharArray();
-                        if (reorderingChars.Length != 8)
-                        {
-                            throw new Exception("Reordering must be 8 digits");
-                        }
-
-                        byte[] reordering = new byte[8];
-                        for (int x = 0; x < 8; x++)
-                        {
-                            reordering[x] = byte.Parse(reorderingChars[x].ToString());
-                        }
-                        
-                        bbdFixer.TestFix(reordering);
+                        byte[] reordering = parseReorderingString(BBDBitDescramble.Text);                        
+                        bbdFixer.ReorderAllBytes(reordering);
                         bbdFixer.Save();
                     }
 
                     if (EnableReorder.IsChecked == true)
                     {
                         SintaxFixer sintaxFixer = new SintaxFixer(OutputFilename.Text, OutputFilename.Text);
-                        sintaxFixer.reorder(true);
+                        if (ReorderAuto.IsChecked == true)
+                        {
+                            throw new Exception("Reorder mode not supported for BBD yet");
+                            byte reorderMode = byte.Parse(ReorderAutoMode.Text, System.Globalization.NumberStyles.HexNumber);
+                            sintaxFixer.reorder(false, sintaxFixer.getSintaxBankReorderings(reorderMode));
+                        }
+                        else if (ReorderBankNo.IsChecked == true)
+                        {
+                            sintaxFixer.reorder(true);
+                        }
+                        else if (ReorderSpecified.IsChecked == true)
+                        {
+                            byte[] reordering = parseReorderingString(ReorderSpecifiedOrder.Text);            
+                            sintaxFixer.reorder(false, reordering);
+                        }
                         sintaxFixer.Save();
                     }
                 }
@@ -94,12 +119,17 @@ namespace Sintaxinator
                         {
                             if (ReorderAuto.IsChecked == true)
                             {
-                                byte reorderMode = byte.Parse(ReorderMode2.Text, System.Globalization.NumberStyles.HexNumber);
+                                byte reorderMode = byte.Parse(ReorderAutoMode.Text, System.Globalization.NumberStyles.HexNumber);
                                 sintaxFixer.reorder(false, sintaxFixer.getSintaxBankReorderings(reorderMode));
                             }
                             else if (ReorderBankNo.IsChecked == true)
                             {
                                 sintaxFixer.reorder(true);
+                            }
+                            else if (ReorderSpecified.IsChecked == true)
+                            {
+                                byte[] reordering = parseReorderingString(ReorderSpecifiedOrder.Text);            
+                                sintaxFixer.reorder(false, reordering);
                             }
                         }
                     }
@@ -178,22 +208,14 @@ namespace Sintaxinator
                 {
                     OperationsHeader.Content = "BBD mode";
                     bbdMode = true;
-                    FullAutoControls.Visibility = Visibility.Hidden;
                     XorControls.Visibility = Visibility.Hidden;
-                    ReorderBankNo.Visibility = Visibility.Hidden;
-                    ReorderMode2.Visibility = Visibility.Hidden;
-                    ReorderAuto.Visibility = Visibility.Hidden;
                     BBDStuff.Visibility = Visibility.Visible;
                 }
                 else
                 {
                     OperationsHeader.Content = "Sintax mode";
                     bbdMode = false;
-                    FullAutoControls.Visibility = Visibility.Visible;
                     XorControls.Visibility = Visibility.Visible;
-                    ReorderBankNo.Visibility = Visibility.Visible;
-                    ReorderMode2.Visibility = Visibility.Visible;
-                    ReorderAuto.Visibility = Visibility.Visible;
                     BBDStuff.Visibility = Visibility.Hidden;
                 }
 
@@ -210,6 +232,7 @@ namespace Sintaxinator
             // so gotta check if they exist first
             if (EnableReorder != null) EnableReorder.IsChecked = false;
             if (EnableXor != null) EnableXor.IsChecked = false;
+            if (EnableBBDDescramble != null) EnableBBDDescramble.IsChecked = false;
         }
         
         private void UnsetAuto(object sender, RoutedEventArgs e)
