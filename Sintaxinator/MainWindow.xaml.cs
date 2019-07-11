@@ -61,7 +61,7 @@ namespace Sintaxinator
                     if (EnableReorder.IsChecked == true)
                     {
                         SintaxFixer sintaxFixer = new SintaxFixer(OutputFilename.Text, OutputFilename.Text);
-                        sintaxFixer.reorder(true, null);
+                        sintaxFixer.reorder(true);
                         sintaxFixer.Save();
                     }
                 }
@@ -71,7 +71,8 @@ namespace Sintaxinator
 
                     if (EnableFullAuto.IsChecked == true)
                     {
-                        sintaxFixer.reorder(false, byte.Parse(ReorderMode.Text, System.Globalization.NumberStyles.HexNumber));
+                        byte reorderMode = byte.Parse(ReorderMode.Text, System.Globalization.NumberStyles.HexNumber);
+                        sintaxFixer.reorder(false, sintaxFixer.getSintaxBankReorderings(reorderMode));
                         string[] flipstrings = {  
                             "0x" + ManualBits1.Text, 
                             "0x" + ManualBits2.Text, 
@@ -93,11 +94,12 @@ namespace Sintaxinator
                         {
                             if (ReorderAuto.IsChecked == true)
                             {
-                                sintaxFixer.reorder(false, byte.Parse(ReorderMode2.Text, System.Globalization.NumberStyles.HexNumber));
+                                byte reorderMode = byte.Parse(ReorderMode2.Text, System.Globalization.NumberStyles.HexNumber);
+                                sintaxFixer.reorder(false, sintaxFixer.getSintaxBankReorderings(reorderMode));
                             }
                             else if (ReorderBankNo.IsChecked == true)
                             {
-                                sintaxFixer.reorder(true, null);
+                                sintaxFixer.reorder(true);
                             }
                         }
                     }

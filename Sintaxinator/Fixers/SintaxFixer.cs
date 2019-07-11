@@ -63,7 +63,7 @@ namespace Sintaxinator.Fixers
         }
 
         // This is pretty slow
-        public void reorder(bool checkBankBits, byte? reorderMode)
+        public void reorder(bool checkBankBits, byte[] romBankNoReordering = null)
         {
 
             byte[] blankrompart = new byte[0x4000];
@@ -84,7 +84,7 @@ namespace Sintaxinator.Fixers
 
                 if (curBank == 0) realBankNo = 0; // Header
                 else if (checkBankBits) realBankNo = bankData[bankData.Length-1];
-                else realBankNo = getRealBankNo(curBank, reorderMode);
+                else realBankNo = getRealBankNo(curBank, romBankNoReordering);
 
                 superdata[realBankNo] = bankData;
             }
@@ -99,7 +99,7 @@ namespace Sintaxinator.Fixers
 
         }
 
-        private byte getRealBankNo(int sequentialBankNo, byte? reorderMode)
+        public byte[] getSintaxBankReorderings(byte? reorderMode)
         {
             // these are from hhugboy
             byte[] reordering00 = {0,7,2,1,4,3,6,5};
@@ -111,37 +111,30 @@ namespace Sintaxinator.Fixers
             byte[] reordering0d = {6,7,0,1,2,3,4,5};
             byte[] noReordering = {0,1,2,3,4,5,6,7};
     
-            byte[] romBankNoReordering;
-
             switch(reorderMode & 0x0f) {
                 case 0x0D:
-                    romBankNoReordering = reordering0d;
-                    break;
+                    return reordering0d;
                 case 0x09:
-                    romBankNoReordering = reordering09;
-                    break;
+                    return reordering09;
                 case 0x00:
-                    romBankNoReordering = reordering00;
-                    break;
+                    return reordering00;
                 case 0x01:
-                    romBankNoReordering = reordering01;
-                    break;
+                    return reordering01;
                 case 0x05:
-                    romBankNoReordering = reordering05;
-                    break;
+                    return reordering05;
                 case 0x07:
-                    romBankNoReordering = reordering07;
-                    break;
+                    return reordering07;
                 case 0x0B:
-                    romBankNoReordering = reordering0b;
-                    break;
+                    return reordering0b;
                 case 0x0F:
-                    romBankNoReordering = noReordering;
-                    break;
+                    return noReordering;
                 default:
                     throw new Exception("unsupported reordering type");
             }
+        }
 
+        private byte getRealBankNo(int sequentialBankNo, byte[] romBankNoReordering)
+        {
             return ByteManipulation.ReorderBits((byte)sequentialBankNo, romBankNoReordering);
         }
     }
