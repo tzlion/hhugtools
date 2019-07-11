@@ -58,7 +58,7 @@ namespace Sintaxinator
                     {
                         if (EnableXor.IsChecked == true)
                         {
-                            sintaxFixer.flipBits(false, ManualBits.Text, int.Parse(FlipRepeat2.Text));
+                            sintaxFixer.flipBits(false, ManualBits.Text, int.Parse(XorRepeat.Text));
                         }
                         if (EnableReorder.IsChecked == true)
                         {
@@ -124,16 +124,16 @@ namespace Sintaxinator
                     OperationsHeader.Content = "BBD mode";
                     bbdMode = true;
                     FullAutoControls.Visibility = Visibility.Hidden;
-                    XorControls2.Visibility = Visibility.Hidden;
-                    ReorderControls2.Visibility = Visibility.Hidden;
+                    XorControls.Visibility = Visibility.Hidden;
+                    ReorderControls.Visibility = Visibility.Hidden;
                 }
                 else
                 {
                     OperationsHeader.Content = "Sintax mode";
                     bbdMode = false;
                     FullAutoControls.Visibility = Visibility.Visible;
-                    XorControls2.Visibility = Visibility.Visible;
-                    ReorderControls2.Visibility = Visibility.Visible;
+                    XorControls.Visibility = Visibility.Visible;
+                    ReorderControls.Visibility = Visibility.Visible;
                 }
 
             }
