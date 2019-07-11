@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Common.Utility;
 using Common.Rom;
 
@@ -40,5 +41,47 @@ namespace Sintaxinator.Fixers
             }
             return newData;
         }
+
+        public byte[] getBBDDataReorderings(byte? reorderMode)
+        {
+            // these are from hhugboy
+            byte[] noReordering = {0,1,2,3,4,5,6,7};
+            byte[] reordering04 = {0,1,5,3,4,6,2,7};
+            byte[] reordering05 = {0,1,2,6,4,5,3,7};
+            byte[] reordering07 = {0,1,5,3,4,2,6,7};
+            
+            switch(reorderMode & 0x07) {
+                case 0x00:
+                    return noReordering;
+                case 0x04:
+                    return reordering04;
+                case 0x05:
+                    return reordering05;
+                case 0x07:
+                    return reordering07;
+                default:
+                    throw new Exception("unsupported reordering type");
+            }
+        }
+
+        public byte[] getBBDBankReorderings(byte? reorderMode)
+        {
+            // these are from hhugboy
+            byte[] noReordering = {0,1,2,3,4,5,6,7};
+            byte[] reordering03 = {0,1,2,6,7,5,3,4};
+            byte[] reordering05 = {0,1,2,7,3,4,5,6};
+            
+            switch(reorderMode & 0x07) {
+                case 0x00:
+                    return noReordering;
+                case 0x03:
+                    return reordering03;
+                case 0x05:
+                    return reordering05;
+                default:
+                    throw new Exception("unsupported reordering type");
+            }
+        }
+
     }
 }

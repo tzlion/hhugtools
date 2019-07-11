@@ -56,17 +56,28 @@ namespace Sintaxinator
             {
                 if (bbdMode)
                 {
+                    BBDFixer bbdFixer = new BBDFixer(InputFilename.Text, OutputFilename.Text);
+                    
                     if (EnableFullAuto.IsChecked == true)
                     {
-                        throw new Exception("Full auto not supported for BBD yet");
+                        byte reorderMode = byte.Parse(BitScrambleMode.Text, System.Globalization.NumberStyles.HexNumber);
+                        bbdFixer.ReorderAllBytes(bbdFixer.getBBDDataReorderings(reorderMode));
                     }
                     
-                    BBDFixer bbdFixer = new BBDFixer(InputFilename.Text, OutputFilename.Text);
                     if (EnableBBDDescramble.IsChecked == true)
                     {
                         byte[] reordering = parseReorderingString(BBDBitDescramble.Text);                        
                         bbdFixer.ReorderAllBytes(reordering);
-                        bbdFixer.Save();
+                    }
+                    
+                    bbdFixer.Save();
+                    
+                    if (EnableFullAuto.IsChecked == true)
+                    {
+                        SintaxFixer sintaxFixer = new SintaxFixer(OutputFilename.Text, OutputFilename.Text);
+                        byte reorderMode = byte.Parse(ReorderMode.Text, System.Globalization.NumberStyles.HexNumber);
+                        sintaxFixer.reorder(false, bbdFixer.getBBDBankReorderings(reorderMode));
+                        sintaxFixer.Save();
                     }
 
                     if (EnableReorder.IsChecked == true)
@@ -74,9 +85,8 @@ namespace Sintaxinator
                         SintaxFixer sintaxFixer = new SintaxFixer(OutputFilename.Text, OutputFilename.Text);
                         if (ReorderAuto.IsChecked == true)
                         {
-                            throw new Exception("Reorder mode not supported for BBD yet");
                             byte reorderMode = byte.Parse(ReorderAutoMode.Text, System.Globalization.NumberStyles.HexNumber);
-                            sintaxFixer.reorder(false, sintaxFixer.getSintaxBankReorderings(reorderMode));
+                            sintaxFixer.reorder(false, bbdFixer.getBBDBankReorderings(reorderMode));
                         }
                         else if (ReorderBankNo.IsChecked == true)
                         {
@@ -210,6 +220,13 @@ namespace Sintaxinator
                     bbdMode = true;
                     XorControls.Visibility = Visibility.Hidden;
                     BBDStuff.Visibility = Visibility.Visible;
+                    BitScrambleLabel.Visibility = Visibility.Visible;
+                    BitScrambleMode.Visibility = Visibility.Visible;
+                    XORsLabel.Visibility = Visibility.Hidden;
+                    ManualBits1.Visibility = Visibility.Hidden;
+                    ManualBits2.Visibility = Visibility.Hidden;
+                    ManualBits3.Visibility = Visibility.Hidden;
+                    ManualBits4.Visibility = Visibility.Hidden;
                 }
                 else
                 {
@@ -217,6 +234,13 @@ namespace Sintaxinator
                     bbdMode = false;
                     XorControls.Visibility = Visibility.Visible;
                     BBDStuff.Visibility = Visibility.Hidden;
+                    BitScrambleLabel.Visibility = Visibility.Hidden;
+                    BitScrambleMode.Visibility = Visibility.Hidden;
+                    XORsLabel.Visibility = Visibility.Visible;
+                    ManualBits1.Visibility = Visibility.Visible;
+                    ManualBits2.Visibility = Visibility.Visible;
+                    ManualBits3.Visibility = Visibility.Visible;
+                    ManualBits4.Visibility = Visibility.Visible;
                 }
 
             }

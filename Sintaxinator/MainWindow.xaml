@@ -34,20 +34,22 @@
         <GroupBox x:Name="BBDStuff" BorderThickness="0" Margin="14,281,0,0" Visibility="Hidden">
             <Grid>
                 <CheckBox x:Name="EnableBBDDescramble" Content="Bit reorder" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Foreground="White" Checked="UnsetAuto"/>
-                <TextBox x:Name="BBDBitDescramble" HorizontalAlignment="Left" Text="01234567" Height="18" Margin="18,18,0,0" VerticalAlignment="Top" Width="80" MaxLength="8" MaxLines="1" FontFamily="Courier New"  Grid.RowSpan="2"/>
+                <TextBox x:Name="BBDBitDescramble" HorizontalAlignment="Left" Text="01234567" Height="18" Margin="18,21,0,0" VerticalAlignment="Top" Width="80" MaxLength="8" MaxLines="1" FontFamily="Courier New"  Grid.RowSpan="2"/>
             </Grid>
         </GroupBox>        
         
         <GroupBox x:Name="FullAutoControls" BorderThickness="0" Margin="14,215,0,0">
             <Grid>
                 <CheckBox x:Name="EnableFullAuto" Content="Full Auto" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" IsChecked="True" Foreground="White" Checked="UnsetNonAuto"/>
-                <Label Content="Reorder mode" HorizontalAlignment="Left" Margin="14,14,0,0" VerticalAlignment="Top" Foreground="White"/>
-                <TextBox x:Name="ReorderMode" HorizontalAlignment="Left" Height="18" Margin="100,18,0,0" VerticalAlignment="Top" Width="25" MaxLength="2" MaxLines="1" FontFamily="Courier New"  Grid.RowSpan="2"/>
-                <Label Content="XORs" HorizontalAlignment="Left" Margin="14,38,0,0" VerticalAlignment="Top" Foreground="White"/>
+                <Label Content="Bank scramble mode" HorizontalAlignment="Left" Margin="14,14,0,0" VerticalAlignment="Top" Foreground="White"/>
+                <TextBox x:Name="ReorderMode" HorizontalAlignment="Left" Height="18" Margin="136,18,0,0" VerticalAlignment="Top" Width="25" MaxLength="2" MaxLines="1" FontFamily="Courier New"  Grid.RowSpan="2"/>
+                <Label x:Name="XORsLabel" Content="XORs" HorizontalAlignment="Left" Margin="14,38,0,0" VerticalAlignment="Top" Foreground="White"/>
                 <TextBox x:Name="ManualBits1" HorizontalAlignment="Left" Height="18" Margin="53,42,0,0" VerticalAlignment="Top" Width="25" MaxLength="2" FontFamily="Courier New"/>
                 <TextBox x:Name="ManualBits2" HorizontalAlignment="Left" Height="18" Margin="83,42,0,0" VerticalAlignment="Top" Width="25" MaxLength="2" FontFamily="Courier New"/>
                 <TextBox x:Name="ManualBits3" HorizontalAlignment="Left" Height="18" Margin="113,42,0,0" VerticalAlignment="Top" Width="25" MaxLength="2" FontFamily="Courier New"/>
-                <TextBox x:Name="ManualBits4" HorizontalAlignment="Left" Height="18" Margin="143,42,0,0" VerticalAlignment="Top" Width="25" MaxLength="2" FontFamily="Courier New"/>
+                <TextBox x:Name="ManualBits4" HorizontalAlignment="Left" Height="18" Margin="143,42,0,0" VerticalAlignment="Top" Width="25" MaxLength="2" FontFamily="Courier New"/>                
+                <Label x:Name="BitScrambleLabel" Content="Bit scramble mode" HorizontalAlignment="Left" Margin="14,38,0,0" VerticalAlignment="Top" Foreground="White" Visibility="Hidden"/>
+                <TextBox x:Name="BitScrambleMode" HorizontalAlignment="Left" Height="18" Margin="136,42,0,0" VerticalAlignment="Top" Width="25" MaxLength="2" FontFamily="Courier New"  Visibility="Hidden"/>
             </Grid>
         </GroupBox>
         
