@@ -8,7 +8,7 @@ namespace Sintaxinator.Fixers
     {
         public BBDFixer(string inputFilename, string outputFilename) : base(inputFilename, outputFilename) { }
 
-        public void TestFix()
+        public void TestFix(byte[] reordering)
         {
 
             byte[] processed = { };
@@ -24,24 +24,19 @@ namespace Sintaxinator.Fixers
                 }
                 else
                 {
-                    processed = processed.Concat(ManipData(bankData)).ToArray();
+                    processed = processed.Concat(ManipData(bankData, reordering)).ToArray();
                 }
             }
 
             this.rom = processed;
         }
 
-        private byte[] ManipData(byte[] origData)
+        private byte[] ManipData(byte[] origData, byte[] reordering)
         {
             byte[] newData = new byte[origData.Length];
             for (int x = 0; x < origData.Length; x++)
             {
-               // newData[x] = (byte)((origData[x] & 0xDB) + ((origData[x] & 0x20) >> 3) + ((origData[x] & 0x04) << 3)); // This SHOULD swap bits 2 and 5 around (numbered 01234567) // for DIGIMON
-               // newData[x] = (byte)((origData[x] & 0xED) + ((origData[x] & 0x10) >> 3) + ((origData[x] & 0x02) << 3)); // This SHOULD swap bits 3 and 6 around (numbered 01234567) // for HARRY
-              //  newData[x] = switchOrder(origData[x], new byte[] { 0,1,5,3,4,6,2,7 }); // for GAROU // Garou is not fine
-
-                newData[x] = ByteManipulation.ReorderBits(origData[x], new byte[] { 0,1,5,3,4,2,6,7 }); // Simplified test for Digimon // Yeah that works, coolz
-
+                newData[x] = ByteManipulation.ReorderBits(origData[x], reordering);
             }
             return newData;
         }

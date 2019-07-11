@@ -40,8 +40,23 @@ namespace Sintaxinator
                 if (bbdMode)
                 {
                     BBDFixer bbdFixer = new BBDFixer(InputFilename.Text, OutputFilename.Text);
-                    bbdFixer.TestFix();
-                    bbdFixer.Save();
+                    if (EnableBBDDescramble.IsChecked == true)
+                    {
+                        char[] reorderingChars = BBDBitDescramble.Text.ToCharArray();
+                        if (reorderingChars.Length != 8)
+                        {
+                            throw new Exception("Reordering must be 8 digits");
+                        }
+
+                        byte[] reordering = new byte[8];
+                        for (int x = 0; x < 8; x++)
+                        {
+                            reordering[x] = byte.Parse(reorderingChars[x].ToString());
+                        }
+                        
+                        bbdFixer.TestFix(reordering);
+                        bbdFixer.Save();
+                    }
                 }
                 else
                 {
@@ -157,6 +172,7 @@ namespace Sintaxinator
                     FullAutoControls.Visibility = Visibility.Hidden;
                     XorControls.Visibility = Visibility.Hidden;
                     ReorderControls.Visibility = Visibility.Hidden;
+                    BBDStuff.Visibility = Visibility.Visible;
                 }
                 else
                 {
@@ -165,6 +181,7 @@ namespace Sintaxinator
                     FullAutoControls.Visibility = Visibility.Visible;
                     XorControls.Visibility = Visibility.Visible;
                     ReorderControls.Visibility = Visibility.Visible;
+                    BBDStuff.Visibility = Visibility.Hidden;
                 }
 
             }
