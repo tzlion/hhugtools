@@ -57,6 +57,13 @@ namespace Sintaxinator
                         bbdFixer.TestFix(reordering);
                         bbdFixer.Save();
                     }
+
+                    if (EnableReorder.IsChecked == true)
+                    {
+                        SintaxFixer sintaxFixer = new SintaxFixer(OutputFilename.Text, OutputFilename.Text);
+                        sintaxFixer.reorder(true, null);
+                        sintaxFixer.Save();
+                    }
                 }
                 else
                 {
@@ -171,7 +178,9 @@ namespace Sintaxinator
                     bbdMode = true;
                     FullAutoControls.Visibility = Visibility.Hidden;
                     XorControls.Visibility = Visibility.Hidden;
-                    ReorderControls.Visibility = Visibility.Hidden;
+                    ReorderBankNo.Visibility = Visibility.Hidden;
+                    ReorderMode2.Visibility = Visibility.Hidden;
+                    ReorderAuto.Visibility = Visibility.Hidden;
                     BBDStuff.Visibility = Visibility.Visible;
                 }
                 else
@@ -180,7 +189,9 @@ namespace Sintaxinator
                     bbdMode = false;
                     FullAutoControls.Visibility = Visibility.Visible;
                     XorControls.Visibility = Visibility.Visible;
-                    ReorderControls.Visibility = Visibility.Visible;
+                    ReorderBankNo.Visibility = Visibility.Visible;
+                    ReorderMode2.Visibility = Visibility.Visible;
+                    ReorderAuto.Visibility = Visibility.Visible;
                     BBDStuff.Visibility = Visibility.Hidden;
                 }
 

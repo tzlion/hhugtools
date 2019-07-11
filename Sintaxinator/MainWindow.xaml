@@ -61,7 +61,7 @@
         </GroupBox>
         <GroupBox x:Name="ReorderControls" BorderThickness="0" Margin="14,338,0,0">
             <Grid>
-                <CheckBox x:Name="EnableReorder" Content="Reorder (after XOR)" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" IsChecked="False" Foreground="White" Checked="UnsetAuto"/>
+                <CheckBox x:Name="EnableReorder" Content="Reorder banks" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" IsChecked="False" Foreground="White" Checked="UnsetAuto"/>
                 <RadioButton x:Name="ReorderBankNo" Content="Use bank nos" HorizontalAlignment="Left" Margin="14,41,0,0" VerticalAlignment="Top" GroupName="ReorderMode" Foreground="White"/>
                 <RadioButton x:Name="ReorderAuto" Content="Use mode" IsChecked="True" HorizontalAlignment="Left" Margin="14,21,0,0" VerticalAlignment="Top" GroupName="ReorderMode" Foreground="White"/>
                 <TextBox x:Name="ReorderMode2" HorizontalAlignment="Left" Height="18" Margin="89,21,0,0" VerticalAlignment="Top" Width="25" MaxLength="2" MaxLines="1" FontFamily="Courier New"  Grid.RowSpan="2"/>
