@@ -56,17 +56,20 @@ namespace Sintaxinator
                     }
                     else
                     {
-                        if (EnableReorder2.IsChecked == true && ReorderAuto2.IsChecked == true)
-                        {
-                            sintaxFixer.reorder(false, byte.Parse(ReorderMode2.Text, System.Globalization.NumberStyles.HexNumber));
-                        }
-                        if (EnableBitFlip2.IsChecked == true)
+                        if (EnableXor.IsChecked == true)
                         {
                             sintaxFixer.flipBits(false, ManualBits.Text, int.Parse(FlipRepeat2.Text));
                         }
-                        if (EnableReorder2.IsChecked == true && ReorderBankNo2.IsChecked == true)
+                        if (EnableReorder.IsChecked == true)
                         {
-                            sintaxFixer.reorder(true, null);
+                            if (ReorderAuto.IsChecked == true)
+                            {
+                                sintaxFixer.reorder(false, byte.Parse(ReorderMode2.Text, System.Globalization.NumberStyles.HexNumber));
+                            }
+                            else if (ReorderBankNo.IsChecked == true)
+                            {
+                                sintaxFixer.reorder(true, null);
+                            }
                         }
                     }
                     sintaxFixer.Save();
@@ -144,8 +147,8 @@ namespace Sintaxinator
         {
             // this event, apparently, is fired before the other 2 checkboxes have even loaded
             // so gotta check if they exist first
-            if (EnableReorder2 != null) EnableReorder2.IsChecked = false;
-            if (EnableBitFlip2 != null) EnableBitFlip2.IsChecked = false;
+            if (EnableReorder != null) EnableReorder.IsChecked = false;
+            if (EnableXor != null) EnableXor.IsChecked = false;
         }
         
         private void UnsetAuto(object sender, RoutedEventArgs e)

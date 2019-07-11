@@ -44,17 +44,17 @@
             </Grid>
         </GroupBox>
         
-        <GroupBox x:Name="ReorderControls2" BorderThickness="0" Margin="14,285,0,0">
+        <GroupBox x:Name="ReorderControls2" BorderThickness="0" Margin="14,338,0,0">
             <Grid>
-                <CheckBox x:Name="EnableReorder2" Content="Reorder" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" IsChecked="False" Foreground="White" Checked="UnsetAuto"/>
-                <RadioButton x:Name="ReorderBankNo2" Content="Use bank nos after XOR" HorizontalAlignment="Left" Margin="14,41,0,0" VerticalAlignment="Top" GroupName="ReorderMode" Foreground="White"/>
-                <RadioButton x:Name="ReorderAuto2" Content="Use mode" IsChecked="True" HorizontalAlignment="Left" Margin="14,21,0,0" VerticalAlignment="Top" GroupName="ReorderMode" Foreground="White"/>
+                <CheckBox x:Name="EnableReorder" Content="Reorder (after XOR)" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" IsChecked="False" Foreground="White" Checked="UnsetAuto"/>
+                <RadioButton x:Name="ReorderBankNo" Content="Use bank nos" HorizontalAlignment="Left" Margin="14,41,0,0" VerticalAlignment="Top" GroupName="ReorderMode" Foreground="White"/>
+                <RadioButton x:Name="ReorderAuto" Content="Use mode" IsChecked="True" HorizontalAlignment="Left" Margin="14,21,0,0" VerticalAlignment="Top" GroupName="ReorderMode" Foreground="White"/>
                 <TextBox x:Name="ReorderMode2" HorizontalAlignment="Left" Height="18" Margin="89,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="25" MaxLength="2" MaxLines="1" FontFamily="Courier New"  Grid.RowSpan="2"/>
             </Grid>
         </GroupBox>
-        <GroupBox x:Name="XorControls2" BorderThickness="0" Margin="14,352,0,0">
+        <GroupBox x:Name="XorControls2" BorderThickness="0" Margin="14,285,0,0">
             <Grid>
-                <CheckBox x:Name="EnableBitFlip2" Content="XOR Bytes" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" IsChecked="False" Foreground="White" Checked="UnsetAuto"/>
+                <CheckBox x:Name="EnableXor" Content="XOR Bytes" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" IsChecked="False" Foreground="White" Checked="UnsetAuto"/>
                 <TextBox x:Name="FlipRepeat2" HorizontalAlignment="Left" Height="18" Margin="14,23,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="25" MaxLines="1" FontFamily="Courier New"/>
                 <Label Content="x" HorizontalAlignment="Left" Margin="37,18,0,0" VerticalAlignment="Top"/>
                 <TextBox x:Name="ManualBits" HorizontalAlignment="Left" Height="18" Margin="51,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontFamily="Courier New"/>
