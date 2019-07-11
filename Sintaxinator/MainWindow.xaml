@@ -29,7 +29,7 @@
         <Button x:Name="InputFileSelect" Content="Select" HorizontalAlignment="Left" Margin="444,119,0,0" VerticalAlignment="Top" Width="56" Height="27" Click="InputFileSelect_Click"/>
         <TextBox x:Name="OutputFilename" HorizontalAlignment="Left" Height="27" Margin="19,151,0,0" VerticalAlignment="Top" Width="420" FontFamily="Georgia" FontSize="16" FontStyle="Italic" Text="out" MaxLines="1"/>
         <Button x:Name="OutputFileSelect" Content="Select" HorizontalAlignment="Left" Margin="444,151,0,0" VerticalAlignment="Top" Width="56" Height="27" Click="OutputFileSelect_Click"/>
-        <Label x:Name="ErrorMsg" Content="initialising" HorizontalAlignment="Left" Margin="111,90,0,0" VerticalAlignment="Top" Width="240" Foreground="Black" FontFamily="Georgia"/>
+        <Label x:Name="ErrorMsg" Content="initialising" HorizontalAlignment="Left" Margin="111,90,0,0" VerticalAlignment="Top" Foreground="Black" FontFamily="Georgia"/>
         <Label x:Name="OperationsHeader" Content="Sintax mode" HorizontalAlignment="Left" Margin="15,183,0,0" VerticalAlignment="Top" Foreground="Black" FontFamily="Georgia" FontSize="18" FontWeight="Bold" FontStyle="Italic"/>
         <GroupBox x:Name="FullAutoControls" BorderThickness="0" Margin="14,215,0,0">
             <Grid>

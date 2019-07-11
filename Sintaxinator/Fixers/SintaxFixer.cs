@@ -10,16 +10,16 @@ namespace Sintaxinator.Fixers
     {
         public SintaxFixer(string inputFilename, string outputFilename) : base(inputFilename, outputFilename) { }
 
-        public void flipBits(bool auto, byte[] manualXors, int repeatCount = 1)
+        public void xorAllData(bool auto, byte[] manualXorSet, int repeatCount = 1)
         {
-
-            byte[] processed = {};
+            byte[] processed = { };
             
             int bankCount = this.rom.Length / 0x4000;
 
-            for (int x = 1; x < repeatCount; x++)
+            byte[] manualXors = { };
+            for (int x = 0; x < repeatCount; x++)
             {
-                manualXors = manualXors.Concat(manualXors).ToArray();
+                manualXors = manualXors.Concat(manualXorSet).ToArray();
             }
 
             for (int curBank = 0; curBank < bankCount; curBank++)

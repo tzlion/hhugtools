@@ -50,19 +50,22 @@ namespace Sintaxinator
                     if (EnableFullAuto.IsChecked == true)
                     {
                         sintaxFixer.reorder(false, byte.Parse(ReorderMode.Text, System.Globalization.NumberStyles.HexNumber));
-                        String manualBits = "0x" + ManualBits1.Text + "|0x" + ManualBits2.Text + "|0x" 
-                                            + ManualBits3.Text + "|0x" + ManualBits4.Text;
-                        string[] flipstrings = buildFlipStringArray(manualBits, 64);
+                        string[] flipstrings = {  
+                            "0x" + ManualBits1.Text, 
+                            "0x" + ManualBits2.Text, 
+                            "0x" + ManualBits3.Text, 
+                            "0x" + ManualBits4.Text
+                        };
                         byte[] manualXors = parseFlipStringsToXors(flipstrings);
-                        sintaxFixer.flipBits(false, manualXors, 1);
+                        sintaxFixer.xorAllData(false, manualXors, 64);
                     }
                     else
                     {
                         if (EnableXor.IsChecked == true)
                         {
-                            string[] flipstrings = buildFlipStringArray(ManualBits.Text, int.Parse(XorRepeat.Text));
+                            string[] flipstrings = ManualBits.Text.Split(new String[] { "|" }, new StringSplitOptions()); ;
                             byte[] manualXors = parseFlipStringsToXors(flipstrings);
-                            sintaxFixer.flipBits(false, manualXors, 1);
+                            sintaxFixer.xorAllData(false, manualXors, int.Parse(XorRepeat.Text));
                         }
                         if (EnableReorder.IsChecked == true)
                         {
@@ -102,17 +105,6 @@ namespace Sintaxinator
                 PopulateErrorMessage(hmm);
             }
 
-        }
-        
-        private string[] buildFlipStringArray(string inputString, int repeatCount)
-        {
-            string outputString = "";
-            for (int x = 1; x <= repeatCount; x++)
-            {
-                outputString += inputString;
-                if (x != repeatCount) outputString += "|";
-            }
-            return outputString.Split(new String[] { "|" }, new StringSplitOptions()); ;
         }
 
         private byte parseFlipStringToXor(string flipString)
