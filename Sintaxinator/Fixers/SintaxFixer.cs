@@ -10,20 +10,17 @@ namespace Sintaxinator.Fixers
     {
         public SintaxFixer(string inputFilename, string outputFilename) : base(inputFilename, outputFilename) { }
 
-        public void flipBits(bool auto, string manualstring ="", int repeatCount = 1)
+        public void flipBits(bool auto, byte[] manualXors, int repeatCount = 1)
         {
 
-            byte[] processed = { };
-
-            byte[] manualXors = {};
-
-            if (!auto)
-            {
-                string[] flipstrings = buildFlipStringArray(manualstring,repeatCount);
-                manualXors = parseFlipStringsToXors(flipstrings);
-            }
-
+            byte[] processed = {};
+            
             int bankCount = this.rom.Length / 0x4000;
+
+            for (int x = 1; x < repeatCount; x++)
+            {
+                manualXors = manualXors.Concat(manualXors).ToArray();
+            }
 
             for (int curBank = 0; curBank < bankCount; curBank++)
             {
@@ -54,41 +51,6 @@ namespace Sintaxinator.Fixers
 
             this.rom = processed;
 
-        }
-
-        private string[] buildFlipStringArray(string inputString, int repeatCount)
-        {
-            string outputString = "";
-            for (int x = 1; x <= repeatCount; x++)
-            {
-                outputString += inputString;
-                if (x != repeatCount) outputString += "|";
-            }
-            return outputString.Split(new String[] { "|" }, new StringSplitOptions()); ;
-        }
-
-        private byte parseFlipStringToXor(string flipString)
-        {
-            byte xor = 0;
-            if (flipString.Substring(0, 2) == "0x") {
-                xor = byte.Parse(flipString.Substring(2), System.Globalization.NumberStyles.HexNumber);
-            } else {
-                foreach (char flipbit in flipString.ToCharArray())
-                {
-                    xor += (byte)(0x80 >> int.Parse(flipbit.ToString()));
-                }
-            }
-            return xor;
-        }
-
-        private byte[] parseFlipStringsToXors(string[] flipStrings)
-        {
-            byte[] xors = new byte[flipStrings.Length];
-            for (int x = 0; x < flipStrings.Length; x++)
-            {
-                xors[x] = parseFlipStringToXor(flipStrings[x]);
-            }
-            return xors;
         }
 
         private byte[] xorData(byte[] origData, byte xor)

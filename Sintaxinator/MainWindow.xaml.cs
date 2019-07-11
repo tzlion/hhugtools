@@ -52,13 +52,17 @@ namespace Sintaxinator
                         sintaxFixer.reorder(false, byte.Parse(ReorderMode.Text, System.Globalization.NumberStyles.HexNumber));
                         String manualBits = "0x" + ManualBits1.Text + "|0x" + ManualBits2.Text + "|0x" 
                                             + ManualBits3.Text + "|0x" + ManualBits4.Text;
-                        sintaxFixer.flipBits(false, manualBits, 64);
+                        string[] flipstrings = buildFlipStringArray(manualBits, 64);
+                        byte[] manualXors = parseFlipStringsToXors(flipstrings);
+                        sintaxFixer.flipBits(false, manualXors, 1);
                     }
                     else
                     {
                         if (EnableXor.IsChecked == true)
                         {
-                            sintaxFixer.flipBits(false, ManualBits.Text, int.Parse(XorRepeat.Text));
+                            string[] flipstrings = buildFlipStringArray(ManualBits.Text, int.Parse(XorRepeat.Text));
+                            byte[] manualXors = parseFlipStringsToXors(flipstrings);
+                            sintaxFixer.flipBits(false, manualXors, 1);
                         }
                         if (EnableReorder.IsChecked == true)
                         {
@@ -98,6 +102,41 @@ namespace Sintaxinator
                 PopulateErrorMessage(hmm);
             }
 
+        }
+        
+        private string[] buildFlipStringArray(string inputString, int repeatCount)
+        {
+            string outputString = "";
+            for (int x = 1; x <= repeatCount; x++)
+            {
+                outputString += inputString;
+                if (x != repeatCount) outputString += "|";
+            }
+            return outputString.Split(new String[] { "|" }, new StringSplitOptions()); ;
+        }
+
+        private byte parseFlipStringToXor(string flipString)
+        {
+            byte xor = 0;
+            if (flipString.Substring(0, 2) == "0x") {
+                xor = byte.Parse(flipString.Substring(2), System.Globalization.NumberStyles.HexNumber);
+            } else {
+                foreach (char flipbit in flipString.ToCharArray())
+                {
+                    xor += (byte)(0x80 >> int.Parse(flipbit.ToString()));
+                }
+            }
+            return xor;
+        }
+
+        private byte[] parseFlipStringsToXors(string[] flipStrings)
+        {
+            byte[] xors = new byte[flipStrings.Length];
+            for (int x = 0; x < flipStrings.Length; x++)
+            {
+                xors[x] = parseFlipStringToXor(flipStrings[x]);
+            }
+            return xors;
         }
 
         private void RomType_GotFocus(object sender, RoutedEventArgs e)
