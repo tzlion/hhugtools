@@ -37,10 +37,10 @@
                 <Label Content="Reorder mode" HorizontalAlignment="Left" Margin="14,14,0,0" VerticalAlignment="Top" Foreground="White"/>
                 <TextBox x:Name="ReorderMode" HorizontalAlignment="Left" Height="18" Margin="100,18,0,0" VerticalAlignment="Top" Width="25" MaxLength="2" MaxLines="1" FontFamily="Courier New"  Grid.RowSpan="2"/>
                 <Label Content="XORs" HorizontalAlignment="Left" Margin="14,38,0,0" VerticalAlignment="Top" Foreground="White"/>
-                <TextBox x:Name="ManualBits1" HorizontalAlignment="Left" Height="18" Margin="51,42,0,0" VerticalAlignment="Top" Width="25" MaxLength="2" FontFamily="Courier New"/>
-                <TextBox x:Name="ManualBits2" HorizontalAlignment="Left" Height="18" Margin="81,42,0,0" VerticalAlignment="Top" Width="25" MaxLength="2" FontFamily="Courier New"/>
-                <TextBox x:Name="ManualBits3" HorizontalAlignment="Left" Height="18" Margin="111,42,0,0" VerticalAlignment="Top" Width="25" MaxLength="2" FontFamily="Courier New"/>
-                <TextBox x:Name="ManualBits4" HorizontalAlignment="Left" Height="18" Margin="141,42,0,0" VerticalAlignment="Top" Width="25" MaxLength="2" FontFamily="Courier New"/>
+                <TextBox x:Name="ManualBits1" HorizontalAlignment="Left" Height="18" Margin="53,42,0,0" VerticalAlignment="Top" Width="25" MaxLength="2" FontFamily="Courier New"/>
+                <TextBox x:Name="ManualBits2" HorizontalAlignment="Left" Height="18" Margin="83,42,0,0" VerticalAlignment="Top" Width="25" MaxLength="2" FontFamily="Courier New"/>
+                <TextBox x:Name="ManualBits3" HorizontalAlignment="Left" Height="18" Margin="113,42,0,0" VerticalAlignment="Top" Width="25" MaxLength="2" FontFamily="Courier New"/>
+                <TextBox x:Name="ManualBits4" HorizontalAlignment="Left" Height="18" Margin="143,42,0,0" VerticalAlignment="Top" Width="25" MaxLength="2" FontFamily="Courier New"/>
             </Grid>
         </GroupBox>
         
