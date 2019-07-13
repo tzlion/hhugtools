@@ -1,8 +1,8 @@
 hhugtools v1.0
 ==============
 by taizou
+https://github.com/tzlion/hhugtools
 http://hhug.me
-https://github.com/tzlion/
 cactusgunman@gmail.com
 
 A set of tools for doing things with Game Boy (and other?) ROMs
