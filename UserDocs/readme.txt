@@ -1,5 +1,5 @@
-hhugtools v1.0
-==============
+hhugtools v1.0.0
+================
 by taizou
 https://github.com/tzlion/hhugtools
 http://hhug.me
