@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Windows;
-using Microsoft.Win32;
-using System.Text.RegularExpressions;
 using Sintaxinator.Fixers;
 using Common.Utility;
 using Common.Rom;
@@ -33,7 +31,7 @@ namespace Sintaxinator
             OutputFilename.Text = FileSelection.SelectOutputFile();
         }
 
-        private byte[] parseReorderingString(String input)
+        private byte[] ParseReorderingString(String input)
         {
             char[] reorderingChars = input.ToCharArray();
             if (reorderingChars.Length != 8)
@@ -56,27 +54,27 @@ namespace Sintaxinator
             {
                 if (bbdMode)
                 {
-                    BBDFixer bbdFixer = new BBDFixer(InputFilename.Text, OutputFilename.Text);
+                    BitDescrambler bitDescrambler = new BitDescrambler(InputFilename.Text, OutputFilename.Text);
                     
                     if (EnableFullAuto.IsChecked == true)
                     {
                         byte reorderMode = byte.Parse(BitScrambleMode.Text, System.Globalization.NumberStyles.HexNumber);
-                        bbdFixer.ReorderAllBytes(bbdFixer.getBBDDataReorderings(reorderMode));
+                        bitDescrambler.ReorderAllBytes(Reorderings.GetBbdDataReorderings(reorderMode));
                     }
                     
                     if (EnableBBDDescramble.IsChecked == true)
                     {
-                        byte[] reordering = parseReorderingString(BBDBitDescramble.Text);                        
-                        bbdFixer.ReorderAllBytes(reordering);
+                        byte[] reordering = ParseReorderingString(BBDBitDescramble.Text);                        
+                        bitDescrambler.ReorderAllBytes(reordering);
                     }
                     
-                    bbdFixer.Save();
+                    bitDescrambler.Save();
                     
                     if (EnableFullAuto.IsChecked == true)
                     {
                         SintaxFixer sintaxFixer = new SintaxFixer(OutputFilename.Text, OutputFilename.Text);
                         byte reorderMode = byte.Parse(ReorderMode.Text, System.Globalization.NumberStyles.HexNumber);
-                        sintaxFixer.reorder(false, bbdFixer.getBBDBankReorderings(reorderMode));
+                        sintaxFixer.reorder(false, Reorderings.GetBbdBankReorderings(reorderMode));
                         sintaxFixer.Save();
                     }
 
@@ -86,7 +84,7 @@ namespace Sintaxinator
                         if (ReorderAuto.IsChecked == true)
                         {
                             byte reorderMode = byte.Parse(ReorderAutoMode.Text, System.Globalization.NumberStyles.HexNumber);
-                            sintaxFixer.reorder(false, bbdFixer.getBBDBankReorderings(reorderMode));
+                            sintaxFixer.reorder(false, Reorderings.GetBbdBankReorderings(reorderMode));
                         }
                         else if (ReorderBankNo.IsChecked == true)
                         {
@@ -94,7 +92,7 @@ namespace Sintaxinator
                         }
                         else if (ReorderSpecified.IsChecked == true)
                         {
-                            byte[] reordering = parseReorderingString(ReorderSpecifiedOrder.Text);            
+                            byte[] reordering = ParseReorderingString(ReorderSpecifiedOrder.Text);            
                             sintaxFixer.reorder(false, reordering);
                         }
                         sintaxFixer.Save();
@@ -107,14 +105,14 @@ namespace Sintaxinator
                     if (EnableFullAuto.IsChecked == true)
                     {
                         byte reorderMode = byte.Parse(ReorderMode.Text, System.Globalization.NumberStyles.HexNumber);
-                        sintaxFixer.reorder(false, sintaxFixer.getSintaxBankReorderings(reorderMode));
+                        sintaxFixer.reorder(false, Reorderings.GetSintaxBankReorderings(reorderMode));
                         string[] flipstrings = {  
                             "0x" + ManualBits1.Text, 
                             "0x" + ManualBits2.Text, 
                             "0x" + ManualBits3.Text, 
                             "0x" + ManualBits4.Text
                         };
-                        byte[] manualXors = parseFlipStringsToXors(flipstrings);
+                        byte[] manualXors = ParseFlipStringsToXors(flipstrings);
                         sintaxFixer.xorAllData(false, manualXors, 64);
                     }
                     else
@@ -122,7 +120,7 @@ namespace Sintaxinator
                         if (EnableXor.IsChecked == true)
                         {
                             string[] flipstrings = ManualBits.Text.Split(new String[] { "|" }, new StringSplitOptions()); ;
-                            byte[] manualXors = parseFlipStringsToXors(flipstrings);
+                            byte[] manualXors = ParseFlipStringsToXors(flipstrings);
                             sintaxFixer.xorAllData(false, manualXors, int.Parse(XorRepeat.Text));
                         }
                         if (EnableReorder.IsChecked == true)
@@ -130,7 +128,7 @@ namespace Sintaxinator
                             if (ReorderAuto.IsChecked == true)
                             {
                                 byte reorderMode = byte.Parse(ReorderAutoMode.Text, System.Globalization.NumberStyles.HexNumber);
-                                sintaxFixer.reorder(false, sintaxFixer.getSintaxBankReorderings(reorderMode));
+                                sintaxFixer.reorder(false, Reorderings.GetSintaxBankReorderings(reorderMode));
                             }
                             else if (ReorderBankNo.IsChecked == true)
                             {
@@ -138,7 +136,7 @@ namespace Sintaxinator
                             }
                             else if (ReorderSpecified.IsChecked == true)
                             {
-                                byte[] reordering = parseReorderingString(ReorderSpecifiedOrder.Text);            
+                                byte[] reordering = ParseReorderingString(ReorderSpecifiedOrder.Text);            
                                 sintaxFixer.reorder(false, reordering);
                             }
                         }
@@ -171,7 +169,7 @@ namespace Sintaxinator
 
         }
 
-        private byte parseFlipStringToXor(string flipString)
+        private byte ParseFlipStringToXor(string flipString)
         {
             byte xor = 0;
             if (flipString.Substring(0, 2) == "0x") {
@@ -185,12 +183,12 @@ namespace Sintaxinator
             return xor;
         }
 
-        private byte[] parseFlipStringsToXors(string[] flipStrings)
+        private byte[] ParseFlipStringsToXors(string[] flipStrings)
         {
             byte[] xors = new byte[flipStrings.Length];
             for (int x = 0; x < flipStrings.Length; x++)
             {
-                xors[x] = parseFlipStringToXor(flipStrings[x]);
+                xors[x] = ParseFlipStringToXor(flipStrings[x]);
             }
             return xors;
         }
