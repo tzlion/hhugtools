@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using Sintaxinator.Fixers;
 using Common.Utility;
@@ -52,9 +53,12 @@ namespace Sintaxinator
         {
             try
             {
+                byte[] rom = File.ReadAllBytes(InputFilename.Text);
+                File.WriteAllBytes(OutputFilename.Text, rom);
+                
                 if (bbdMode)
                 {
-                    BitDescrambler bitDescrambler = new BitDescrambler(InputFilename.Text, OutputFilename.Text);
+                    BitDescrambler bitDescrambler = new BitDescrambler(OutputFilename.Text, OutputFilename.Text);
                     
                     if (EnableFullAuto.IsChecked == true)
                     {
@@ -72,40 +76,40 @@ namespace Sintaxinator
                     
                     if (EnableFullAuto.IsChecked == true)
                     {
-                        SintaxFixer sintaxFixer = new SintaxFixer(OutputFilename.Text, OutputFilename.Text);
+                        BankReorderer reorderer = new BankReorderer(OutputFilename.Text, OutputFilename.Text);
                         byte reorderMode = byte.Parse(ReorderMode.Text, System.Globalization.NumberStyles.HexNumber);
-                        sintaxFixer.reorder(false, Reorderings.GetBbdBankReorderings(reorderMode));
-                        sintaxFixer.Save();
+                        reorderer.Reorder(false, Reorderings.GetBbdBankReorderings(reorderMode));
+                        reorderer.Save();
                     }
 
                     if (EnableReorder.IsChecked == true)
                     {
-                        SintaxFixer sintaxFixer = new SintaxFixer(OutputFilename.Text, OutputFilename.Text);
+                        BankReorderer reorderer = new BankReorderer(OutputFilename.Text, OutputFilename.Text);
                         if (ReorderAuto.IsChecked == true)
                         {
                             byte reorderMode = byte.Parse(ReorderAutoMode.Text, System.Globalization.NumberStyles.HexNumber);
-                            sintaxFixer.reorder(false, Reorderings.GetBbdBankReorderings(reorderMode));
+                            reorderer.Reorder(false, Reorderings.GetBbdBankReorderings(reorderMode));
                         }
                         else if (ReorderBankNo.IsChecked == true)
                         {
-                            sintaxFixer.reorder(true);
+                            reorderer.Reorder(true);
                         }
                         else if (ReorderSpecified.IsChecked == true)
                         {
                             byte[] reordering = ParseReorderingString(ReorderSpecifiedOrder.Text);            
-                            sintaxFixer.reorder(false, reordering);
+                            reorderer.Reorder(false, reordering);
                         }
-                        sintaxFixer.Save();
+                        reorderer.Save();
                     }
                 }
                 else
                 {
-                    SintaxFixer sintaxFixer = new SintaxFixer(InputFilename.Text, OutputFilename.Text);
-
                     if (EnableFullAuto.IsChecked == true)
                     {
+                        BankReorderer bankReorderer = new BankReorderer(OutputFilename.Text, OutputFilename.Text);
                         byte reorderMode = byte.Parse(ReorderMode.Text, System.Globalization.NumberStyles.HexNumber);
-                        sintaxFixer.reorder(false, Reorderings.GetSintaxBankReorderings(reorderMode));
+                        bankReorderer.Reorder(false, Reorderings.GetSintaxBankReorderings(reorderMode));
+                        bankReorderer.Save();
                         string[] flipstrings = {  
                             "0x" + ManualBits1.Text, 
                             "0x" + ManualBits2.Text, 
@@ -113,35 +117,40 @@ namespace Sintaxinator
                             "0x" + ManualBits4.Text
                         };
                         byte[] manualXors = ParseFlipStringsToXors(flipstrings);
+                        SintaxFixer sintaxFixer = new SintaxFixer(OutputFilename.Text, OutputFilename.Text);
                         sintaxFixer.xorAllData(false, manualXors, 64);
+                        sintaxFixer.Save();
                     }
                     else
                     {
                         if (EnableXor.IsChecked == true)
                         {
+                            SintaxFixer sintaxFixer = new SintaxFixer(OutputFilename.Text, OutputFilename.Text);
                             string[] flipstrings = ManualBits.Text.Split(new String[] { "|" }, new StringSplitOptions()); ;
                             byte[] manualXors = ParseFlipStringsToXors(flipstrings);
                             sintaxFixer.xorAllData(false, manualXors, int.Parse(XorRepeat.Text));
+                            sintaxFixer.Save();
                         }
                         if (EnableReorder.IsChecked == true)
                         {
+                            BankReorderer bankReorderer = new BankReorderer(OutputFilename.Text, OutputFilename.Text);
                             if (ReorderAuto.IsChecked == true)
                             {
                                 byte reorderMode = byte.Parse(ReorderAutoMode.Text, System.Globalization.NumberStyles.HexNumber);
-                                sintaxFixer.reorder(false, Reorderings.GetSintaxBankReorderings(reorderMode));
+                                bankReorderer.Reorder(false, Reorderings.GetSintaxBankReorderings(reorderMode));
                             }
                             else if (ReorderBankNo.IsChecked == true)
                             {
-                                sintaxFixer.reorder(true);
+                                bankReorderer.Reorder(true);
                             }
                             else if (ReorderSpecified.IsChecked == true)
                             {
                                 byte[] reordering = ParseReorderingString(ReorderSpecifiedOrder.Text);            
-                                sintaxFixer.reorder(false, reordering);
+                                bankReorderer.Reorder(false, reordering);
                             }
+                            bankReorderer.Save();
                         }
                     }
-                    sintaxFixer.Save();
                 }
                 
                 if (EnableHeaderFix.IsChecked == true)
