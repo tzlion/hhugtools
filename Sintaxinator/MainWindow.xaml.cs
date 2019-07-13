@@ -12,7 +12,7 @@ namespace Sintaxinator
     /// </summary>
     public partial class MainWindow : Window
     {
-        private bool bbdMode = false;
+        private bool bbdMode;
         
         public MainWindow()
         {
@@ -22,7 +22,7 @@ namespace Sintaxinator
 
         private void InputFileSelect_Click(object sender, RoutedEventArgs e)
         {
-            String inputFilename = FileSelection.SelectInputFile();
+            string inputFilename = FileSelection.SelectInputFile();
             InputFilename.Text = inputFilename;
             OutputFilename.Text = FileSelection.DetermineOutputFilename(inputFilename);
         }
@@ -32,7 +32,7 @@ namespace Sintaxinator
             OutputFilename.Text = FileSelection.SelectOutputFile();
         }
 
-        private byte[] ParseReorderingString(String input)
+        private byte[] ParseReorderingString(string input)
         {
             char[] reorderingChars = input.ToCharArray();
             if (reorderingChars.Length != 8)
@@ -49,7 +49,7 @@ namespace Sintaxinator
             return reordering;
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private void DoTheThing(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -126,7 +126,7 @@ namespace Sintaxinator
                         if (EnableXor.IsChecked == true)
                         {
                             DataXorer dataXorer = new DataXorer(OutputFilename.Text, OutputFilename.Text);
-                            string[] flipstrings = ManualBits.Text.Split(new String[] { "|" }, new StringSplitOptions()); ;
+                            string[] flipstrings = ManualBits.Text.Split(new string[] { "|" }, new StringSplitOptions()); ;
                             byte[] manualXors = ParseFlipStringsToXors(flipstrings);
                             dataXorer.XorAllData(false, manualXors, int.Parse(XorRepeat.Text));
                             dataXorer.Save();
@@ -155,15 +155,15 @@ namespace Sintaxinator
                 
                 if (EnableHeaderFix.IsChecked == true)
                 {
-                    HeaderFixer headerfixer = new HeaderFixer(OutputFilename.Text, OutputFilename.Text);
-                    headerfixer.HeaderFix(
-                        (bool)EnableHeaderSize.IsChecked, 
-                        (bool)EnableHeaderComp.IsChecked, 
-                        (bool)EnableHeaderChecksum.IsChecked,
-                        (bool)EnableHeaderType.IsChecked ? Byte.Parse(RomType.Text, System.Globalization.NumberStyles.HexNumber) : (byte?)null,
-                        (bool)EnableHeaderRamsize.IsChecked ? Byte.Parse(RamSize.Text, System.Globalization.NumberStyles.HexNumber) : (byte?)null
+                    HeaderFixer headerFixer = new HeaderFixer(OutputFilename.Text, OutputFilename.Text);
+                    headerFixer.HeaderFix(
+                        EnableHeaderSize.IsChecked ?? false, 
+                        EnableHeaderComp.IsChecked ?? false, 
+                        EnableHeaderChecksum.IsChecked ?? false,
+                        (EnableHeaderType.IsChecked ?? false) ? byte.Parse(RomType.Text, System.Globalization.NumberStyles.HexNumber) : (byte?)null,
+                        (EnableHeaderRamsize.IsChecked ?? false) ? byte.Parse(RamSize.Text, System.Globalization.NumberStyles.HexNumber) : (byte?)null
                     );
-                    headerfixer.Save();
+                    headerFixer.Save();
                 }
 
                 if (OpenEmu.IsChecked == true)
@@ -202,12 +202,12 @@ namespace Sintaxinator
             return xors;
         }
 
-        private void RomType_GotFocus(object sender, RoutedEventArgs e)
+        private void CheckEnableHeaderType(object sender, RoutedEventArgs e)
         {
             EnableHeaderType.IsChecked = true;
         }
 
-        private void RamSize_GotFocus(object sender, RoutedEventArgs e)
+        private void CheckEnableRamSize(object sender, RoutedEventArgs e)
         {
             EnableHeaderRamsize.IsChecked = true;
         }
@@ -217,7 +217,7 @@ namespace Sintaxinator
             ErrorMsg.Content = "★ " + e.Message;
         }
 
-        private void BBDTest_Click(object sender, RoutedEventArgs e)
+        private void ChangeMode(object sender, RoutedEventArgs e)
         {
             try
             {

@@ -78,15 +78,15 @@
                 <CheckBox x:Name="EnableHeaderSize" Content="Size" HorizontalAlignment="Left" Margin="14,21,0,0" VerticalAlignment="Top" IsChecked="True" Foreground="White"/>
                 <CheckBox x:Name="EnableHeaderComp" Content="Complement" HorizontalAlignment="Left" Margin="58,21,0,0" VerticalAlignment="Top" IsChecked="True" Foreground="White"/>
                 <CheckBox x:Name="EnableHeaderChecksum" Content="Checksum" HorizontalAlignment="Left" Margin="149,21,0,0" VerticalAlignment="Top" IsChecked="True" Foreground="White"/>
-                <TextBox x:Name="RomType" HorizontalAlignment="Left" Height="18" Margin="60,41,0,0" VerticalAlignment="Top" Width="25" MaxLength="2" MaxLines="1" FontFamily="Courier New" GotFocus="RomType_GotFocus" Grid.RowSpan="2"/>
+                <TextBox x:Name="RomType" HorizontalAlignment="Left" Height="18" Margin="60,41,0,0" VerticalAlignment="Top" Width="25" MaxLength="2" MaxLines="1" FontFamily="Courier New" GotFocus="CheckEnableHeaderType" Grid.RowSpan="2"/>
                 <CheckBox x:Name="EnableHeaderType" Content="Type" HorizontalAlignment="Left" Margin="14,42,0,0" VerticalAlignment="Top" Foreground="White" Grid.RowSpan="2"/>
-                <TextBox x:Name="RamSize" HorizontalAlignment="Left" Height="18" Margin="164,41,0,0" VerticalAlignment="Top" Width="25" MaxLength="2" MaxLines="1" FontFamily="Courier New" GotFocus="RamSize_GotFocus" Grid.RowSpan="2"/>
+                <TextBox x:Name="RamSize" HorizontalAlignment="Left" Height="18" Margin="164,41,0,0" VerticalAlignment="Top" Width="25" MaxLength="2" MaxLines="1" FontFamily="Courier New" GotFocus="CheckEnableRamSize" Grid.RowSpan="2"/>
                 <CheckBox x:Name="EnableHeaderRamsize" Content="RAM Size" HorizontalAlignment="Left" Margin="93,42,0,0" VerticalAlignment="Top" Foreground="White" Grid.RowSpan="2"/>
             </Grid>
         </GroupBox>
-        <Button x:Name="SaveButton" Content=">> GO!! >>" HorizontalAlignment="Left" Margin="260,310,0,0" VerticalAlignment="Top" Width="240" Height="77" Background="#CCFFFFFF" FontFamily="/Fonts/#StopD" FontSize="36" Foreground="#CC000000" BorderBrush="White" Click="SaveButton_Click"/>
+        <Button x:Name="SaveButton" Content=">> GO!! >>" HorizontalAlignment="Left" Margin="260,310,0,0" VerticalAlignment="Top" Width="240" Height="77" Background="#CCFFFFFF" FontFamily="/Fonts/#StopD" FontSize="36" Foreground="#CC000000" BorderBrush="White" Click="DoTheThing"/>
         <CheckBox x:Name="OpenEmu" Content="Open when done" HorizontalAlignment="Left" Margin="387,393,0,0" VerticalAlignment="Top" IsChecked="True" Foreground="White"/>
-        <Button x:Name="Switcho" Content="Switch" HorizontalAlignment="Left" Margin="150,187,0,0" VerticalAlignment="Top" Width="60" Click="BBDTest_Click"/>
+        <Button x:Name="Switcho" Content="Switch" HorizontalAlignment="Left" Margin="150,187,0,0" VerticalAlignment="Top" Width="60" Click="ChangeMode"/>
         <Label x:Name="fake" Grid.ZIndex="-100" HorizontalAlignment="Left"  Height="446" Width="534" VerticalAlignment="Top"/>
     </Grid>
 </Window>
