@@ -117,19 +117,19 @@ namespace Sintaxinator
                             "0x" + ManualBits4.Text
                         };
                         byte[] manualXors = ParseFlipStringsToXors(flipstrings);
-                        SintaxFixer sintaxFixer = new SintaxFixer(OutputFilename.Text, OutputFilename.Text);
-                        sintaxFixer.xorAllData(false, manualXors, 64);
-                        sintaxFixer.Save();
+                        DataXorer dataXorer = new DataXorer(OutputFilename.Text, OutputFilename.Text);
+                        dataXorer.XorAllData(false, manualXors, 64);
+                        dataXorer.Save();
                     }
                     else
                     {
                         if (EnableXor.IsChecked == true)
                         {
-                            SintaxFixer sintaxFixer = new SintaxFixer(OutputFilename.Text, OutputFilename.Text);
+                            DataXorer dataXorer = new DataXorer(OutputFilename.Text, OutputFilename.Text);
                             string[] flipstrings = ManualBits.Text.Split(new String[] { "|" }, new StringSplitOptions()); ;
                             byte[] manualXors = ParseFlipStringsToXors(flipstrings);
-                            sintaxFixer.xorAllData(false, manualXors, int.Parse(XorRepeat.Text));
-                            sintaxFixer.Save();
+                            dataXorer.XorAllData(false, manualXors, int.Parse(XorRepeat.Text));
+                            dataXorer.Save();
                         }
                         if (EnableReorder.IsChecked == true)
                         {

@@ -5,11 +5,11 @@ using Common.Rom;
 namespace Sintaxinator.Fixers
 {
 
-    class SintaxFixer : RomManipulator
+    class DataXorer : RomManipulator
     {
-        public SintaxFixer(string inputFilename, string outputFilename) : base(inputFilename, outputFilename) { }
+        public DataXorer(string inputFilename, string outputFilename) : base(inputFilename, outputFilename) { }
 
-        public void xorAllData(bool auto, byte[] manualXorSet, int repeatCount = 1)
+        public void XorAllData(bool auto, byte[] manualXorSet, int repeatCount = 1)
         {
             byte[] processed = { };
             
@@ -44,7 +44,7 @@ namespace Sintaxinator.Fixers
                         xor = manualXors[xorNo];
                         // Manual mode
                     }
-                    processed = processed.Concat(xorData(bankData,xor)).ToArray();
+                    processed = processed.Concat(XorData(bankData,xor)).ToArray();
                 }
             }
 
@@ -52,7 +52,7 @@ namespace Sintaxinator.Fixers
 
         }
 
-        private byte[] xorData(byte[] origData, byte xor)
+        private byte[] XorData(byte[] origData, byte xor)
         {
             byte[] newData = new byte[origData.Length];
             for(int x=0;x<origData.Length;x++) {
