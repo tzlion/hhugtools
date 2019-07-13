@@ -2,6 +2,8 @@ hhugtools
 =========
 A set of tools for doing things with Game Boy (and other?) ROMs
 
+Mostly made for my personal use so expect roughness and bugs
+
 Currently for Windows only, probably won't run in Wine because they use WPF (sorry)
 
 Requires .net framework 3.5
