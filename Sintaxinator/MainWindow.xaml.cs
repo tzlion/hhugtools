@@ -46,28 +46,40 @@ namespace Sintaxinator
 
                 if (bbdMode)
                 {
-                    romProcessor.ProcessBbd(OutputFilename.Text,  EnableFullAuto.IsChecked ?? false,
-                        ParseInputAsByte(BitScrambleMode), EnableBBDDescramble.IsChecked ?? false,
-                        BBDBitDescramble.Text, ParseInputAsByte(ReorderMode), EnableReorder.IsChecked ?? false,
-                        ReorderAuto.IsChecked ?? false, ParseInputAsByte(ReorderAutoMode),
-                        ReorderBankNo.IsChecked ?? false, ReorderSpecified.IsChecked ?? false, 
-                        ReorderSpecifiedOrder.Text);
+                    if (EnableFullAuto.IsChecked == true)
+                    {
+                        romProcessor.ProcessBbdFullAuto(OutputFilename.Text, ParseInputAsByte(BitScrambleMode), 
+                            ParseInputAsByte(ReorderMode));
+                    }
+                    else
+                    {
+                        romProcessor.ProcessBbd(OutputFilename.Text, EnableBBDDescramble.IsChecked ?? false,
+                            BBDBitDescramble.Text, EnableReorder.IsChecked ?? false, ReorderAuto.IsChecked ?? false,
+                            ParseInputAsByte(ReorderAutoMode), ReorderBankNo.IsChecked ?? false,
+                            ReorderSpecified.IsChecked ?? false, ReorderSpecifiedOrder.Text);
+                    }
                 }
                 else
                 {
-                    byte[] autoManualXors =
+                    if (EnableFullAuto.IsChecked == true)
                     {
-                        ParseInputAsByte(ManualBits1),
-                        ParseInputAsByte(ManualBits2),
-                        ParseInputAsByte(ManualBits3),
-                        ParseInputAsByte(ManualBits4)
-                    };
-                    romProcessor.ProcessSintax(OutputFilename.Text, EnableFullAuto.IsChecked ?? false,
-                        ParseInputAsByte(ReorderMode), EnableReorder.IsChecked ?? false,
-                        ReorderAuto.IsChecked ?? false, ParseInputAsByte(ReorderAutoMode),
-                        ReorderBankNo.IsChecked ?? false, ReorderSpecified.IsChecked ?? false,
-                        ReorderSpecifiedOrder.Text, autoManualXors, EnableXor.IsChecked ?? false, ManualBits.Text,
-                        XorRepeat.Text);
+                        byte[] xors =
+                        {
+                            ParseInputAsByte(ManualBits1),
+                            ParseInputAsByte(ManualBits2),
+                            ParseInputAsByte(ManualBits3),
+                            ParseInputAsByte(ManualBits4)
+                        };
+                        romProcessor.ProcessSintaxFullAuto(OutputFilename.Text, ParseInputAsByte(ReorderMode), xors);
+                    }
+                    else
+                    {
+                        romProcessor.ProcessSintax(OutputFilename.Text, EnableReorder.IsChecked ?? false,
+                            ReorderAuto.IsChecked ?? false, ParseInputAsByte(ReorderAutoMode),
+                            ReorderBankNo.IsChecked ?? false, ReorderSpecified.IsChecked ?? false,
+                            ReorderSpecifiedOrder.Text, EnableXor.IsChecked ?? false, ManualBits.Text,
+                            XorRepeat.Text);   
+                    }
                 }
 
                 if (EnableHeaderFix.IsChecked == true)

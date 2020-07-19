@@ -13,30 +13,27 @@ namespace Sintaxinator
             File.WriteAllBytes(outputFilename, rom);
         }
         
-        public void ProcessBbd(string filename, bool enableFullAuto, byte bitScrambleMode, bool enableBbdDescramble,
-            string bbdBitDescramble, byte reorderMode, bool enableReorder, bool reorderAuto, byte reorderAutoMode,
-            bool reorderBankNo, bool reorderSpecified, string reorderSpecifiedOrder)
+        public void ProcessBbdFullAuto(string filename, byte bitScrambleMode, byte reorderMode)
         {
             BitDescrambler bitDescrambler = new BitDescrambler(filename, filename);
-            
-            if (enableFullAuto)
-            {
-                bitDescrambler.ReorderAllBytes(Reorderings.GetBbdDataReorderings(bitScrambleMode));
-            }
-            
-            if (enableBbdDescramble)
-            {
-                byte[] reordering = ParseReorderingString(bbdBitDescramble);                        
-                bitDescrambler.ReorderAllBytes(reordering);
-            }
-            
+            bitDescrambler.ReorderAllBytes(Reorderings.GetBbdDataReorderings(bitScrambleMode));
             bitDescrambler.Save();
             
-            if (enableFullAuto)
+            BankReorderer reorderer = new BankReorderer(filename, filename);
+            reorderer.Reorder(false, Reorderings.GetBbdBankReorderings(reorderMode));
+            reorderer.Save();
+        }
+        
+        public void ProcessBbd(string filename, bool enableDescramble, string bitDescramble, bool enableReorder,
+            bool reorderAuto, byte reorderAutoMode, bool reorderBankNo, bool reorderSpecified,
+            string reorderSpecifiedOrder)
+        {
+            if (enableDescramble)
             {
-                BankReorderer reorderer = new BankReorderer(filename, filename);
-                reorderer.Reorder(false, Reorderings.GetBbdBankReorderings(reorderMode));
-                reorderer.Save();
+                BitDescrambler bitDescrambler = new BitDescrambler(filename, filename);
+                byte[] reordering = ParseReorderingString(bitDescramble);                        
+                bitDescrambler.ReorderAllBytes(reordering);
+                bitDescrambler.Save();
             }
 
             if (enableReorder)
@@ -59,49 +56,47 @@ namespace Sintaxinator
             }
         }
         
-        public void ProcessSintax(string filename, bool enableFullAuto, byte reorderMode, bool enableReorder,
-            bool reorderAuto, byte reorderAutoMode, bool reorderBankNo, bool reorderSpecified,
-            string reorderSpecifiedOrder, byte[] autoManualXors, bool enableXor, string manualBits,
+        public void ProcessSintaxFullAuto(string filename, byte reorderMode, byte[] xors)
+        {
+            BankReorderer bankReorderer = new BankReorderer(filename, filename);
+            bankReorderer.Reorder(false, Reorderings.GetSintaxBankReorderings(reorderMode));
+            bankReorderer.Save();
+            
+            DataXorer dataXorer = new DataXorer(filename, filename);
+            dataXorer.XorAllData(false, xors, 64);
+            dataXorer.Save();
+        }
+
+        public void ProcessSintax(string filename, bool enableReorder, bool reorderAuto, byte reorderAutoMode,
+            bool reorderBankNo, bool reorderSpecified, string reorderSpecifiedOrder, bool enableXor, string manualBits,
             string xorRepeatText)
         {
-            if (enableFullAuto)
+            if (enableXor)
             {
-                BankReorderer bankReorderer = new BankReorderer(filename, filename);
-                bankReorderer.Reorder(false, Reorderings.GetSintaxBankReorderings(reorderMode));
-                bankReorderer.Save();
-                byte[] manualXors = autoManualXors;
                 DataXorer dataXorer = new DataXorer(filename, filename);
-                dataXorer.XorAllData(false, manualXors, 64);
+                string[] flipstrings = manualBits.Split(new string[] { "|" }, new StringSplitOptions()); ;
+                byte[] manualXors = ParseFlipStringsToXors(flipstrings);
+                dataXorer.XorAllData(false, manualXors, int.Parse(xorRepeatText));
                 dataXorer.Save();
             }
-            else
+            
+            if (enableReorder)
             {
-                if (enableXor)
+                BankReorderer bankReorderer = new BankReorderer(filename, filename);
+                if (reorderAuto)
                 {
-                    DataXorer dataXorer = new DataXorer(filename, filename);
-                    string[] flipstrings = manualBits.Split(new string[] { "|" }, new StringSplitOptions()); ;
-                    byte[] manualXors = ParseFlipStringsToXors(flipstrings);
-                    dataXorer.XorAllData(false, manualXors, int.Parse(xorRepeatText));
-                    dataXorer.Save();
+                    bankReorderer.Reorder(false, Reorderings.GetSintaxBankReorderings(reorderAutoMode));
                 }
-                if (enableReorder)
+                else if (reorderBankNo)
                 {
-                    BankReorderer bankReorderer = new BankReorderer(filename, filename);
-                    if (reorderAuto)
-                    {
-                        bankReorderer.Reorder(false, Reorderings.GetSintaxBankReorderings(reorderAutoMode));
-                    }
-                    else if (reorderBankNo)
-                    {
-                        bankReorderer.Reorder(true);
-                    }
-                    else if (reorderSpecified)
-                    {
-                        byte[] reordering = ParseReorderingString(reorderSpecifiedOrder);            
-                        bankReorderer.Reorder(false, reordering);
-                    }
-                    bankReorderer.Save();
+                    bankReorderer.Reorder(true);
                 }
+                else if (reorderSpecified)
+                {
+                    byte[] reordering = ParseReorderingString(reorderSpecifiedOrder);            
+                    bankReorderer.Reorder(false, reordering);
+                }
+                bankReorderer.Save();
             }
         }
 
