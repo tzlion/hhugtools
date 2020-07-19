@@ -7,126 +7,129 @@ namespace Sintaxinator
 {
     public class RomProcessor
     {
-        public void Process(string inputFilename, string outputFilename, bool bbdMode, bool enableFullAuto,
-            string bitScrambleMode, bool enableBbdDescramble, string bbdBitDescramble, string reorderModeText,
-            bool enableReorder, bool reorderAuto, string reorderAutoModeText, bool reorderBankNo, bool reorderSpecified,
-            string reorderSpecifiedOrder, string manualBits1, string manualBits2, string manualBits3,
-            string manualBits4, bool enableXor, string manualBits, string xorRepeatText, bool enableHeaderFix,
-            bool enableHeaderSize, bool enableHeaderComp, bool enableHeaderChecksum, bool enableHeaderType,
-            bool enableHeaderRamsize, string romTypeText, string ramSizeText)
+        public void CopyRom(string inputFilename, string outputFilename)
         {
             byte[] rom = File.ReadAllBytes(inputFilename);
             File.WriteAllBytes(outputFilename, rom);
+        }
+        
+        public void ProcessBbd(string outputFilename, bool enableFullAuto, byte bitScrambleMode,
+            bool enableBbdDescramble, string bbdBitDescramble, byte reorderModeText, bool enableReorder,
+            bool reorderAuto, byte reorderAutoModeText, bool reorderBankNo, bool reorderSpecified,
+            string reorderSpecifiedOrder)
+        {
+            BitDescrambler bitDescrambler = new BitDescrambler(outputFilename, outputFilename);
             
-            if (bbdMode)
+            if (enableFullAuto)
             {
-                BitDescrambler bitDescrambler = new BitDescrambler(outputFilename, outputFilename);
-                
-                if (enableFullAuto)
-                {
-                    byte reorderMode = byte.Parse(bitScrambleMode, System.Globalization.NumberStyles.HexNumber);
-                    bitDescrambler.ReorderAllBytes(Reorderings.GetBbdDataReorderings(reorderMode));
-                }
-                
-                if (enableBbdDescramble)
-                {
-                    byte[] reordering = ParseReorderingString(bbdBitDescramble);                        
-                    bitDescrambler.ReorderAllBytes(reordering);
-                }
-                
-                bitDescrambler.Save();
-                
-                if (enableFullAuto)
-                {
-                    BankReorderer reorderer = new BankReorderer(outputFilename, outputFilename);
-                    byte reorderMode = byte.Parse(reorderModeText, System.Globalization.NumberStyles.HexNumber);
-                    reorderer.Reorder(false, Reorderings.GetBbdBankReorderings(reorderMode));
-                    reorderer.Save();
-                }
+                byte reorderMode = bitScrambleMode;
+                bitDescrambler.ReorderAllBytes(Reorderings.GetBbdDataReorderings(reorderMode));
+            }
+            
+            if (enableBbdDescramble)
+            {
+                byte[] reordering = ParseReorderingString(bbdBitDescramble);                        
+                bitDescrambler.ReorderAllBytes(reordering);
+            }
+            
+            bitDescrambler.Save();
+            
+            if (enableFullAuto)
+            {
+                BankReorderer reorderer = new BankReorderer(outputFilename, outputFilename);
+                byte reorderMode = reorderModeText;
+                reorderer.Reorder(false, Reorderings.GetBbdBankReorderings(reorderMode));
+                reorderer.Save();
+            }
 
+            if (enableReorder)
+            {
+                BankReorderer reorderer = new BankReorderer(outputFilename, outputFilename);
+                if (reorderAuto)
+                {
+                    byte reorderMode = reorderAutoModeText;
+                    reorderer.Reorder(false, Reorderings.GetBbdBankReorderings(reorderMode));
+                }
+                else if (reorderBankNo)
+                {
+                    reorderer.Reorder(true);
+                }
+                else if (reorderSpecified)
+                {
+                    byte[] reordering = ParseReorderingString(reorderSpecifiedOrder);            
+                    reorderer.Reorder(false, reordering);
+                }
+                reorderer.Save();
+            }
+        }
+        
+        public void ProcessSintax(string outputFilename, bool enableFullAuto, byte reorderModeText,
+            bool enableReorder, bool reorderAuto, byte reorderAutoModeText, bool reorderBankNo, bool reorderSpecified,
+            string reorderSpecifiedOrder, string manualBits1, string manualBits2, string manualBits3,
+            string manualBits4, bool enableXor, string manualBits, string xorRepeatText)
+        {
+            if (enableFullAuto)
+            {
+                BankReorderer bankReorderer = new BankReorderer(outputFilename, outputFilename);
+                byte reorderMode = reorderModeText;
+                bankReorderer.Reorder(false, Reorderings.GetSintaxBankReorderings(reorderMode));
+                bankReorderer.Save();
+                string[] flipstrings = {  
+                    "0x" + manualBits1, 
+                    "0x" + manualBits2, 
+                    "0x" + manualBits3, 
+                    "0x" + manualBits4
+                };
+                byte[] manualXors = ParseFlipStringsToXors(flipstrings);
+                DataXorer dataXorer = new DataXorer(outputFilename, outputFilename);
+                dataXorer.XorAllData(false, manualXors, 64);
+                dataXorer.Save();
+            }
+            else
+            {
+                if (enableXor)
+                {
+                    DataXorer dataXorer = new DataXorer(outputFilename, outputFilename);
+                    string[] flipstrings = manualBits.Split(new string[] { "|" }, new StringSplitOptions()); ;
+                    byte[] manualXors = ParseFlipStringsToXors(flipstrings);
+                    dataXorer.XorAllData(false, manualXors, int.Parse(xorRepeatText));
+                    dataXorer.Save();
+                }
                 if (enableReorder)
                 {
-                    BankReorderer reorderer = new BankReorderer(outputFilename, outputFilename);
+                    BankReorderer bankReorderer = new BankReorderer(outputFilename, outputFilename);
                     if (reorderAuto)
                     {
-                        byte reorderMode = byte.Parse(reorderAutoModeText, System.Globalization.NumberStyles.HexNumber);
-                        reorderer.Reorder(false, Reorderings.GetBbdBankReorderings(reorderMode));
+                        byte reorderMode = reorderAutoModeText;
+                        bankReorderer.Reorder(false, Reorderings.GetSintaxBankReorderings(reorderMode));
                     }
                     else if (reorderBankNo)
                     {
-                        reorderer.Reorder(true);
+                        bankReorderer.Reorder(true);
                     }
                     else if (reorderSpecified)
                     {
                         byte[] reordering = ParseReorderingString(reorderSpecifiedOrder);            
-                        reorderer.Reorder(false, reordering);
+                        bankReorderer.Reorder(false, reordering);
                     }
-                    reorderer.Save();
-                }
-            }
-            else
-            {
-                if (enableFullAuto)
-                {
-                    BankReorderer bankReorderer = new BankReorderer(outputFilename, outputFilename);
-                    byte reorderMode = byte.Parse(reorderModeText, System.Globalization.NumberStyles.HexNumber);
-                    bankReorderer.Reorder(false, Reorderings.GetSintaxBankReorderings(reorderMode));
                     bankReorderer.Save();
-                    string[] flipstrings = {  
-                        "0x" + manualBits1, 
-                        "0x" + manualBits2, 
-                        "0x" + manualBits3, 
-                        "0x" + manualBits4
-                    };
-                    byte[] manualXors = ParseFlipStringsToXors(flipstrings);
-                    DataXorer dataXorer = new DataXorer(outputFilename, outputFilename);
-                    dataXorer.XorAllData(false, manualXors, 64);
-                    dataXorer.Save();
-                }
-                else
-                {
-                    if (enableXor)
-                    {
-                        DataXorer dataXorer = new DataXorer(outputFilename, outputFilename);
-                        string[] flipstrings = manualBits.Split(new string[] { "|" }, new StringSplitOptions()); ;
-                        byte[] manualXors = ParseFlipStringsToXors(flipstrings);
-                        dataXorer.XorAllData(false, manualXors, int.Parse(xorRepeatText));
-                        dataXorer.Save();
-                    }
-                    if (enableReorder)
-                    {
-                        BankReorderer bankReorderer = new BankReorderer(outputFilename, outputFilename);
-                        if (reorderAuto)
-                        {
-                            byte reorderMode = byte.Parse(reorderAutoModeText, System.Globalization.NumberStyles.HexNumber);
-                            bankReorderer.Reorder(false, Reorderings.GetSintaxBankReorderings(reorderMode));
-                        }
-                        else if (reorderBankNo)
-                        {
-                            bankReorderer.Reorder(true);
-                        }
-                        else if (reorderSpecified)
-                        {
-                            byte[] reordering = ParseReorderingString(reorderSpecifiedOrder);            
-                            bankReorderer.Reorder(false, reordering);
-                        }
-                        bankReorderer.Save();
-                    }
                 }
             }
-            
-            if (enableHeaderFix)
-            {
-                HeaderFixer headerFixer = new HeaderFixer(outputFilename, outputFilename);
-                headerFixer.HeaderFix(
-                    enableHeaderSize, 
-                    enableHeaderComp, 
-                    enableHeaderChecksum,
-                    enableHeaderType ? byte.Parse(romTypeText, System.Globalization.NumberStyles.HexNumber) : (byte?)null,
-                    enableHeaderRamsize ? byte.Parse(ramSizeText, System.Globalization.NumberStyles.HexNumber) : (byte?)null
-                );
-                headerFixer.Save();
-            }
+        }
+
+        public void FixHeader(string outputFilename, bool enableHeaderSize, bool enableHeaderComp,
+            bool enableHeaderChecksum, bool enableHeaderType, bool enableHeaderRamsize, byte romTypeText,
+            byte ramSizeText)
+        {
+            HeaderFixer headerFixer = new HeaderFixer(outputFilename, outputFilename);
+            headerFixer.HeaderFix(
+                enableHeaderSize, 
+                enableHeaderComp, 
+                enableHeaderChecksum,
+                enableHeaderType ? romTypeText : (byte?)null,
+                enableHeaderRamsize ? ramSizeText : (byte?)null
+            );
+            headerFixer.Save();
         }
 
         private byte[] ParseReorderingString(string input)

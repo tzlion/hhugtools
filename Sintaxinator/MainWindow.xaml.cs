@@ -1,9 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
-using Sintaxinator.Fixers;
+using System.Windows.Controls;
 using Common.Utility;
-using Common.Rom;
 
 namespace Sintaxinator
 {
@@ -32,21 +31,45 @@ namespace Sintaxinator
             OutputFilename.Text = FileSelection.SelectOutputFile();
         }
 
+        private byte ParseInputAsByte(TextBox input)
+        {
+            return byte.Parse(input.Text, System.Globalization.NumberStyles.HexNumber);
+        }
+
         private void DoTheThing(object sender, RoutedEventArgs e)
         {
             try
             {
                 RomProcessor romProcessor = new RomProcessor();
-                romProcessor.Process(InputFilename.Text, OutputFilename.Text, bbdMode, 
-                    EnableFullAuto.IsChecked ?? false, BitScrambleMode.Text, EnableBBDDescramble.IsChecked ?? false,
-                    BBDBitDescramble.Text, ReorderMode.Text, EnableReorder.IsChecked ?? false,
-                    ReorderAuto.IsChecked ?? false, ReorderAutoMode.Text,
-                    ReorderBankNo.IsChecked ?? false, ReorderSpecified.IsChecked ?? false, ReorderSpecifiedOrder.Text,
-                    ManualBits1.Text, ManualBits2.Text, ManualBits3.Text, ManualBits4.Text,
-                    EnableXor.IsChecked ?? false, ManualBits.Text, XorRepeat.Text, EnableHeaderFix.IsChecked ?? false,
-                    EnableHeaderSize.IsChecked ?? false, EnableHeaderComp.IsChecked ?? false,
-                    EnableHeaderChecksum.IsChecked ?? false, EnableHeaderType.IsChecked ?? false,
-                    EnableHeaderRamsize.IsChecked ?? false, RomType.Text, RamSize.Text);
+                
+                romProcessor.CopyRom(InputFilename.Text, OutputFilename.Text);
+
+                if (bbdMode)
+                {
+                    romProcessor.ProcessBbd(OutputFilename.Text,  EnableFullAuto.IsChecked ?? false,
+                        ParseInputAsByte(BitScrambleMode), EnableBBDDescramble.IsChecked ?? false,
+                        BBDBitDescramble.Text, ParseInputAsByte(ReorderMode), EnableReorder.IsChecked ?? false,
+                        ReorderAuto.IsChecked ?? false, ParseInputAsByte(ReorderAutoMode),
+                        ReorderBankNo.IsChecked ?? false, ReorderSpecified.IsChecked ?? false, 
+                        ReorderSpecifiedOrder.Text);
+                }
+                else
+                {
+                    romProcessor.ProcessSintax(OutputFilename.Text, EnableFullAuto.IsChecked ?? false,
+                        ParseInputAsByte(ReorderMode), EnableReorder.IsChecked ?? false,
+                        ReorderAuto.IsChecked ?? false, ParseInputAsByte(ReorderAutoMode),
+                        ReorderBankNo.IsChecked ?? false, ReorderSpecified.IsChecked ?? false,
+                        ReorderSpecifiedOrder.Text, ManualBits1.Text, ManualBits2.Text, ManualBits3.Text,
+                        ManualBits4.Text, EnableXor.IsChecked ?? false, ManualBits.Text, XorRepeat.Text);
+                }
+
+                if (EnableHeaderFix.IsChecked == true)
+                {
+                    romProcessor.FixHeader(OutputFilename.Text, EnableHeaderSize.IsChecked ?? false,
+                        EnableHeaderComp.IsChecked ?? false, EnableHeaderChecksum.IsChecked ?? false,
+                        EnableHeaderType.IsChecked ?? false, EnableHeaderRamsize.IsChecked ?? false,
+                        ParseInputAsByte(RomType), ParseInputAsByte(RamSize));
+                }
 
                 if (OpenEmu.IsChecked == true)
                 {
