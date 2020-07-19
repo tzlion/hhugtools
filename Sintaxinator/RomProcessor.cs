@@ -61,7 +61,7 @@ namespace Sintaxinator
         
         public void ProcessSintax(string filename, bool enableFullAuto, byte reorderMode, bool enableReorder,
             bool reorderAuto, byte reorderAutoMode, bool reorderBankNo, bool reorderSpecified,
-            string reorderSpecifiedOrder, string[] manualBitsArray, bool enableXor, string manualBits,
+            string reorderSpecifiedOrder, byte[] autoManualXors, bool enableXor, string manualBits,
             string xorRepeatText)
         {
             if (enableFullAuto)
@@ -69,13 +69,7 @@ namespace Sintaxinator
                 BankReorderer bankReorderer = new BankReorderer(filename, filename);
                 bankReorderer.Reorder(false, Reorderings.GetSintaxBankReorderings(reorderMode));
                 bankReorderer.Save();
-                string[] flipstrings = {  
-                    "0x" + manualBitsArray[0], 
-                    "0x" + manualBitsArray[1], 
-                    "0x" + manualBitsArray[2], 
-                    "0x" + manualBitsArray[3], 
-                };
-                byte[] manualXors = ParseFlipStringsToXors(flipstrings);
+                byte[] manualXors = autoManualXors;
                 DataXorer dataXorer = new DataXorer(filename, filename);
                 dataXorer.XorAllData(false, manualXors, 64);
                 dataXorer.Save();
