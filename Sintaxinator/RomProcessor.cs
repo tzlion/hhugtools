@@ -13,17 +13,15 @@ namespace Sintaxinator
             File.WriteAllBytes(outputFilename, rom);
         }
         
-        public void ProcessBbd(string outputFilename, bool enableFullAuto, byte bitScrambleMode,
-            bool enableBbdDescramble, string bbdBitDescramble, byte reorderModeText, bool enableReorder,
-            bool reorderAuto, byte reorderAutoModeText, bool reorderBankNo, bool reorderSpecified,
-            string reorderSpecifiedOrder)
+        public void ProcessBbd(string filename, bool enableFullAuto, byte bitScrambleMode, bool enableBbdDescramble,
+            string bbdBitDescramble, byte reorderMode, bool enableReorder, bool reorderAuto, byte reorderAutoMode,
+            bool reorderBankNo, bool reorderSpecified, string reorderSpecifiedOrder)
         {
-            BitDescrambler bitDescrambler = new BitDescrambler(outputFilename, outputFilename);
+            BitDescrambler bitDescrambler = new BitDescrambler(filename, filename);
             
             if (enableFullAuto)
             {
-                byte reorderMode = bitScrambleMode;
-                bitDescrambler.ReorderAllBytes(Reorderings.GetBbdDataReorderings(reorderMode));
+                bitDescrambler.ReorderAllBytes(Reorderings.GetBbdDataReorderings(bitScrambleMode));
             }
             
             if (enableBbdDescramble)
@@ -36,19 +34,17 @@ namespace Sintaxinator
             
             if (enableFullAuto)
             {
-                BankReorderer reorderer = new BankReorderer(outputFilename, outputFilename);
-                byte reorderMode = reorderModeText;
+                BankReorderer reorderer = new BankReorderer(filename, filename);
                 reorderer.Reorder(false, Reorderings.GetBbdBankReorderings(reorderMode));
                 reorderer.Save();
             }
 
             if (enableReorder)
             {
-                BankReorderer reorderer = new BankReorderer(outputFilename, outputFilename);
+                BankReorderer reorderer = new BankReorderer(filename, filename);
                 if (reorderAuto)
                 {
-                    byte reorderMode = reorderAutoModeText;
-                    reorderer.Reorder(false, Reorderings.GetBbdBankReorderings(reorderMode));
+                    reorderer.Reorder(false, Reorderings.GetBbdBankReorderings(reorderAutoMode));
                 }
                 else if (reorderBankNo)
                 {
@@ -63,25 +59,24 @@ namespace Sintaxinator
             }
         }
         
-        public void ProcessSintax(string outputFilename, bool enableFullAuto, byte reorderModeText,
-            bool enableReorder, bool reorderAuto, byte reorderAutoModeText, bool reorderBankNo, bool reorderSpecified,
-            string reorderSpecifiedOrder, string manualBits1, string manualBits2, string manualBits3,
-            string manualBits4, bool enableXor, string manualBits, string xorRepeatText)
+        public void ProcessSintax(string filename, bool enableFullAuto, byte reorderMode, bool enableReorder,
+            bool reorderAuto, byte reorderAutoMode, bool reorderBankNo, bool reorderSpecified,
+            string reorderSpecifiedOrder, string[] manualBitsArray, bool enableXor, string manualBits,
+            string xorRepeatText)
         {
             if (enableFullAuto)
             {
-                BankReorderer bankReorderer = new BankReorderer(outputFilename, outputFilename);
-                byte reorderMode = reorderModeText;
+                BankReorderer bankReorderer = new BankReorderer(filename, filename);
                 bankReorderer.Reorder(false, Reorderings.GetSintaxBankReorderings(reorderMode));
                 bankReorderer.Save();
                 string[] flipstrings = {  
-                    "0x" + manualBits1, 
-                    "0x" + manualBits2, 
-                    "0x" + manualBits3, 
-                    "0x" + manualBits4
+                    "0x" + manualBitsArray[0], 
+                    "0x" + manualBitsArray[1], 
+                    "0x" + manualBitsArray[2], 
+                    "0x" + manualBitsArray[3], 
                 };
                 byte[] manualXors = ParseFlipStringsToXors(flipstrings);
-                DataXorer dataXorer = new DataXorer(outputFilename, outputFilename);
+                DataXorer dataXorer = new DataXorer(filename, filename);
                 dataXorer.XorAllData(false, manualXors, 64);
                 dataXorer.Save();
             }
@@ -89,7 +84,7 @@ namespace Sintaxinator
             {
                 if (enableXor)
                 {
-                    DataXorer dataXorer = new DataXorer(outputFilename, outputFilename);
+                    DataXorer dataXorer = new DataXorer(filename, filename);
                     string[] flipstrings = manualBits.Split(new string[] { "|" }, new StringSplitOptions()); ;
                     byte[] manualXors = ParseFlipStringsToXors(flipstrings);
                     dataXorer.XorAllData(false, manualXors, int.Parse(xorRepeatText));
@@ -97,11 +92,10 @@ namespace Sintaxinator
                 }
                 if (enableReorder)
                 {
-                    BankReorderer bankReorderer = new BankReorderer(outputFilename, outputFilename);
+                    BankReorderer bankReorderer = new BankReorderer(filename, filename);
                     if (reorderAuto)
                     {
-                        byte reorderMode = reorderAutoModeText;
-                        bankReorderer.Reorder(false, Reorderings.GetSintaxBankReorderings(reorderMode));
+                        bankReorderer.Reorder(false, Reorderings.GetSintaxBankReorderings(reorderAutoMode));
                     }
                     else if (reorderBankNo)
                     {
@@ -117,11 +111,11 @@ namespace Sintaxinator
             }
         }
 
-        public void FixHeader(string outputFilename, bool enableHeaderSize, bool enableHeaderComp,
+        public void FixHeader(string filename, bool enableHeaderSize, bool enableHeaderComp,
             bool enableHeaderChecksum, bool enableHeaderType, bool enableHeaderRamsize, byte romTypeText,
             byte ramSizeText)
         {
-            HeaderFixer headerFixer = new HeaderFixer(outputFilename, outputFilename);
+            HeaderFixer headerFixer = new HeaderFixer(filename, filename);
             headerFixer.HeaderFix(
                 enableHeaderSize, 
                 enableHeaderComp, 

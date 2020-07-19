@@ -55,12 +55,16 @@ namespace Sintaxinator
                 }
                 else
                 {
+                    string[] manualBitsArray =
+                    {
+                        ManualBits1.Text, ManualBits2.Text, ManualBits3.Text, ManualBits4.Text
+                    };
                     romProcessor.ProcessSintax(OutputFilename.Text, EnableFullAuto.IsChecked ?? false,
                         ParseInputAsByte(ReorderMode), EnableReorder.IsChecked ?? false,
                         ReorderAuto.IsChecked ?? false, ParseInputAsByte(ReorderAutoMode),
                         ReorderBankNo.IsChecked ?? false, ReorderSpecified.IsChecked ?? false,
-                        ReorderSpecifiedOrder.Text, ManualBits1.Text, ManualBits2.Text, ManualBits3.Text,
-                        ManualBits4.Text, EnableXor.IsChecked ?? false, ManualBits.Text, XorRepeat.Text);
+                        ReorderSpecifiedOrder.Text, manualBitsArray, EnableXor.IsChecked ?? false, ManualBits.Text,
+                        XorRepeat.Text);
                 }
 
                 if (EnableHeaderFix.IsChecked == true)
