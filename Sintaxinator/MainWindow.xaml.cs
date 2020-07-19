@@ -37,11 +37,28 @@ namespace Sintaxinator
             return byte.Parse(input.Text, System.Globalization.NumberStyles.HexNumber);
         }
 
-        private byte? ParseByteIf(bool condition, TextBox byteBox)
+        private int ParseInputAsInt(TextBox input)
+        {
+            return int.Parse(input.Text, System.Globalization.NumberStyles.HexNumber);
+        }
+
+        private byte? ParseByteIf(bool condition, TextBox input)
         {
             if (condition)
             {
-                return ParseInputAsByte(byteBox);
+                return ParseInputAsByte(input);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private int? ParseIntIf(bool condition, TextBox input)
+        {
+            if (condition)
+            {
+                return ParseInputAsInt(input);
             }
             else
             {
@@ -71,11 +88,12 @@ namespace Sintaxinator
                     }
                     else
                     {
-                        romProcessor.ProcessBbd(OutputFilename.Text, IsChecked(EnableBBDDescramble),
-                            BBDBitDescramble.Text, IsChecked(EnableReorder),
+                        romProcessor.ProcessBbd(OutputFilename.Text,
+                            IsChecked(EnableBBDDescramble) ? BBDBitDescramble.Text : null,
                             ParseByteIf(IsChecked(EnableReorder) && IsChecked(ReorderAuto), ReorderAutoMode),
-                            IsChecked(ReorderBankNo), IsChecked(ReorderSpecified),
-                            ReorderSpecifiedOrder.Text);
+                            IsChecked(EnableReorder) && IsChecked(ReorderBankNo), 
+                            IsChecked(EnableReorder) && IsChecked(ReorderSpecified) ? ReorderSpecifiedOrder.Text : null
+                            );
                     }
                 }
                 else
@@ -93,11 +111,12 @@ namespace Sintaxinator
                     }
                     else
                     {
-                        romProcessor.ProcessSintax(OutputFilename.Text, IsChecked(EnableReorder),
+                        romProcessor.ProcessSintax(OutputFilename.Text, 
                             ParseByteIf(IsChecked(EnableReorder) && IsChecked(ReorderAuto), ReorderAutoMode),
-                            IsChecked(ReorderBankNo), IsChecked(ReorderSpecified),
-                            ReorderSpecifiedOrder.Text, IsChecked(EnableXor), ManualBits.Text,
-                            XorRepeat.Text);   
+                            IsChecked(EnableReorder) && IsChecked(ReorderBankNo), 
+                            (IsChecked(EnableReorder) && IsChecked(ReorderSpecified)) ? ReorderSpecifiedOrder.Text : null,
+                            IsChecked(EnableXor) ? ManualBits.Text : null,
+                            ParseIntIf(IsChecked(EnableXor), XorRepeat));
                     }
                 }
 

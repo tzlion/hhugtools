@@ -24,33 +24,35 @@ namespace Sintaxinator
             reorderer.Save();
         }
         
-        public void ProcessBbd(string filename, bool enableDescramble, string bitDescramble, bool enableReorder,
-            byte? reorderAutoMode, bool reorderBankNo, bool reorderSpecified, string reorderSpecifiedOrder)
+        public void ProcessBbd(string filename, string bitDescramblePattern, byte? reorderMode, bool reorderByBankNo,
+            string manualReorderPattern)
         {
-            if (enableDescramble)
+            if (bitDescramblePattern != null)
             {
                 BitDescrambler bitDescrambler = new BitDescrambler(filename, filename);
-                byte[] reordering = ParseReorderingString(bitDescramble);                        
+                byte[] reordering = ParseReorderingString(bitDescramblePattern);                        
                 bitDescrambler.ReorderAllBytes(reordering);
                 bitDescrambler.Save();
             }
 
-            if (enableReorder)
+            if (reorderMode != null || reorderByBankNo || manualReorderPattern != null)
             {
-                BankReorderer reorderer = new BankReorderer(filename, filename);
-                if (reorderAutoMode != null)
+                byte[] reordering = null;
+                var checkBankBits = false;
+                if (reorderMode != null)
                 {
-                    reorderer.Reorder(false, Reorderings.GetBbdBankReorderings(reorderAutoMode));
+                    reordering = Reorderings.GetBbdBankReorderings(reorderMode);
                 }
-                else if (reorderBankNo)
+                else if (reorderByBankNo)
                 {
-                    reorderer.Reorder(true);
+                    checkBankBits = true;
                 }
-                else if (reorderSpecified)
+                else if (manualReorderPattern != null)
                 {
-                    byte[] reordering = ParseReorderingString(reorderSpecifiedOrder);            
-                    reorderer.Reorder(false, reordering);
+                    reordering = ParseReorderingString(manualReorderPattern);           
                 }
+                BankReorderer reorderer = new BankReorderer(filename, filename); 
+                reorderer.Reorder(checkBankBits, reordering);
                 reorderer.Save();
             }
         }
@@ -66,35 +68,36 @@ namespace Sintaxinator
             dataXorer.Save();
         }
 
-        public void ProcessSintax(string filename, bool enableReorder, byte? reorderAutoMode,
-            bool reorderBankNo, bool reorderSpecified, string reorderSpecifiedOrder, bool enableXor, string manualBits,
-            string xorRepeatText)
+        public void ProcessSintax(string filename, byte? reorderMode, bool reorderByBankNo, string manualReorderPattern,
+            string xorBits, int? xorRepeatCount)
         {
-            if (enableXor)
+            if (xorBits != null)
             {
                 DataXorer dataXorer = new DataXorer(filename, filename);
-                string[] flipstrings = manualBits.Split(new string[] { "|" }, new StringSplitOptions()); ;
+                string[] flipstrings = xorBits.Split(new [] { "|" }, new StringSplitOptions());
                 byte[] manualXors = ParseFlipStringsToXors(flipstrings);
-                dataXorer.XorAllData(false, manualXors, int.Parse(xorRepeatText));
+                dataXorer.XorAllData(false, manualXors, xorRepeatCount ?? 0);
                 dataXorer.Save();
             }
             
-            if (enableReorder)
+            if (reorderMode != null || reorderByBankNo || manualReorderPattern != null)
             {
+                byte[] reordering = null;
+                var checkBankBits = false;
+                if (reorderMode != null)
+                {
+                    reordering = Reorderings.GetSintaxBankReorderings(reorderMode);
+                }
+                else if (reorderByBankNo)
+                {
+                    checkBankBits = true;
+                }
+                else if (manualReorderPattern != null)
+                {
+                    reordering = ParseReorderingString(manualReorderPattern);    
+                }        
                 BankReorderer bankReorderer = new BankReorderer(filename, filename);
-                if (reorderAutoMode != null)
-                {
-                    bankReorderer.Reorder(false, Reorderings.GetSintaxBankReorderings(reorderAutoMode));
-                }
-                else if (reorderBankNo)
-                {
-                    bankReorderer.Reorder(true);
-                }
-                else if (reorderSpecified)
-                {
-                    byte[] reordering = ParseReorderingString(reorderSpecifiedOrder);            
-                    bankReorderer.Reorder(false, reordering);
-                }
+                bankReorderer.Reorder(checkBankBits, reordering);
                 bankReorderer.Save();
             }
         }
@@ -136,7 +139,7 @@ namespace Sintaxinator
             if (flipString.Substring(0, 2) == "0x") {
                 xor = byte.Parse(flipString.Substring(2), System.Globalization.NumberStyles.HexNumber);
             } else {
-                foreach (char flipbit in flipString.ToCharArray())
+                foreach (char flipbit in flipString)
                 {
                     xor += (byte)(0x80 >> int.Parse(flipbit.ToString()));
                 }
