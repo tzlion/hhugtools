@@ -25,8 +25,7 @@ namespace Sintaxinator
         }
         
         public void ProcessBbd(string filename, bool enableDescramble, string bitDescramble, bool enableReorder,
-            bool reorderAuto, byte reorderAutoMode, bool reorderBankNo, bool reorderSpecified,
-            string reorderSpecifiedOrder)
+            byte? reorderAutoMode, bool reorderBankNo, bool reorderSpecified, string reorderSpecifiedOrder)
         {
             if (enableDescramble)
             {
@@ -39,7 +38,7 @@ namespace Sintaxinator
             if (enableReorder)
             {
                 BankReorderer reorderer = new BankReorderer(filename, filename);
-                if (reorderAuto)
+                if (reorderAutoMode != null)
                 {
                     reorderer.Reorder(false, Reorderings.GetBbdBankReorderings(reorderAutoMode));
                 }
@@ -67,7 +66,7 @@ namespace Sintaxinator
             dataXorer.Save();
         }
 
-        public void ProcessSintax(string filename, bool enableReorder, bool reorderAuto, byte reorderAutoMode,
+        public void ProcessSintax(string filename, bool enableReorder, byte? reorderAutoMode,
             bool reorderBankNo, bool reorderSpecified, string reorderSpecifiedOrder, bool enableXor, string manualBits,
             string xorRepeatText)
         {
@@ -83,7 +82,7 @@ namespace Sintaxinator
             if (enableReorder)
             {
                 BankReorderer bankReorderer = new BankReorderer(filename, filename);
-                if (reorderAuto)
+                if (reorderAutoMode != null)
                 {
                     bankReorderer.Reorder(false, Reorderings.GetSintaxBankReorderings(reorderAutoMode));
                 }
@@ -101,16 +100,15 @@ namespace Sintaxinator
         }
 
         public void FixHeader(string filename, bool enableHeaderSize, bool enableHeaderComp,
-            bool enableHeaderChecksum, bool enableHeaderType, bool enableHeaderRamsize, byte romTypeText,
-            byte ramSizeText)
+            bool enableHeaderChecksum, byte? romType, byte? ramSize)
         {
             HeaderFixer headerFixer = new HeaderFixer(filename, filename);
             headerFixer.HeaderFix(
                 enableHeaderSize, 
                 enableHeaderComp, 
                 enableHeaderChecksum,
-                enableHeaderType ? romTypeText : (byte?)null,
-                enableHeaderRamsize ? ramSizeText : (byte?)null
+                romType,
+                ramSize
             );
             headerFixer.Save();
         }

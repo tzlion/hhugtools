@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using Common.Utility;
 
 namespace Sintaxinator
@@ -36,6 +37,23 @@ namespace Sintaxinator
             return byte.Parse(input.Text, System.Globalization.NumberStyles.HexNumber);
         }
 
+        private byte? ParseByteIf(bool condition, TextBox byteBox)
+        {
+            if (condition)
+            {
+                return ParseInputAsByte(byteBox);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private bool IsChecked(ToggleButton toggleButton)
+        {
+            return toggleButton.IsChecked ?? false;
+        }
+
         private void DoTheThing(object sender, RoutedEventArgs e)
         {
             try
@@ -46,22 +64,23 @@ namespace Sintaxinator
 
                 if (bbdMode)
                 {
-                    if (EnableFullAuto.IsChecked == true)
+                    if (IsChecked(EnableFullAuto))
                     {
                         romProcessor.ProcessBbdFullAuto(OutputFilename.Text, ParseInputAsByte(BitScrambleMode), 
                             ParseInputAsByte(ReorderMode));
                     }
                     else
                     {
-                        romProcessor.ProcessBbd(OutputFilename.Text, EnableBBDDescramble.IsChecked ?? false,
-                            BBDBitDescramble.Text, EnableReorder.IsChecked ?? false, ReorderAuto.IsChecked ?? false,
-                            ParseInputAsByte(ReorderAutoMode), ReorderBankNo.IsChecked ?? false,
-                            ReorderSpecified.IsChecked ?? false, ReorderSpecifiedOrder.Text);
+                        romProcessor.ProcessBbd(OutputFilename.Text, IsChecked(EnableBBDDescramble),
+                            BBDBitDescramble.Text, IsChecked(EnableReorder),
+                            ParseByteIf(IsChecked(EnableReorder) && IsChecked(ReorderAuto), ReorderAutoMode),
+                            IsChecked(ReorderBankNo), IsChecked(ReorderSpecified),
+                            ReorderSpecifiedOrder.Text);
                     }
                 }
                 else
                 {
-                    if (EnableFullAuto.IsChecked == true)
+                    if (IsChecked(EnableFullAuto))
                     {
                         byte[] xors =
                         {
@@ -74,23 +93,23 @@ namespace Sintaxinator
                     }
                     else
                     {
-                        romProcessor.ProcessSintax(OutputFilename.Text, EnableReorder.IsChecked ?? false,
-                            ReorderAuto.IsChecked ?? false, ParseInputAsByte(ReorderAutoMode),
-                            ReorderBankNo.IsChecked ?? false, ReorderSpecified.IsChecked ?? false,
-                            ReorderSpecifiedOrder.Text, EnableXor.IsChecked ?? false, ManualBits.Text,
+                        romProcessor.ProcessSintax(OutputFilename.Text, IsChecked(EnableReorder),
+                            ParseByteIf(IsChecked(EnableReorder) && IsChecked(ReorderAuto), ReorderAutoMode),
+                            IsChecked(ReorderBankNo), IsChecked(ReorderSpecified),
+                            ReorderSpecifiedOrder.Text, IsChecked(EnableXor), ManualBits.Text,
                             XorRepeat.Text);   
                     }
                 }
 
-                if (EnableHeaderFix.IsChecked == true)
+                if (IsChecked(EnableHeaderFix))
                 {
-                    romProcessor.FixHeader(OutputFilename.Text, EnableHeaderSize.IsChecked ?? false,
-                        EnableHeaderComp.IsChecked ?? false, EnableHeaderChecksum.IsChecked ?? false,
-                        EnableHeaderType.IsChecked ?? false, EnableHeaderRamsize.IsChecked ?? false,
-                        ParseInputAsByte(RomType), ParseInputAsByte(RamSize));
+                    romProcessor.FixHeader(OutputFilename.Text, IsChecked(EnableHeaderSize),
+                        IsChecked(EnableHeaderComp), IsChecked(EnableHeaderChecksum),
+                        ParseByteIf(IsChecked(EnableHeaderType), RomType),
+                        ParseByteIf(IsChecked(EnableHeaderRamsize), RamSize));
                 }
 
-                if (OpenEmu.IsChecked == true)
+                if (IsChecked(OpenEmu))
                 {
                     System.Diagnostics.Process.Start(OutputFilename.Text);
                 }
