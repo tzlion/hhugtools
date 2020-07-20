@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -92,8 +91,7 @@ namespace Sintaxinator
                             IsChecked(EnableBBDDescramble) ? BBDBitDescramble.Text : null,
                             ParseByteIf(IsChecked(EnableReorder) && IsChecked(ReorderAuto), ReorderAutoMode),
                             IsChecked(EnableReorder) && IsChecked(ReorderBankNo), 
-                            IsChecked(EnableReorder) && IsChecked(ReorderSpecified) ? ReorderSpecifiedOrder.Text : null
-                            );
+                            IsChecked(EnableReorder) && IsChecked(ReorderSpecified) ? ReorderSpecifiedOrder.Text : null);
                     }
                 }
                 else
@@ -114,7 +112,7 @@ namespace Sintaxinator
                         romProcessor.ProcessSintax(OutputFilename.Text, 
                             ParseByteIf(IsChecked(EnableReorder) && IsChecked(ReorderAuto), ReorderAutoMode),
                             IsChecked(EnableReorder) && IsChecked(ReorderBankNo), 
-                            (IsChecked(EnableReorder) && IsChecked(ReorderSpecified)) ? ReorderSpecifiedOrder.Text : null,
+                            IsChecked(EnableReorder) && IsChecked(ReorderSpecified) ? ReorderSpecifiedOrder.Text : null,
                             IsChecked(EnableXor) ? ManualBits.Text : null,
                             ParseIntIf(IsChecked(EnableXor), XorRepeat));
                     }
