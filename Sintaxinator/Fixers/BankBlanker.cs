@@ -4,15 +4,12 @@ using Common.Utility;
 
 namespace Sintaxinator.Fixers
 {
-    class BankReorderer : RomManipulator
+    class BankBlanker : RomManipulator
     {
-        public BankReorderer(string inputFilename, string outputFilename) : base(inputFilename, outputFilename) { }
+        public BankBlanker(string inputFilename, string outputFilename) : base(inputFilename, outputFilename) { }
 
-        // This is pretty slow
-        public bool[] Reorder(bool checkBankBits, byte[] romBankNoReordering = null)
+        public void BlankUnusedBanks(bool[] usedBanks)
         {
-
-            bool[] banksUsed = new bool[256];
 
             byte[] blankrompart = new byte[0x4000];
 
@@ -20,7 +17,6 @@ namespace Sintaxinator.Fixers
 
             for(int x=1;x<=255;x++) {
                 superdata[x] = blankrompart;
-                banksUsed[x] = false;
             }
 
             int bankCount = this.rom.Length / 0x4000;
@@ -28,18 +24,11 @@ namespace Sintaxinator.Fixers
             for (int curBank = 0; curBank < bankCount; curBank++)
             {
                 byte[] bankData = this.rom.Skip(0x4000 * curBank).Take(0x4000).ToArray();
-
-                byte realBankNo;
-
-                if (curBank == 0) realBankNo = 0; // Header
-                else if (checkBankBits) realBankNo = bankData[bankData.Length-1];
-                else realBankNo = getRealBankNo(curBank, romBankNoReordering);
-
-               // if (superdata[realBankNo] == null)
+                
+                if (usedBanks[curBank])
                 {
-                    superdata[realBankNo] = bankData;
+                    superdata[curBank] = bankData;
                 }
-                banksUsed[realBankNo] = true;
             }
 
             byte[] newrom = {};
@@ -49,8 +38,6 @@ namespace Sintaxinator.Fixers
             }
 
             this.rom = newrom;
-
-            return banksUsed;
 
         }
 
