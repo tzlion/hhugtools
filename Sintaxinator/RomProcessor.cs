@@ -60,15 +60,7 @@ namespace Sintaxinator
         public void ProcessSintaxFullAuto(string filename, byte reorderMode, byte[] xors)
         {
             BankReorderer bankReorderer = new BankReorderer(filename, filename);
-            bool[] usedBanks;
-            if (reorderMode == 0x69)
-            {
-                usedBanks = bankReorderer.Reorder(false, null, true);
-            }
-            else
-            {
-                usedBanks = bankReorderer.Reorder(false, Reorderings.GetSintaxBankReorderings(reorderMode));
-            }
+            var usedBanks = bankReorderer.Reorder(false, Reorderings.GetSintaxBankReorderings(reorderMode));
             bankReorderer.Save();
             
             DataXorer dataXorer = new DataXorer(filename, filename);

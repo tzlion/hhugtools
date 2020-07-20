@@ -9,7 +9,7 @@ namespace Sintaxinator.Fixers
         public BankReorderer(string inputFilename, string outputFilename) : base(inputFilename, outputFilename) { }
 
         // This is pretty slow
-        public bool[] Reorder(bool checkBankBits, byte[] romBankNoReordering = null, bool tempUseOldReordering = false)
+        public bool[] Reorder(bool checkBankBits, byte[] romBankNoReordering = null)
         {
 
             bool[] banksUsed = new bool[256];
@@ -33,7 +33,6 @@ namespace Sintaxinator.Fixers
 
                 if (curBank == 0) realBankNo = 0; // Header
                 else if (checkBankBits) realBankNo = bankData[bankData.Length-1];
-                else if (tempUseOldReordering) realBankNo = getRealBankNoOld(curBank);
                 else realBankNo = getRealBankNo(curBank, romBankNoReordering);
                 
                 superdata[realBankNo] = bankData;
@@ -54,23 +53,7 @@ namespace Sintaxinator.Fixers
 
         private byte getRealBankNo(int sequentialBankNo, byte[] romBankNoReordering)
         {
-            return ByteManipulation.ReorderBits((byte)sequentialBankNo, romBankNoReordering);
-        }
-        
-        // this still works for harry potter and its "proper" reordering of 1d does not...
-        private byte getRealBankNoOld(int sequentialBankNo)
-        {
-            int realBankNo;
-            if ( sequentialBankNo < 64 ) {
-                realBankNo = sequentialBankNo * 4;
-            } else if ( sequentialBankNo < 128 ) {
-                realBankNo = ( ( sequentialBankNo - 64 ) * 4 ) + 1;
-            } else if ( sequentialBankNo < 196 ) { // inferred for 4mb, untested
-                realBankNo = ( ( sequentialBankNo - 128 ) * 4 ) + 2;
-            } else { // inferred for 4mb, untested
-                realBankNo = ( ( sequentialBankNo - 196 ) * 4 ) + 1;
-            }
-            return (byte)realBankNo;
+            return ByteManipulation.ReorderBits((byte)sequentialBankNo, romBankNoReordering, true);
         }
     }
 }
