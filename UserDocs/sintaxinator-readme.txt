@@ -21,7 +21,8 @@ Options
 Full Auto
  This automatically processes the ROM based on the values written to the cartridge to initialise the protection.
  If the game is emulated by hhugboy it should be supported by this mode. (* with one exception, see Notes 1)
- In BGB you can find these values by setting access breakpoints for the specified address ranges and booting the
+ In hhugboy v1.2.8 you can find the necessary values by pressing Ctrl+D to enable the debug log, then loading the game.
+ In BGB you can also find these values by setting access breakpoints for the specified address ranges and booting the
  protected ROM. (* with some exceptions, see Notes 2)
  * Bank scramble mode: For a Sintax game, the value written to 5x1x by the game at boot.
    For a BBD game, the value written to 2x80 by the game at boot.
@@ -63,4 +64,4 @@ Notes
 2. When running a Sintax game in BGB to determine the protection values: some games may not actually set all the XORs
    until after a bank switch. Meaning it will crash before you hit all the necessary breakpoints.
    So far this has been observed in "2003 Ha Li Xiao Zi IV" but may happen in others.
-   Possible future development: log these values from hhugboy (which can run the protected rom already)
+   You should be able to obtain the values using hhugboy for these games.
