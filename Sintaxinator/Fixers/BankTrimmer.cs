@@ -19,23 +19,15 @@ namespace Sintaxinator.Fixers
                 }
             }
 
-            int bankCount;
-            if (maxUsedBank < 32)
+            int bankCount = 256;
+            do
             {
-                bankCount = 32;
-            }
-            else if (maxUsedBank < 64)
-            {
-                bankCount = 64;
-            }
-            else if (maxUsedBank < 128)
-            {
-                bankCount = 128;
-            }
-            else
-            {
-                bankCount = 256;
-            }
+                if (maxUsedBank > (bankCount / 2))
+                {
+                    break;
+                }
+                bankCount /= 2;
+            } while (bankCount > 2);
 
             rom = rom.Take(0x4000 * bankCount).ToArray();
         }
