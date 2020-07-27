@@ -1,4 +1,4 @@
-hhugtools v1.0.0
+hhugtools v1.1.0
 ================
 by taizou
 https://github.com/tzlion/hhugtools
@@ -11,16 +11,16 @@ Requires .net framework 3.5
 
 Currently includes 3 tools:
 
-Sintaxinator
-------------
+Sintaxinator (v1.1.0)
+---------------------
 Tool for unprotecting a copy protected Sintax or BBD ROM
 See "sintaxinator-readme.txt" for full usage instructions
 
-Headitor
---------
+Headitor (v1.0.0)
+-----------------
 For editing Game Boy ROM headers
 
-OverDetector
-------------
+OverDetector (v1.0.0)
+---------------------
 Very simple tool for detecting duplicate data in a ROM file
 Just drag your ROM into its window
