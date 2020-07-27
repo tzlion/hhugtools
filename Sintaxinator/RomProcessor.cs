@@ -20,8 +20,12 @@ namespace Sintaxinator
             bitDescrambler.Save();
             
             BankReorderer reorderer = new BankReorderer(filename, filename);
-            reorderer.Reorder(false, Reorderings.GetBbdBankReorderings(reorderMode));
+            var usedBanks = reorderer.Reorder(false, Reorderings.GetBbdBankReorderings(reorderMode));
             reorderer.Save();
+            
+            BankTrimmer bankTrimmer = new BankTrimmer(filename, filename);
+            bankTrimmer.TrimUnusedBanks(usedBanks);
+            bankTrimmer.Save();
         }
         
         public void ProcessBbd(string filename, string bitDescramblePattern, byte? reorderMode, bool reorderByBankNo,
@@ -70,6 +74,10 @@ namespace Sintaxinator
             BankBlanker bankBlanker = new BankBlanker(filename, filename);
             bankBlanker.BlankUnusedBanks(usedBanks);
             bankBlanker.Save();
+            
+            BankTrimmer bankTrimmer = new BankTrimmer(filename, filename);
+            bankTrimmer.TrimUnusedBanks(usedBanks);
+            bankTrimmer.Save();
         }
 
         public void ProcessSintax(string filename, byte? reorderMode, bool reorderByBankNo, string manualReorderPattern,

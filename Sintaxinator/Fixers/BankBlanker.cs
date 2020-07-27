@@ -1,6 +1,5 @@
 using System.Linq;
 using Common.Rom;
-using Common.Utility;
 
 namespace Sintaxinator.Fixers
 {
@@ -39,11 +38,6 @@ namespace Sintaxinator.Fixers
 
             this.rom = newrom;
 
-        }
-
-        private byte getRealBankNo(int sequentialBankNo, byte[] romBankNoReordering)
-        {
-            return ByteManipulation.ReorderBits((byte)sequentialBankNo, romBankNoReordering);
         }
     }
 }

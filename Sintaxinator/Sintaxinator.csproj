@@ -68,6 +68,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Fixers\BankBlanker.cs" />
+    <Compile Include="Fixers\BankTrimmer.cs" />
     <Compile Include="RomProcessor.cs" />
     <Compile Include="Fixers\BankReorderer.cs" />
     <Compile Include="Fixers\BitDescrambler.cs" />
