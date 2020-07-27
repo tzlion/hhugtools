@@ -56,8 +56,12 @@ namespace Sintaxinator
                     reordering = ParseReorderingString(manualReorderPattern);           
                 }
                 BankReorderer reorderer = new BankReorderer(filename, filename); 
-                reorderer.Reorder(checkBankBits, reordering);
+                var usedBanks = reorderer.Reorder(checkBankBits, reordering);
                 reorderer.Save();
+            
+                BankTrimmer bankTrimmer = new BankTrimmer(filename, filename);
+                bankTrimmer.TrimUnusedBanks(usedBanks);
+                bankTrimmer.Save();
             }
         }
         
@@ -109,8 +113,12 @@ namespace Sintaxinator
                     reordering = ParseReorderingString(manualReorderPattern);    
                 }        
                 BankReorderer bankReorderer = new BankReorderer(filename, filename);
-                bankReorderer.Reorder(checkBankBits, reordering);
+                var usedBanks = bankReorderer.Reorder(checkBankBits, reordering);
                 bankReorderer.Save();
+            
+                BankTrimmer bankTrimmer = new BankTrimmer(filename, filename);
+                bankTrimmer.TrimUnusedBanks(usedBanks);
+                bankTrimmer.Save();
             }
         }
 
