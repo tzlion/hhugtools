@@ -2,7 +2,8 @@ hhugtools version history
 
 v1.1.0 - 28 Jul 2020
 Sintaxinator updated.
-* "Full auto" mode massively improved
+* "Full auto" modes massively improved and fixed
+* ROMs now automatically trimmed to appropriate size when bank reordering
 * General code refactoring
 
 v1.0.0 - 13 Jul 2019
